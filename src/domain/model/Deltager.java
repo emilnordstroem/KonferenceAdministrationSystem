@@ -26,6 +26,8 @@ public class Deltager {
         }
     }
 
+
+
     private int generateID(){
         // If we store data on AttendanceID - we could make each unique to the attendance
         return new Random().nextInt(111_111, 999_999);
