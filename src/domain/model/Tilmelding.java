@@ -32,37 +32,12 @@ public class Tilmelding {
     // Udregner samlet udgifter for tilmeldingen
     public double getSamletTilmeldingsUdgift(){
         double samletUdgifter = 0;
-        int antalDageVedKonference = getAntalDage();
+        int antalDageVedKonferencen = getAntalDage();
 
-        // Konference Afgift
-        if(!isErForedragsholder()){
-            double konferenceAfgiftPerDag = konference.getPrisPrDag();
-            samletUdgifter += antalDageVedKonference * konferenceAfgiftPerDag;
-        }
+        samletUdgifter += udregnKonferenceAfgift(antalDageVedKonferencen);
+        samletUdgifter += udregnHotelUdgift(antalDageVedKonferencen);
+        samletUdgifter += udregnUdflugtUdgift(antalDageVedKonferencen);
 
-        // Hotel + HotelTillæg
-        if(hotel != null){
-            if(ledsager != null){
-                samletUdgifter += hotel.getDobbeltværelsePris() * antalDageVedKonference;
-            } else {
-                samletUdgifter += hotel.getEnkeltværelsePris() * antalDageVedKonference;
-            }
-
-            ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>(getHotelTillægsList());
-            if(!hotelTillægsList.isEmpty()){
-                for(HotelTillæg hotelTillæg : hotelTillægsList){
-                    samletUdgifter += hotelTillæg.getPris() * antalDageVedKonference;
-                }
-            }
-        }
-
-        // Udflugter
-        ArrayList<Udflugt> udflugtsList = new ArrayList<>(getUdflugtsList());
-        if(!udflugtsList.isEmpty()){
-            for(Udflugt udflugt : udflugtsList){
-                samletUdgifter += udflugt.getPris();
-            }
-        }
         return samletUdgifter;
     }
 
@@ -78,8 +53,48 @@ public class Tilmelding {
         return erForedragsholder;
     }
 
-    // Helper method
+    //============================================================
+    // Helper method to getSamletTilmeldingsUdgift
     private int getAntalDage(){
         return (int) ChronoUnit.DAYS.between(startDato, slutDato);
+    }
+
+    private double udregnKonferenceAfgift(int antalDage){
+        if(!isErForedragsholder()) {
+            double konferenceAfgiftPerDag = konference.getPrisPrDag();
+            return getAntalDage() * konferenceAfgiftPerDag;
+        }
+        return 0;
+    }
+
+    private double udregnHotelUdgift(int antalDage){
+        if(hotel != null){
+            double samletUdgifter = 0;
+            if(ledsager != null){
+                samletUdgifter += hotel.getDobbeltværelsePris() * antalDage;
+            } else {
+                samletUdgifter += hotel.getEnkeltværelsePris() * antalDage;
+            }
+
+            ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>(getHotelTillægsList());
+            if(!hotelTillægsList.isEmpty()){
+                for(HotelTillæg hotelTillæg : hotelTillægsList){
+                    samletUdgifter += hotelTillæg.getPris() * antalDage;
+                }
+            }
+            return samletUdgifter;
+        }
+        return 0;
+    }
+
+    private double udregnUdflugtUdgift(int antalDage){
+        if(!udflugtsList.isEmpty()){
+            double samletUdgifter = 0;
+            for(Udflugt udflugt : udflugtsList){
+                samletUdgifter += udflugt.getPris();
+            }
+            return samletUdgifter;
+        }
+        return 0;
     }
 }
