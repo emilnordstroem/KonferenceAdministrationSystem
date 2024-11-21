@@ -11,12 +11,11 @@ public class Deltager {
     private final ArrayList<Tilmelding> tilmeldingsList = new ArrayList<>();
     private Firma firma;
 
-    public Deltager(String fuldeNavn, String telefonnummer, Addresse addresse,  Firma firma){
+    public Deltager(String fuldeNavn, String telefonnummer, Addresse addresse){
         this.id = generateID();
         this.fuldeNavn = fuldeNavn;
         this.telefonnummer = telefonnummer;
         this.addresse = addresse;
-        this.firma = firma;
     }
 
     public void setTilmeldingsList (Tilmelding tilmelding){
@@ -26,8 +25,19 @@ public class Deltager {
         }
     }
 
-    public double getUdgifter(){
-        return 0;
+    public void setFirma(Firma firma) {
+        this.firma = firma;
+    }
+
+    public double getSamletUdgifter(){
+        ArrayList<Tilmelding> tilmeldinger = new ArrayList<>(tilmeldingsList);
+        double samletUdgifter = 0;
+        if(!tilmeldinger.isEmpty()){
+            for(Tilmelding tilmelding : tilmeldinger){
+                samletUdgifter += tilmelding.getSamletTilmeldingsUdgift();
+            }
+        }
+        return samletUdgifter;
     }
 
     private int generateID(){

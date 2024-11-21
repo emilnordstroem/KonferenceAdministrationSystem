@@ -27,7 +27,7 @@ public class Konference {
 
     @Override
     public String toString(){
-        return String.format("%s: %s - %s", navn, startDato, slutDato);
+        return String.format("%s: %s - %s%nPris per dag: %f", navn, startDato, slutDato, prisPrDag);
     }
 
 }
