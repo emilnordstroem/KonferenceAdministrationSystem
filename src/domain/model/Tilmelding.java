@@ -13,20 +13,21 @@ public class Tilmelding {
     private LocalDate startDato;
     private LocalDate slutDato;
 
-    private ArrayList<Udflugt> udflugtsList = new ArrayList<>();
+    private ArrayList<Udflugt> udflugtsList;
 
     private Hotel hotel;
-    private ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>();
+    private ArrayList<HotelTillæg> hotelTillægsList;
 
-    public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, Hotel hotel, LocalDate startDato, LocalDate slutDato, ArrayList<Udflugt> udflugtsList, ArrayList<HotelTillæg> hotelTillægsList) {
+    public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, LocalDate startDato, LocalDate slutDato, String ledsager, ArrayList<Udflugt> udflugtsList, Hotel hotel, ArrayList<HotelTillæg> hotelTillægsList) {
         this.konference = konference;
         this.deltager = deltager;
         this.erForedragsholder = erForedragsholder;
-        this.hotel = hotel;
         this.startDato = startDato;
         this.slutDato = slutDato;
+        this.ledsager = ledsager;
         this.udflugtsList = udflugtsList;
-        this.hotelTillægsList = hotelTillægsList;
+        this.hotel = hotel;
+        this.hotelTillægsList = new ArrayList<>(hotelTillægsList);
     }
 
     // Udregner samlet udgifter for tilmeldingen
@@ -36,7 +37,7 @@ public class Tilmelding {
 
         samletUdgifter += udregnKonferenceAfgift(antalDageVedKonferencen);
         samletUdgifter += udregnHotelUdgift(antalDageVedKonferencen);
-        samletUdgifter += udregnUdflugtUdgift(antalDageVedKonferencen);
+        samletUdgifter += udregnUdflugtUdgift();
 
         return samletUdgifter;
     }
@@ -87,7 +88,7 @@ public class Tilmelding {
         return 0;
     }
 
-    private double udregnUdflugtUdgift(int antalDage){
+    private double udregnUdflugtUdgift(){
         if(!udflugtsList.isEmpty()){
             double samletUdgifter = 0;
             for(Udflugt udflugt : udflugtsList){
