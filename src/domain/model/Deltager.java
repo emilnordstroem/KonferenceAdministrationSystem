@@ -27,6 +27,7 @@ public class Deltager {
     }
 
     private int generateID(){
+        // If we store data on ID - we could make each if special to the attendance
         return new Random().nextInt(111_111, 999_999);
     }
 }
