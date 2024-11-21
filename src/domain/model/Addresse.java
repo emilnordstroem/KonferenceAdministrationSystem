@@ -1,10 +1,10 @@
 package domain.model;
 
 public class Addresse {
-    private String vejNavn;
-    private String bygningsNr;
-    private String by;
-    private String land;
+    private final String vejNavn;
+    private final String bygningsNr;
+    private final String by;
+    private final String land;
 
     public Addresse(String vejNavn, String bygningsNr, String by, String land) {
         this.vejNavn = vejNavn;

@@ -1,8 +1,8 @@
 package domain.model;
 
 public class Firma {
-    private String name;
-    private String telefonnummer;
+    private final String name;
+    private final String telefonnummer;
 
     public Firma(String name, String telefonnummer) {
         this.name = name;

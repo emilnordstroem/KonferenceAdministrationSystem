@@ -1,8 +1,8 @@
 package domain.model;
 
 public class HotelTillæg {
-    private String navn;
-    private double pris;
+    private final String navn;
+    private final double pris;
 
     public HotelTillæg(String navn, double pris) {
         this.navn = navn;

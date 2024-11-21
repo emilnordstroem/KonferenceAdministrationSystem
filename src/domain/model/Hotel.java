@@ -3,10 +3,10 @@ package domain.model;
 import java.util.ArrayList;
 
 public class Hotel {
-    private String navn;
+    private final String navn;
     private Addresse addresse;
-    private ArrayList<Konference> konferenceList = new ArrayList<>();
-    private ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>();
+    private final ArrayList<Konference> konferenceList = new ArrayList<>();
+    private final ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>();
 
     public Hotel(String navn, Addresse addresse) {
         this.navn = navn;

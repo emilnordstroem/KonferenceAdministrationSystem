@@ -5,10 +5,10 @@ import java.util.Random;
 
 public class Deltager {
     private int id;
-    private String fuldeNavn;
-    private String telefonnummer;
+    private final String fuldeNavn;
+    private final String telefonnummer;
     private Addresse addresse;
-    private ArrayList<Tilmelding> tilmeldingsList = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldingsList = new ArrayList<>();
     private Firma firma;
 
     public Deltager(String fuldeNavn, String telefonnummer, Addresse addresse,  Firma firma){
@@ -27,7 +27,7 @@ public class Deltager {
     }
 
     private int generateID(){
-        // If we store data on ID - we could make each if special to the attendance
+        // If we store data on AttendanceID - we could make each unique to the attendance
         return new Random().nextInt(111_111, 999_999);
     }
 }
