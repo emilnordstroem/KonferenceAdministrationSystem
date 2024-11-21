@@ -31,4 +31,8 @@ public class Tilmelding {
     public ArrayList<HotelTillæg> getHotelTillægsList() {
         return new ArrayList<>(hotelTillægsList);
     }
+
+    public ArrayList<Udflugt> getUdflugtsList() {
+        return udflugtsList;
+    }
 }

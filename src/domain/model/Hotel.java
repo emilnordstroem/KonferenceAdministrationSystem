@@ -26,4 +26,8 @@ public class Hotel {
             System.out.println("HotelTillæg tilføjet til hotellets hotelTillægsList");
         }
     }
+
+    public ArrayList<HotelTillæg> getHotelTillægsList() {
+        return new ArrayList<>(hotelTillægsList);
+    }
 }

@@ -21,6 +21,10 @@ public class Konference {
         this.prisPrDag = prisPrDag;
     }
 
+    public double getPrisPrDag() {
+        return prisPrDag;
+    }
+
     @Override
     public String toString(){
         return String.format("%s: %s - %s", navn, startDato, slutDato);

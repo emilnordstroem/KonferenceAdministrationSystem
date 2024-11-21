@@ -8,4 +8,12 @@ public class HotelTillæg {
         this.navn = navn;
         this.pris = pris;
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public double getPris() {
+        return pris;
+    }
 }

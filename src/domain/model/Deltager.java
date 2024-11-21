@@ -26,7 +26,9 @@ public class Deltager {
         }
     }
 
-
+    public double getUdgifter(){
+        return 0;
+    }
 
     private int generateID(){
         // If we store data on AttendanceID - we could make each unique to the attendance

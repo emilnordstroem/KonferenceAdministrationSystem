@@ -21,4 +21,8 @@ public class Udflugt {
         this.beskrivelse = beskrivelse;
         this.pris = pris;
     }
+
+    public double getPris() {
+        return pris;
+    }
 }
