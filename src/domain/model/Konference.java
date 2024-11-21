@@ -5,21 +5,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Konference {
-    private final String navn;
+    private String navn;
     private LocalDate startDato;
     private LocalDate slutDato;
-    private ArrayList<Udflugt> udflugter = new ArrayList<>();
-    private ArrayList<Hotel> hoteller = new ArrayList<>();
-    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
-    private double prisPrDag;
+    private final ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private final ArrayList<Hotel> hoteller = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+    private double afgiftPerDag;
 
-    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double prisPrDag) {
+    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag) {
         this.navn = navn;
         if(startDato.isBefore(slutDato)){
             this.startDato = startDato;
             this.slutDato = slutDato;
         }
-        this.prisPrDag = prisPrDag;
+        this.afgiftPerDag = afgiftPerDag;
     }
 
     public void opretUdflugt(String navn, Addresse addresse, LocalDate dato, LocalTime klokkeslætFra, LocalTime klokkeslætTil, String beskrivelse, double pris){
@@ -30,8 +30,8 @@ public class Konference {
         return udflugter;
     }
 
-    public double getPrisPrDag() {
-        return prisPrDag;
+    public double getAfgiftPerDag() {
+        return afgiftPerDag;
     }
 
     public void setUdflugter(Udflugt udflugt) {
@@ -57,7 +57,7 @@ public class Konference {
 
     @Override
     public String toString(){
-        return String.format("%s: %s - %s%nPris per dag: %f", navn, startDato, slutDato, prisPrDag);
+        return String.format("%s: %s - %s%nPris per dag: %f", navn, startDato, slutDato, afgiftPerDag);
     }
 
 }

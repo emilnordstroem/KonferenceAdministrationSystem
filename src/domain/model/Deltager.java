@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Deltager {
     private int id;
-    private final String fuldeNavn;
-    private final String telefonnummer;
+    private String fuldeNavn;
+    private String telefonnummer;
     private Addresse addresse;
     private final ArrayList<Tilmelding> tilmeldingsList = new ArrayList<>();
     private Firma firma;

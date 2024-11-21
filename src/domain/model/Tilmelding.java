@@ -62,7 +62,7 @@ public class Tilmelding {
 
     private double udregnKonferenceAfgift(int antalDage){
         if(!isErForedragsholder()) {
-            double konferenceAfgiftPerDag = konference.getPrisPrDag();
+            double konferenceAfgiftPerDag = konference.getAfgiftPerDag();
             return getAntalDage() * konferenceAfgiftPerDag;
         }
         return 0;
