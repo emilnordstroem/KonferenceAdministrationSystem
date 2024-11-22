@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.model.Addresse;
 import domain.model.Deltager;
+import domain.model.Hotel;
 import domain.model.Konference;
 import storage.Storage;
 
@@ -21,5 +22,14 @@ public class Controller {
         Storage.addKonference(konference);
         return konference;
     }
+
+    // K8, UC3
+    public static Hotel opretHotel(String navn, Addresse addresse, double enkeltværelsePris, double dobbeltværelsePris) {
+        Hotel hotel = new Hotel(navn, addresse, enkeltværelsePris, dobbeltværelsePris);
+        Storage.addHotel(hotel);
+        return hotel;
+    }
+
+
 
 }
