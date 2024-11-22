@@ -22,8 +22,8 @@ public class Konference {
         this.afgiftPerDag = afgiftPerDag;
     }
 
-    public void opretUdflugt(String navn, Addresse addresse, LocalDate dato, LocalTime klokkeslætFra, LocalTime klokkeslætTil, String beskrivelse, double pris){
-        setUdflugter(new Udflugt(navn, addresse, dato, klokkeslætFra, klokkeslætTil, beskrivelse, pris));
+    public void opretUdflugt(String navn, Addresse addresse, LocalDate dato, String beskrivelse, double pris){
+        setUdflugter(new Udflugt(navn, addresse, dato, beskrivelse, pris));
     }
 
     public ArrayList<Udflugt> getUdflugter() {

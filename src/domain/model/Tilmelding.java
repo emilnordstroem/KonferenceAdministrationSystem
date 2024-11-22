@@ -37,11 +37,12 @@ public class Tilmelding {
     // Udregner samlet udgifter for tilmeldingen
     public double getSamletTilmeldingsUdgift(){
         double samletUdgifter = 0;
-        int antalDageVedKonferencen = getAntalDage();
+        int antalDageVedKonferencen = getAntalDageKonference();
+        int antalDageOphold = getAntalDageOphold();
 
         samletUdgifter += udregnKonferenceAfgift(antalDageVedKonferencen);
         System.out.println("Udregn konference:" + samletUdgifter);
-        samletUdgifter += udregnHotelUdgift(antalDageVedKonferencen);
+        samletUdgifter += udregnHotelUdgift(antalDageOphold);
         System.out.println("Udregn hotel:" + samletUdgifter);
         samletUdgifter += udregnUdflugtUdgift();
         System.out.println("Udregn udflugt:" + samletUdgifter);
@@ -51,15 +52,19 @@ public class Tilmelding {
 
     //============================================================
     // Helper method to getSamletTilmeldingsUdgift
-    private int getAntalDage(){
+    private int getAntalDageKonference(){
         // we plus 1 to include both from and to date.
         return (int) ChronoUnit.DAYS.between(startDato, slutDato) + 1;
+    }
+
+    private int getAntalDageOphold(){
+        return (int) ChronoUnit.DAYS.between(startDato, slutDato);
     }
 
     private double udregnKonferenceAfgift(int antalDage){
         if(!isErForedragsholder()) {
             double konferenceAfgiftPerDag = konference.getAfgiftPerDag();
-            return getAntalDage() * konferenceAfgiftPerDag;
+            return antalDage * konferenceAfgiftPerDag;
         }
         return 0;
     }
