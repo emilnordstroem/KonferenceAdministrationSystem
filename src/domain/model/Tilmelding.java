@@ -26,10 +26,10 @@ public class Tilmelding {
         this.slutDato = slutDato;
 
         // Default null hvis ikke valgt
-        this.udflugtsList = null;
         this.ledsager = null;
+        this.udflugtsList = new ArrayList<>();
         this.hotel = null;
-        this.hotelTillægsList = null;
+        this.hotelTillægsList = new ArrayList<>();
     }
 
     //============================================================
