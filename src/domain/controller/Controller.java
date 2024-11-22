@@ -1,12 +1,10 @@
 package domain.controller;
 
-import domain.model.Addresse;
-import domain.model.Deltager;
-import domain.model.Hotel;
-import domain.model.Konference;
+import domain.model.*;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Controller {
     // K1, K2, UC1
@@ -30,6 +28,25 @@ public class Controller {
         return hotel;
     }
 
+    public static Tilmelding opretTilmelding(Konference konference, Deltager deltager, boolean erForedragsholder,
+                                             LocalDate fraDato, LocalDate tilDato, Hotel hotel, ArrayList<HotelTillæg> hotelTillæg,
+                                             String ledsager, ArrayList<Udflugt> udflugter){
+        Tilmelding tilmelding = new Tilmelding(konference, deltager, erForedragsholder, fraDato, tilDato);
 
+        if(ledsager != null){
+            tilmelding.addLedsager(ledsager);
+            if(!udflugter.isEmpty()){
+                tilmelding.setUdflugtsList(udflugter);
+            }
+        }
+        if(hotel != null){
+            tilmelding.addHotel(hotel);
+            if(!hotelTillæg.isEmpty()){
+                tilmelding.setHotelTillægsList(hotelTillæg);
+            }
+        }
 
+        Storage.addTilmelding(tilmelding);
+        return tilmelding;
+    }
 }

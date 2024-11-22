@@ -24,7 +24,12 @@ public class Tilmelding {
         this.erForedragsholder = erForedragsholder;
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.ledsager = null; // Default null
+
+        // Default null hvis ikke valgt
+        this.udflugtsList = null;
+        this.ledsager = null;
+        this.hotel = null;
+        this.hotelTillægsList = null;
     }
 
     //============================================================
@@ -99,6 +104,14 @@ public class Tilmelding {
 
     public void addHotel(Hotel hotel){
         this.hotel = hotel;
+    }
+
+    public void setUdflugtsList(ArrayList<Udflugt> udflugtsList) {
+        this.udflugtsList = udflugtsList;
+    }
+
+    public void setHotelTillægsList(ArrayList<HotelTillæg> hotelTillægsList) {
+        this.hotelTillægsList = hotelTillægsList;
     }
 
     public ArrayList<HotelTillæg> getHotelTillægsList() {
