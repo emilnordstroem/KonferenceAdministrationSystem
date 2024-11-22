@@ -18,7 +18,7 @@ public class Deltager {
         this.addresse = addresse;
     }
 
-    public void setTilmeldingsList (Tilmelding tilmelding){
+    public void addTilmelding(Tilmelding tilmelding){
         if(!tilmeldingsList.contains(tilmelding)){
             tilmeldingsList.add(tilmelding);
             System.out.println("Tilmelding tilføjet til deltagers tilmeldingslist");

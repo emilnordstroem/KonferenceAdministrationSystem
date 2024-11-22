@@ -28,6 +28,7 @@ public class Controller {
         return hotel;
     }
 
+    // K1, K2, UC4
     public static Tilmelding opretTilmelding(Konference konference, Deltager deltager, boolean erForedragsholder,
                                              LocalDate fraDato, LocalDate tilDato, Hotel hotel, ArrayList<HotelTillæg> hotelTillæg,
                                              String ledsager, ArrayList<Udflugt> udflugter){
