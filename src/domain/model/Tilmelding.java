@@ -21,6 +21,7 @@ public class Tilmelding {
     public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, LocalDate startDato, LocalDate slutDato) {
         this.konference = konference;
         this.deltager = deltager;
+        deltager.addTilmelding(this);
         this.erForedragsholder = erForedragsholder;
         this.startDato = startDato;
         this.slutDato = slutDato;
@@ -39,8 +40,11 @@ public class Tilmelding {
         int antalDageVedKonferencen = getAntalDage();
 
         samletUdgifter += udregnKonferenceAfgift(antalDageVedKonferencen);
+        System.out.println("Udregn konference:" + samletUdgifter);
         samletUdgifter += udregnHotelUdgift(antalDageVedKonferencen);
+        System.out.println("Udregn hotel:" + samletUdgifter);
         samletUdgifter += udregnUdflugtUdgift();
+        System.out.println("Udregn udflugt:" + samletUdgifter);
 
         return samletUdgifter;
     }
@@ -48,7 +52,8 @@ public class Tilmelding {
     //============================================================
     // Helper method to getSamletTilmeldingsUdgift
     private int getAntalDage(){
-        return (int) ChronoUnit.DAYS.between(startDato, slutDato);
+        // we plus 1 to include both from and to date.
+        return (int) ChronoUnit.DAYS.between(startDato, slutDato) + 1;
     }
 
     private double udregnKonferenceAfgift(int antalDage){
