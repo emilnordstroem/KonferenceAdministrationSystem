@@ -18,18 +18,16 @@ public class Tilmelding {
     private Hotel hotel;
     private ArrayList<HotelTillæg> hotelTillægsList;
 
-    public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, LocalDate startDato, LocalDate slutDato, String ledsager, ArrayList<Udflugt> udflugtsList, Hotel hotel, ArrayList<HotelTillæg> hotelTillægsList) {
+    public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, LocalDate startDato, LocalDate slutDato) {
         this.konference = konference;
         this.deltager = deltager;
         this.erForedragsholder = erForedragsholder;
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.ledsager = ledsager;
-        this.udflugtsList = udflugtsList;
-        this.hotel = hotel;
-        this.hotelTillægsList = new ArrayList<>(hotelTillægsList);
+        this.ledsager = null; // Default null
     }
 
+    //============================================================
     // Udregner samlet udgifter for tilmeldingen
     public double getSamletTilmeldingsUdgift(){
         double samletUdgifter = 0;
@@ -40,18 +38,6 @@ public class Tilmelding {
         samletUdgifter += udregnUdflugtUdgift();
 
         return samletUdgifter;
-    }
-
-    public ArrayList<HotelTillæg> getHotelTillægsList() {
-        return new ArrayList<>(hotelTillægsList);
-    }
-
-    public ArrayList<Udflugt> getUdflugtsList() {
-        return udflugtsList;
-    }
-
-    public boolean isErForedragsholder() {
-        return erForedragsholder;
     }
 
     //============================================================
@@ -97,5 +83,33 @@ public class Tilmelding {
             return samletUdgifter;
         }
         return 0;
+    }
+
+    //============================================================
+    // Getter and Setter
+    public void addLedsager(String ledsager) {
+        if(!hasLedsager()){
+            this.ledsager = ledsager;
+        }
+    }
+
+    private boolean hasLedsager(){
+        return ledsager != null;
+    }
+
+    public void addHotel(Hotel hotel){
+        this.hotel = hotel;
+    }
+
+    public ArrayList<HotelTillæg> getHotelTillægsList() {
+        return new ArrayList<>(hotelTillægsList);
+    }
+
+    public ArrayList<Udflugt> getUdflugtsList() {
+        return udflugtsList;
+    }
+
+    public boolean isErForedragsholder() {
+        return erForedragsholder;
     }
 }
