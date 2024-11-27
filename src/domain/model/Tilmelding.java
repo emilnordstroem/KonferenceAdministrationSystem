@@ -8,29 +8,21 @@ public class Tilmelding {
     private Konference konference;
     private Deltager deltager;
     private boolean erForedragsholder;
-    private String ledsager;
-
+    private String ledsagerNavn;
     private LocalDate startDato;
     private LocalDate slutDato;
-
-    private ArrayList<Udflugt> udflugtsList;
-
+    private ArrayList<Udflugt> valgteUdflugter = new ArrayList<>();
     private Hotel hotel;
-    private ArrayList<HotelTillæg> hotelTillægsList;
+    private ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();
 
-    public Tilmelding(Konference konference, Deltager deltager, boolean erForedragsholder, LocalDate startDato, LocalDate slutDato) {
+    public Tilmelding(Konference konference, Deltager deltager, boolean foredragsholder, LocalDate startDato, LocalDate slutDato) {
         this.konference = konference;
+        konference.addTilmelding(this);
         this.deltager = deltager;
         deltager.addTilmelding(this);
-        this.erForedragsholder = erForedragsholder;
+        this.erForedragsholder = foredragsholder;
         this.startDato = startDato;
         this.slutDato = slutDato;
-
-        // Default null hvis ikke valgt
-        this.ledsager = null;
-        this.udflugtsList = new ArrayList<>();
-        this.hotel = null;
-        this.hotelTillægsList = new ArrayList<>();
     }
 
     //============================================================
@@ -63,7 +55,7 @@ public class Tilmelding {
 
     private double udregnKonferenceAfgift(int antalDage){
         if(!isErForedragsholder()) {
-            double konferenceAfgiftPerDag = konference.getAfgiftPerDag();
+            double konferenceAfgiftPerDag = konference.getPrisPrDag();
             return antalDage * konferenceAfgiftPerDag;
         }
         return 0;
@@ -72,16 +64,15 @@ public class Tilmelding {
     private double udregnHotelUdgift(int antalDage){
         if(hotel != null){
             double samletUdgifter = 0;
-            if(ledsager != null){
-                samletUdgifter += hotel.getDobbeltværelsePris() * antalDage;
+            if(ledsagerNavn != null){
+                samletUdgifter += hotel.getDobbeltVærelsesPris() * antalDage;
             } else {
-                samletUdgifter += hotel.getEnkeltværelsePris() * antalDage;
+                samletUdgifter += hotel.getEnkeltVærelsesPris() * antalDage;
             }
 
-            ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>(getHotelTillægsList());
-            if(!hotelTillægsList.isEmpty()){
-                for(HotelTillæg hotelTillæg : hotelTillægsList){
-                    samletUdgifter += hotelTillæg.getPris() * antalDage;
+            if(!valgteHotelTillæg.isEmpty()){
+                for(HotelTillæg valgtHotelTillæg : valgteHotelTillæg){
+                    samletUdgifter += valgtHotelTillæg.getPris() * antalDage;
                 }
             }
             return samletUdgifter;
@@ -90,10 +81,10 @@ public class Tilmelding {
     }
 
     private double udregnUdflugtUdgift(){
-        if(!udflugtsList.isEmpty()){
+        if(!valgteUdflugter.isEmpty()){
             double samletUdgifter = 0;
-            for(Udflugt udflugt : udflugtsList){
-                samletUdgifter += udflugt.getPris();
+            for(Udflugt valgtUdflugt : valgteUdflugter){
+                samletUdgifter += valgtUdflugt.getPris();
             }
             return samletUdgifter;
         }
@@ -102,37 +93,65 @@ public class Tilmelding {
 
     //============================================================
     // Getter and Setter
-    public void addLedsager(String ledsager) {
-        if(!hasLedsager()){
-            this.ledsager = ledsager;
-        }
+    public Konference getKonference() {
+        return konference;
     }
 
-    private boolean hasLedsager(){
-        return ledsager != null;
+    public Deltager getDeltager() {
+        return deltager;
     }
 
-    public void addHotel(Hotel hotel){
-        this.hotel = hotel;
+    public LocalDate getStartDato() {
+        return startDato;
     }
 
-    public void setUdflugtsList(ArrayList<Udflugt> udflugtsList) {
-        this.udflugtsList = udflugtsList;
-    }
-
-    public void setHotelTillægsList(ArrayList<HotelTillæg> hotelTillægsList) {
-        this.hotelTillægsList = hotelTillægsList;
-    }
-
-    public ArrayList<HotelTillæg> getHotelTillægsList() {
-        return new ArrayList<>(hotelTillægsList);
-    }
-
-    public ArrayList<Udflugt> getUdflugtsList() {
-        return udflugtsList;
+    public LocalDate getSlutDato() {
+        return slutDato;
     }
 
     public boolean isErForedragsholder() {
         return erForedragsholder;
+    }
+
+    public String getLedsagerNavn() {
+        return ledsagerNavn;
+    }
+
+    public void setLedsagerNavn(String ledsagerNavn) {
+        this.ledsagerNavn = ledsagerNavn;
+    }
+
+    public ArrayList<Udflugt> getUdflugter() {
+        return new ArrayList<>(valgteUdflugter);
+    }
+
+    public void addUdflugt(Udflugt udflugt) {
+        if(!valgteUdflugter.contains(udflugt)) {
+            valgteUdflugter.add(udflugt);
+            udflugt.addTilmelding(this);
+        }
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        if(this.hotel != hotel) {
+            this.hotel = hotel;
+            if(hotel != null) {
+                hotel.addTilmelding(this);
+            }
+        }
+    }
+
+    public ArrayList<HotelTillæg> getHotelTillæg() {
+        return new ArrayList<>(valgteHotelTillæg);
+    }
+
+    public void addHotelTillæg(HotelTillæg hotelTillæg) {
+        if(!valgteHotelTillæg.contains(hotelTillæg)) {
+            valgteHotelTillæg.add(hotelTillæg);
+        }
     }
 }

@@ -11,7 +11,6 @@ public class Storage {
     private static final ArrayList<Konference> konferencer = new ArrayList<>();
     private static final ArrayList<Hotel> hoteller = new ArrayList<>();
     private static final ArrayList<Deltager> deltagere = new ArrayList<>();
-    private static final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
     // Konference Methods -------------------------------------------------------------------
     public static void addKonference(Konference konference) {
@@ -56,21 +55,6 @@ public class Storage {
 
     public static void removeDeltager(Deltager deltager) {
         deltagere.remove(deltager);
-    }
-
-    // Tilmelding Methods ---------------------------------------------------------------------------
-    public static void addTilmelding(Tilmelding tilmelding) {
-        if (!tilmeldinger.contains(tilmelding)) {
-            tilmeldinger.add(tilmelding);
-        }
-    }
-
-    public static ArrayList<Tilmelding> getTilmeldinger() {
-        return new ArrayList<>(tilmeldinger);
-    }
-
-    public static void removeTilmelding(Tilmelding tilmelding) {
-        tilmeldinger.remove(tilmelding);
     }
 
 }

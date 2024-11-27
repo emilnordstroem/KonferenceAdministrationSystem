@@ -11,53 +11,55 @@ public class Konference {
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private final ArrayList<Hotel> hoteller = new ArrayList<>();
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
-    private double afgiftPerDag;
+    private double prisPrDag;
 
-    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag) {
+    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double prisPrDag) {
         this.navn = navn;
         if(startDato.isBefore(slutDato)){
             this.startDato = startDato;
             this.slutDato = slutDato;
         }
-        this.afgiftPerDag = afgiftPerDag;
-    }
-
-    public void opretUdflugt(String navn, Addresse addresse, LocalDate dato, String beskrivelse, double pris){
-        setUdflugter(new Udflugt(navn, addresse, dato, beskrivelse, pris));
+        this.prisPrDag = prisPrDag;
     }
 
     public ArrayList<Udflugt> getUdflugter() {
-        return udflugter;
+        return new ArrayList<>(udflugter);
     }
 
-    public double getAfgiftPerDag() {
-        return afgiftPerDag;
+    public Udflugt createUdflugt(String navn, Addresse addresse, LocalDate dato, String beskrivelse, double pris) {
+        Udflugt udflugt = new Udflugt(navn, this, addresse, dato, beskrivelse, pris);
+        udflugter.add(udflugt);
+        return udflugt;
     }
 
-    public void setUdflugter(Udflugt udflugt) {
-        if(!udflugter.contains(udflugt)){
-            udflugter.add(udflugt);
-            System.out.println("Udflugt tilføjet til konference udflugtsliste");
-        }
+    public ArrayList<Hotel> getHoteller() {
+        return new ArrayList<>(hoteller);
     }
 
-    public void setHoteller(Hotel hotel) {
-        if(!hoteller.contains(hotel)){
+    public void addHotel(Hotel hotel) {
+        if(!hoteller.contains(hotel)) {
             hoteller.add(hotel);
-            System.out.println("Hotel tilføjet til konference hotelListe");
+            hotel.addKonference(this);
         }
     }
 
-    public void setTilmeldinger(Tilmelding tilmelding) {
-        if(!tilmeldinger.contains(tilmelding)){
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
+    }
+
+    public void addTilmelding(Tilmelding tilmelding) {
+        if(!tilmeldinger.contains(tilmelding)) {
             tilmeldinger.add(tilmelding);
-            System.out.println("Tilmelding tilføjet til konference tilmeldingslist");
         }
+    }
+
+    public double getPrisPrDag() {
+        return prisPrDag;
     }
 
     @Override
-    public String toString(){
-        return String.format("%s: %s - %s%nPris per dag: %f", navn, startDato, slutDato, afgiftPerDag);
+    public String toString() {
+        return String.format("%s fra %s til %s (pris pr. dag: %.2f kr.).", navn, startDato, slutDato, prisPrDag);
     }
 
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Controller {
     // K1, K2, UC1
-    public static Deltager opretDeltager(String navn, String telefonNummer, Addresse addresse) {
-        Deltager deltager = new Deltager(navn, telefonNummer, addresse);
+    public static Deltager opretDeltager(String forNavn, String efterNavn, String telefonNummer, Addresse addresse) {
+        Deltager deltager = new Deltager(forNavn, efterNavn, telefonNummer, addresse);
         Storage.addDeltager(deltager);
         return deltager;
     }
@@ -29,25 +29,27 @@ public class Controller {
     }
 
     // K1, K2, UC4
-    public static Tilmelding opretTilmelding(Konference konference, Deltager deltager, boolean erForedragsholder,
-                                             LocalDate fraDato, LocalDate tilDato, Hotel hotel, ArrayList<HotelTillæg> hotelTillæg,
-                                             String ledsager, ArrayList<Udflugt> udflugter){
-        Tilmelding tilmelding = new Tilmelding(konference, deltager, erForedragsholder, fraDato, tilDato);
+    public static Tilmelding opretTilmelding(Konference konference, Deltager deltager, boolean foredragsholder,
+                                             String ledsagerNavn, LocalDate startDato, LocalDate slutDato,
+                                             ArrayList<Udflugt> valgteUdflugter, Hotel hotel, ArrayList<HotelTillæg> valgteHotelTillægs){
+        Tilmelding tilmelding = new Tilmelding(konference, deltager, foredragsholder, startDato, slutDato);
 
-        if(ledsager != null){
-            tilmelding.addLedsager(ledsager);
-            if(!udflugter.isEmpty()){
-                tilmelding.setUdflugtsList(udflugter);
+        if(ledsagerNavn != null){
+            tilmelding.setLedsagerNavn(ledsagerNavn);
+            if(!valgteUdflugter.isEmpty()){
+                for (Udflugt valgtUdflugt : valgteUdflugter) {
+                    tilmelding.addUdflugt(valgtUdflugt);
+                }
             }
         }
         if(hotel != null){
-            tilmelding.addHotel(hotel);
-            if(!hotelTillæg.isEmpty()){
-                tilmelding.setHotelTillægsList(hotelTillæg);
+            tilmelding.setHotel(hotel);
+            if(!valgteHotelTillægs.isEmpty()){
+                for (HotelTillæg valgteHotelTillæg : valgteHotelTillægs) {
+                    tilmelding.addHotelTillæg(valgteHotelTillæg);
+                }
             }
         }
-
-        Storage.addTilmelding(tilmelding);
         return tilmelding;
     }
 }

@@ -5,32 +5,66 @@ import java.util.Random;
 
 public class Deltager {
     private int id;
-    private String fuldeNavn;
+    private String forNavn;
+    private String efterNavn;
     private String telefonnummer;
     private Addresse addresse;
-    private final ArrayList<Tilmelding> tilmeldingsList = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private Firma firma;
 
-    public Deltager(String fuldeNavn, String telefonnummer, Addresse addresse){
+    public Deltager(String forNavn, String efterNavn, String telefonnummer, Addresse addresse){
         this.id = generateID();
-        this.fuldeNavn = fuldeNavn;
+        this.forNavn = forNavn;
+        this.efterNavn = efterNavn;
         this.telefonnummer = telefonnummer;
         this.addresse = addresse;
     }
 
-    public void addTilmelding(Tilmelding tilmelding){
-        if(!tilmeldingsList.contains(tilmelding)){
-            tilmeldingsList.add(tilmelding);
-            System.out.println("Tilmelding tilføjet til deltagers tilmeldingslist");
-        }
+    public int getId() {
+        return id;
+    }
+
+    public String getForNavn() {
+        return forNavn;
+    }
+
+    public String getEfterNavn() {
+        return efterNavn;
+    }
+
+    public String getFuldeNavn() {
+        return forNavn + " " + efterNavn;
+    }
+
+    public String getTelefonnummer() {
+        return telefonnummer;
+    }
+
+    public Addresse getAddresse() {
+        return addresse;
+    }
+
+    public Firma getFirma() {
+        return firma;
     }
 
     public void setFirma(Firma firma) {
-        this.firma = firma;
+        if(this.firma != firma) {
+            this.firma = firma;
+        }
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
+    }
+
+    public void addTilmelding(Tilmelding tilmelding){
+        if(!tilmeldinger.contains(tilmelding)){
+            tilmeldinger.add(tilmelding);
+        }
     }
 
     public double getSamletUdgifter(){
-        ArrayList<Tilmelding> tilmeldinger = new ArrayList<>(tilmeldingsList);
         double samletUdgifter = 0;
         if(!tilmeldinger.isEmpty()){
             for(Tilmelding tilmelding : tilmeldinger){

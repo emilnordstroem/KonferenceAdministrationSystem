@@ -3,43 +3,77 @@ package domain.model;
 import java.util.ArrayList;
 
 public class Hotel {
-    private final String navn;
+    private String navn;
     private Addresse addresse;
-    private double enkeltværelsePris;
-    private double dobbeltværelsePris;
-    private final ArrayList<Konference> konferenceList = new ArrayList<>();
-    private final ArrayList<HotelTillæg> hotelTillægsList = new ArrayList<>();
+    private double enkeltVærelsesPris;
+    private double dobbeltVærelsesPris;
+    private ArrayList<Konference> konferencer= new ArrayList<>();
+    private ArrayList<HotelTillæg> hotelTillæger = new ArrayList<>();
+    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
-    public Hotel(String navn, Addresse addresse, double enkeltværelsePris, double dobbeltværelsePris) {
+    public Hotel(String navn, Addresse addresse, double enkeltVærelsesPris, double dobbeltVærelsesPris) {
         this.navn = navn;
         this.addresse = addresse;
-        this.enkeltværelsePris = enkeltværelsePris;
-        this.dobbeltværelsePris = dobbeltværelsePris;
+        this.enkeltVærelsesPris = enkeltVærelsesPris;
+        this.dobbeltVærelsesPris = dobbeltVærelsesPris;
     }
 
-    public void setKonferenceList(Konference konference) {
-        if(!konferenceList.contains(konference)){
-            konferenceList.add(konference);
-            System.out.println("Konference tilføjet til hotellets konferenceList");
+    public String getNavn() {
+        return navn;
+    }
+
+    public Addresse getAddresse() {
+        return addresse;
+    }
+
+    public double getEnkeltVærelsesPris() {
+        return enkeltVærelsesPris;
+    }
+
+    public double getDobbeltVærelsesPris() {
+        return dobbeltVærelsesPris;
+    }
+
+    public ArrayList<Konference> getKonferencer() {
+        return new ArrayList<>(konferencer);
+    }
+
+    public void addKonference(Konference konference) {
+        if(!konferencer.contains(konference)){
+            konferencer.add(konference);
+            konference.addHotel(this);
         }
     }
 
-    public void setHotelTillægsList(HotelTillæg hotelTillæg) {
-        if(!hotelTillægsList.contains(hotelTillæg)){
-            hotelTillægsList.add(hotelTillæg);
-            System.out.println("HotelTillæg tilføjet til hotellets hotelTillægsList");
+    public ArrayList<HotelTillæg> getHotelTillæger() {
+        return new ArrayList<>(hotelTillæger);
+    }
+
+
+    public void addHotelTillæg(HotelTillæg hotelTillæg) {
+        if(!hotelTillæger.contains(hotelTillæg)){
+            hotelTillæger.add(hotelTillæg);
         }
     }
 
-    public ArrayList<HotelTillæg> getHotelTillægsList() {
-        return new ArrayList<>(hotelTillægsList);
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
     }
 
-    public double getEnkeltværelsePris() {
-        return enkeltværelsePris;
+    public void addTilmelding(Tilmelding tilmelding) {
+        if(!tilmeldinger.contains(tilmelding)) {
+            tilmeldinger.add(tilmelding);
+            tilmelding.setHotel(this);
+        }
     }
 
-    public double getDobbeltværelsePris() {
-        return dobbeltværelsePris;
+    @Override
+    public String toString() {
+        String s = String.format("Hotel \"%s\" har enkeltværelsespris/dobbeltværelsespris (%.2f kr./%.2f kr.) med følgende hoteltillæg:\n", navn, enkeltVærelsesPris, dobbeltVærelsesPris);
+        for (HotelTillæg hotelTillæg : hotelTillæger) {
+            s += String.format("%s koster %.2f kr.\n", hotelTillæg.getNavn(), hotelTillæg.getPris());
+        }
+
+        return s;
     }
 }
