@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Hotel {
     private String navn;
@@ -16,6 +17,10 @@ public class Hotel {
         this.adresse = adresse;
         this.enkeltVærelsesPris = enkeltVærelsesPris;
         this.dobbeltVærelsesPris = dobbeltVærelsesPris;
+
+        if(enkeltVærelsesPris <= 0 || dobbeltVærelsesPris <= 0) {
+            throw new InputMismatchException("Prisen skal være et positivt tal.");
+        }
     }
 
     public String getNavn() {

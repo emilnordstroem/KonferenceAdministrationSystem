@@ -1,7 +1,6 @@
 package view.Hotel;
 
 import domain.model.Hotel;
-import domain.model.HotelTillæg;
 import domain.model.Tilmelding;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
@@ -16,8 +15,14 @@ import javafx.scene.layout.Priority;
 import storage.Storage;
 
 public class HotelPane extends GridPane {
-    private final ListView<Hotel> hotellerListView;
-    private final ListView<String> tilmeldingerListView;
+    // Listviews
+    private final ListView<Hotel> hotellerListView = new ListView<>();
+    private final ListView<String> tilmeldingerListView = new ListView<>();
+
+    // Buttons
+    Button opretHotelButton = new Button("Opret hotel");
+    Button opdaterHotelButton = new Button("Opdater hotel");
+    Button sletHotelButton = new Button("Slet hotel");
 
     public HotelPane() {
         this.setPadding(new Insets(20));
@@ -33,61 +38,45 @@ public class HotelPane extends GridPane {
                 new ColumnConstraints(186), // Opdater hotel
                 new ColumnConstraints(186) // Slet hotel
         );
-        // Listviews and respective labels
-        this.add(new Label("Vælg et hotel:"), 0, 0);
-        hotellerListView = new ListView<>();
-        this.add(hotellerListView, 0,1,3,1);
-
-        hotellerListView.getItems().setAll(Storage.getHoteller());
+        setHotellerListView();
+        setTilmeldingerListView();
         ChangeListener<Hotel> listener = (ov, oldHotel, newHotel) -> this.selectedHotelChanged(newHotel);
         hotellerListView.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        this.add(new Label("Deltagere reserveret på det valgte hotel:"), 3, 0);
-        tilmeldingerListView = new ListView<>();
-        tilmeldingerListView.setPrefWidth(598);
-        this.add(tilmeldingerListView, 3, 1, 3, 1);
-
-        Button opretHotelButton = new Button("Opret hotel");
         this.add(opretHotelButton, 0, 2);
+        opretHotelButton.setOnAction(event -> opretHotelAction());
 
-        Button opdaterHotelButton = new Button("Opdater hotel");
         GridPane.setHalignment(opdaterHotelButton, HPos.CENTER);
         this.add(opdaterHotelButton, 1, 2);
 
-        Button sletHotelButton = new Button("Slet hotel");
         GridPane.setHalignment(sletHotelButton, HPos.RIGHT);
         this.add(sletHotelButton, 2, 2);
 
     }
 
-    // Funktionel kode
+    private void setHotellerListView() {
+        this.add(new Label("Vælg et hotel:"), 0, 0);
+        this.add(hotellerListView, 0,1,3,1);
+        hotellerListView.getItems().setAll(Storage.getHoteller());
+    }
+
+    private void setTilmeldingerListView() {
+        this.add(new Label("Deltagere reserveret på det valgte hotel:"), 3, 0);
+        tilmeldingerListView.setPrefWidth(598);
+        this.add(tilmeldingerListView, 3, 1, 3, 1);
+    }
+
     private void selectedHotelChanged(Hotel newHotel) {
         if(newHotel != null) {
             for (Tilmelding tilmelding : newHotel.getTilmeldinger()) {
-                String s = buildInfoOnTilmelding(tilmelding);
+                String s = Utility.buildInfoOnHotelTilmelding(tilmelding);
                 tilmeldingerListView.getItems().add(s);
             }
         }
     }
 
-    private String buildInfoOnTilmelding(Tilmelding tilmelding) {
-        String s = tilmelding.getDeltager().getFuldeNavn();
-        if(tilmelding.getLedsagerNavn() != null) {
-            s += " har dobbeltværelse med " + tilmelding.getLedsagerNavn() + " og følgende hoteltillæg:\n";
-        }
-
-        else {
-            s += " har enkeltværelse med følgende hoteltillæg:\n";
-        }
-
-        if(tilmelding.getHotelTillæg().isEmpty()) {
-            s += "Ingen hoteltillæg.";
-        }
-        else {
-            for (HotelTillæg hotelTillæg : tilmelding.getHotelTillæg()) {
-                s += hotelTillæg.getNavn();
-            }
-        }
-        return s;
+    private void opretHotelAction() {
+        new HotelWindow().showAndWait();
+        hotellerListView.getItems().setAll(Storage.getHoteller());
     }
 }
