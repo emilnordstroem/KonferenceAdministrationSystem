@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Hotel {
     private String navn;
-    private Addresse addresse;
+    private Adresse adresse;
     private double enkeltVærelsesPris;
     private double dobbeltVærelsesPris;
     private ArrayList<Konference> konferencer= new ArrayList<>();
     private ArrayList<HotelTillæg> hotelTillæger = new ArrayList<>();
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
-    public Hotel(String navn, Addresse addresse, double enkeltVærelsesPris, double dobbeltVærelsesPris) {
+    public Hotel(String navn, Adresse adresse, double enkeltVærelsesPris, double dobbeltVærelsesPris) {
         this.navn = navn;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.enkeltVærelsesPris = enkeltVærelsesPris;
         this.dobbeltVærelsesPris = dobbeltVærelsesPris;
     }
@@ -22,8 +22,8 @@ public class Hotel {
         return navn;
     }
 
-    public Addresse getAddresse() {
-        return addresse;
+    public Adresse getAddresse() {
+        return adresse;
     }
 
     public double getEnkeltVærelsesPris() {

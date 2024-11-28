@@ -1,22 +1,21 @@
 package domain.model;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Udflugt {
     private String navn;
     private Konference konference;
-    private Addresse addresse;
+    private Adresse adresse;
     private LocalDate dato;
     private String beskrivelse;
     private double pris;
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
-    Udflugt(String navn, Konference konference, Addresse addresse, LocalDate dato, String beskrivelse, double pris) {
+    Udflugt(String navn, Konference konference, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
         this.navn = navn;
         this.konference = konference;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.dato = dato;
         this.beskrivelse = beskrivelse;
         this.pris = pris;
@@ -31,8 +30,8 @@ public class Udflugt {
         return konference;
     }
 
-    public Addresse getAddresse() {
-        return addresse;
+    public Adresse getAddresse() {
+        return adresse;
     }
 
 

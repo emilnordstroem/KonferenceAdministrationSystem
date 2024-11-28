@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Controller {
     // K1, K2, UC1
-    public static Deltager opretDeltager(String forNavn, String efterNavn, String telefonNummer, Addresse addresse) {
-        Deltager deltager = new Deltager(forNavn, efterNavn, telefonNummer, addresse);
+    public static Deltager opretDeltager(String forNavn, String efterNavn, String telefonNummer, Adresse adresse, Firma firma) {
+        Deltager deltager = new Deltager(forNavn, efterNavn, telefonNummer, adresse, firma);
         Storage.addDeltager(deltager);
         return deltager;
     }
@@ -22,8 +22,8 @@ public class Controller {
     }
 
     // K8, UC3
-    public static Hotel opretHotel(String navn, Addresse addresse, double enkeltværelsePris, double dobbeltværelsePris) {
-        Hotel hotel = new Hotel(navn, addresse, enkeltværelsePris, dobbeltværelsePris);
+    public static Hotel opretHotel(String navn, Adresse adresse, double enkeltværelsePris, double dobbeltværelsePris) {
+        Hotel hotel = new Hotel(navn, adresse, enkeltværelsePris, dobbeltværelsePris);
         Storage.addHotel(hotel);
         return hotel;
     }
@@ -51,5 +51,11 @@ public class Controller {
             }
         }
         return tilmelding;
+    }
+
+    public static Firma opretFirma(String navn, String telefonnummer){
+        Firma firma = new Firma(navn, telefonnummer);
+        Storage.addFirma(firma);
+        return firma;
     }
 }

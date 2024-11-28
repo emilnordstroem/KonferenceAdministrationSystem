@@ -8,16 +8,17 @@ public class Deltager {
     private String forNavn;
     private String efterNavn;
     private String telefonnummer;
-    private Addresse addresse;
+    private Adresse adresse;
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private Firma firma;
 
-    public Deltager(String forNavn, String efterNavn, String telefonnummer, Addresse addresse){
+    public Deltager(String forNavn, String efterNavn, String telefonnummer, Adresse adresse, Firma Firma){
         this.id = generateID();
         this.forNavn = forNavn;
         this.efterNavn = efterNavn;
         this.telefonnummer = telefonnummer;
-        this.addresse = addresse;
+        this.adresse = adresse;
+        this.firma = Firma;
     }
 
     public int getId() {
@@ -40,8 +41,8 @@ public class Deltager {
         return telefonnummer;
     }
 
-    public Addresse getAddresse() {
-        return addresse;
+    public Adresse getAddresse() {
+        return adresse;
     }
 
     public Firma getFirma() {
@@ -77,5 +78,10 @@ public class Deltager {
     private int generateID(){
         // If we store data on AttendanceID - we could make each unique to the attendance
         return new Random().nextInt(111_111, 999_999) + 1;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s %s (%s): %s", forNavn, efterNavn, telefonnummer, adresse);
     }
 }

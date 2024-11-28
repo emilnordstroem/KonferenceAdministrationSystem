@@ -4,10 +4,10 @@ import domain.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Test {
-
-
+    // This class is a console output test of the functionality of the system
     public static void main(String[] args) {
         Konference havOgHimmel = Controller.opretKonference("Hav og himmel", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500);
 
@@ -22,7 +22,7 @@ public class Test {
         ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();
 
         //=====================================================
-        Deltager finnMadsen = Controller.opretDeltager("Finn", "Madsen", null, null);
+        Deltager finnMadsen = Controller.opretDeltager("Finn", "Madsen", generatePhoneNumber(), null, null);
         Controller.opretTilmelding(havOgHimmel, finnMadsen, false,
                 null, LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
@@ -31,7 +31,7 @@ public class Test {
         System.out.println("==========================================");
 
         //=====================================================
-        Deltager nielsPetersen = Controller.opretDeltager("Niels", "Petersen", null, null);
+        Deltager nielsPetersen = Controller.opretDeltager("Niels", "Petersen", generatePhoneNumber(), null, null);
         Controller.opretTilmelding(havOgHimmel, nielsPetersen, false,
                 null, LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
@@ -40,7 +40,7 @@ public class Test {
         System.out.println("==========================================");
 
         //=====================================================
-        Deltager peterSommer = Controller.opretDeltager("Peter", "Sommer", null, null);
+        Deltager peterSommer = Controller.opretDeltager("Peter", "Sommer", generatePhoneNumber(), null, null);
         valgteUdflugter.add(egeskov);
         valgteUdflugter.add(trapholtMuseum);
         valgteHotelTillæg.add(wifi);
@@ -55,7 +55,7 @@ public class Test {
         //=====================================================
         valgteUdflugter.clear();
         valgteHotelTillæg.clear();
-        Deltager loneJensen = Controller.opretDeltager("Lone", "Jensen", null, null);
+        Deltager loneJensen = Controller.opretDeltager("Lone", "Jensen", generatePhoneNumber(), null, null);
         valgteUdflugter.add(egeskov);
         valgteUdflugter.add(byRundtur);
         valgteHotelTillæg.add(wifi);
@@ -66,5 +66,9 @@ public class Test {
 
         System.out.println("Lone Jensen: " + loneJensen.getSamletUdgifter());
         System.out.println("==========================================");
+    }
+
+    private static String generatePhoneNumber(){
+        return String.valueOf(new Random().nextInt(10_00_00_00,99_99_99_99) + 1);
     }
 }

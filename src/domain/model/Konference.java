@@ -1,7 +1,6 @@
 package domain.model;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Konference {
@@ -26,8 +25,8 @@ public class Konference {
         return new ArrayList<>(udflugter);
     }
 
-    public Udflugt createUdflugt(String navn, Addresse addresse, LocalDate dato, String beskrivelse, double pris) {
-        Udflugt udflugt = new Udflugt(navn, this, addresse, dato, beskrivelse, pris);
+    public Udflugt createUdflugt(String navn, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
+        Udflugt udflugt = new Udflugt(navn, this, adresse, dato, beskrivelse, pris);
         udflugter.add(udflugt);
         return udflugt;
     }
