@@ -154,4 +154,23 @@ public class Tilmelding {
             valgteHotelTillæg.add(hotelTillæg);
         }
     }
+
+    @Override
+    public String toString() {
+        String s = String.format("%s (%d) er tilmeldt konferencen fra %s til %s", deltager.getFuldeNavn(), deltager.getId(), startDato, slutDato);
+        if(ledsagerNavn != null) {
+            s+= " med " + ledsagerNavn;
+        }
+        else {
+            s+= " uden ledsager";
+        }
+
+        if(erForedragsholder) {
+            s+=" og er foredragsholder.";
+        }
+        else {
+            s+=" og er ikke foredragsholder.";
+        }
+        return s;
+    }
 }
