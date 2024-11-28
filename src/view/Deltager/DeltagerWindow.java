@@ -1,4 +1,4 @@
-package view;
+package view.Deltager;
 
 import domain.controller.Controller;
 import domain.model.Adresse;
@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
+
 import java.util.stream.Stream;
 
 public class DeltagerWindow extends Stage {

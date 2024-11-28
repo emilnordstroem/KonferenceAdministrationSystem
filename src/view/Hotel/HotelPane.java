@@ -1,4 +1,4 @@
-package view;
+package view.Hotel;
 
 import domain.model.Hotel;
 import domain.model.HotelTillæg;

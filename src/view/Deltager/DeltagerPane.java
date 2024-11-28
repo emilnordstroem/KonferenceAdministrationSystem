@@ -1,4 +1,4 @@
-package view;
+package view.Deltager;
 
 import domain.model.Deltager;
 import javafx.geometry.Insets;
