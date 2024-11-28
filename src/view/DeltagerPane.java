@@ -84,6 +84,11 @@ public class DeltagerPane extends GridPane {
 
         Button sletDeltagerButton = new Button("Slet deltager");
         this.add(sletDeltagerButton, 2,2);
+        sletDeltagerButton.setOnAction(event -> {
+            Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
+            fjernDeltager(deltager);
+        });
+
     }
 
     private void setSøgningHBox(){
@@ -104,12 +109,14 @@ public class DeltagerPane extends GridPane {
         if(deltagerListe != null) {
             for(int outerIndex = 0; outerIndex < deltagerListe.size() - 1; outerIndex++){
                 for(int innerIndex = outerIndex + 1; innerIndex < deltagerListe.size(); innerIndex++){
-                    String currentName = deltagerListe.get(outerIndex).getForNavn();
-                    String nextName = deltagerListe.get(innerIndex).getForNavn();
-                    if(currentName.compareTo(nextName) > 0){
+                    String currentLastName = deltagerListe.get(outerIndex).getForNavn();
+                    String nextLastName = deltagerListe.get(innerIndex).getForNavn();
+                    if(currentLastName.compareTo(nextLastName) > 0){
                         Deltager tempDeltager = deltagerListe.get(outerIndex);
                         deltagerListe.set(outerIndex, deltagerListe.get(innerIndex));
                         deltagerListe.set(innerIndex, tempDeltager);
+                    } else if(currentLastName.compareTo(nextLastName) == 0){
+
                     }
                 }
             }
@@ -139,6 +146,11 @@ public class DeltagerPane extends GridPane {
 
     private void opretDeltagerAction() {
         new DeltagerWindow().showAndWait();
+        deltagereListView.getItems().setAll(Storage.getDeltagere());
+    }
+
+    private void fjernDeltager(Deltager deltager){
+        new ConfirmDeleteWindow(deltager).showAndWait();
         deltagereListView.getItems().setAll(Storage.getDeltagere());
     }
 
