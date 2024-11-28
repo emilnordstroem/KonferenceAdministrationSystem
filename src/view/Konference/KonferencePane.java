@@ -1,4 +1,4 @@
-package view;
+package view.Konference;
 
 import domain.model.Konference;
 import domain.model.Tilmelding;
