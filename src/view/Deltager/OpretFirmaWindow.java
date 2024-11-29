@@ -11,16 +11,18 @@ import javafx.stage.Stage;
 
 import java.util.stream.Stream;
 
-public class FirmaWindow extends Stage {
+public class OpretFirmaWindow extends Stage {
     private final TextField firmaNavnTextField = new TextField();
     private final TextField firmaTelefonNummerTextField = new TextField();
+
+
 
     private Button opretFirmaButton = new Button("Opret");
     private Button cancelButton = new Button("Cancel");
 
     private Label errorLabel = new Label();
 
-    public FirmaWindow() {
+    public OpretFirmaWindow() {
         this.setTitle("Opret deltager");
 //        initStyle(StageStyle.UTILITY);
 //        initModality(Modality.APPLICATION_MODAL);
@@ -52,7 +54,7 @@ public class FirmaWindow extends Stage {
         pane.add(lblName, 0, 0, 2, 1);
         pane.add(firmaNavnTextField, 0, 1, 2, 1);
 
-        Label lblEfternavn = new Label("Efternavn");
+        Label lblEfternavn = new Label("Tlf.nr.");
         pane.add(lblEfternavn,0,2, 2, 1);
         pane.add(firmaTelefonNummerTextField,0,3, 2, 1);
     }
@@ -69,11 +71,11 @@ public class FirmaWindow extends Stage {
         String telefonNummer = firmaTelefonNummerTextField.getText();
 
         if(!blankTextField(navn, telefonNummer)){
-            return;
+            errorLabel.setText("Ikke alle felter er udfyldt");
+        } else {
+            Controller.opretFirma(navn, telefonNummer);
+            System.out.println("Firma blev oprettet i OpretFirmaWindow.java");
         }
-
-        Controller.opretFirma(navn, telefonNummer);
-        System.out.println("Firma blev oprettet i FirmaWindow.java");
     }
 
     private boolean blankTextField(String navn, String tlf){
@@ -81,7 +83,6 @@ public class FirmaWindow extends Stage {
         boolean hasBlankTextFields = Stream.of(navn, tlf).anyMatch(String::isBlank);
         if(hasBlankTextFields){
             System.out.println("Forekommer blanke felter i oprettelse af firma");
-            errorLabel.setText("Ikke alle felter er udfyldt");
             return false;
         }
         return true;

@@ -23,25 +23,15 @@ public class DeltagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-//        ColumnConstraints colConstraints = new ColumnConstraints();
-//        colConstraints.setHgrow(Priority.NEVER); // Kolonner skalerer ikke unødvendigt
-//        colConstraints.setMinWidth(Control.USE_COMPUTED_SIZE); // Brug kun nødvendig plads
-//        this.getColumnConstraints().addAll(
-//                new ColumnConstraints(239), // Opret deltager
-//                new ColumnConstraints(238), // Opdater deltager
-//                new ColumnConstraints(238), // Slet deltager
-//                new ColumnConstraints(238), // Søg deltager
-//                new ColumnConstraints(77), // Beregn pris
-//                new ColumnConstraints(85) // Prisen i kr
-//        );
-
         setSøgningHBox();
+        setDeltagerListView();
         setBeregnPrisHBox();
         setNonEdibleTextFields();
 
         søgKnap.setOnMouseClicked(e -> {
-            System.out.println("Enter blev trykket");
+            System.out.println("Søgning...");
             String søgning = personSøgning.getText();
+
             ArrayList<Deltager> sortedDeltagerList = sortedArray(Storage.getDeltagere());
 
             if(!søgning.isBlank() && !sortedDeltagerList.isEmpty()){
@@ -71,29 +61,23 @@ public class DeltagerPane extends GridPane {
             }
         });
 
-        deltagereListView.setPrefWidth(1215);
-        deltagereListView.getItems().setAll(sortedArray(Storage.getDeltagere()));
-        this.add(deltagereListView, 0, 1, 6,1);
-
         Button opretDeltagerButton = new Button("Opret deltager");
         this.add(opretDeltagerButton, 0, 2);
         opretDeltagerButton.setOnAction(event -> opretDeltagerAction());
 
-        Button opdaterDeltagerButton = new Button("Opdater deltager");
-        this.add(opdaterDeltagerButton, 1, 2);
-
         Button sletDeltagerButton = new Button("Slet deltager");
-        this.add(sletDeltagerButton, 2,2);
+        this.add(sletDeltagerButton, 1,2);
         sletDeltagerButton.setOnAction(event -> {
             Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
             fjernDeltager(deltager);
         });
-
     }
 
     private void setSøgningHBox(){
         HBox søgningHBox = new HBox(10);
         Label deltagereLabel = new Label("Deltagere:");
+        personSøgning.setPrefWidth(50);
+        deltagerInto.setPrefWidth(450);
         søgningHBox.getChildren().addAll(deltagereLabel, personSøgning, deltagerInto, søgKnap);
         this.add(søgningHBox, 1,0);
     }
@@ -106,17 +90,15 @@ public class DeltagerPane extends GridPane {
 
     // Sorteret arrayList : bubble sort
     private ArrayList<Deltager> sortedArray(ArrayList<Deltager> deltagerListe) {
-        if(deltagerListe != null) {
-            for(int outerIndex = 0; outerIndex < deltagerListe.size() - 1; outerIndex++){
-                for(int innerIndex = outerIndex + 1; innerIndex < deltagerListe.size(); innerIndex++){
-                    String currentLastName = deltagerListe.get(outerIndex).getForNavn();
-                    String nextLastName = deltagerListe.get(innerIndex).getForNavn();
-                    if(currentLastName.compareTo(nextLastName) > 0){
-                        Deltager tempDeltager = deltagerListe.get(outerIndex);
-                        deltagerListe.set(outerIndex, deltagerListe.get(innerIndex));
-                        deltagerListe.set(innerIndex, tempDeltager);
-                    } else if(currentLastName.compareTo(nextLastName) == 0){
-
+        if(!deltagerListe.isEmpty()) {
+            for (int outerIndex = 0; outerIndex < deltagerListe.size() - 1; outerIndex++) {
+                for (int innerIndex = 0; innerIndex < deltagerListe.size() - outerIndex - 1; innerIndex++) {
+                    String currentFornavn = deltagerListe.get(innerIndex).getForNavn();
+                    String nextFornavn = deltagerListe.get(innerIndex + 1).getForNavn();
+                    if(currentFornavn.compareTo(nextFornavn) > 0) {
+                        Deltager temp = deltagerListe.get(innerIndex);
+                        deltagerListe.set(innerIndex, deltagerListe.get(innerIndex + 1));
+                        deltagerListe.set(innerIndex + 1, temp);
                     }
                 }
             }
@@ -129,15 +111,18 @@ public class DeltagerPane extends GridPane {
     private Deltager binaryPersonSearch(ArrayList<Deltager> sorteretDeltagerListe, String target){
         Deltager deltager = null;
         int left = 0;
-        int right = 0;
+        int right = sorteretDeltagerListe.size();
         while(deltager == null && left <= right){
             int middle = (left + right) / 2;
             Deltager kandidat = sorteretDeltagerListe.get(middle);
             if(kandidat.getForNavn().compareTo(target) == 0){
-                deltager = kandidat;
+                System.out.println("Fundet!");
+                return kandidat;
             } else if (kandidat.getForNavn().compareTo(target) > 0){
+                System.out.println("Tilstede i venstre halvdel");
                 right = middle - 1;
             } else {
+                System.out.println("Tilstede i højre halvdel");
                 left = middle + 1;
             }
         }
@@ -145,7 +130,7 @@ public class DeltagerPane extends GridPane {
     }
 
     private void opretDeltagerAction() {
-        new DeltagerWindow().showAndWait();
+        new OpretDeltagerWindow().showAndWait();
         deltagereListView.getItems().setAll(Storage.getDeltagere());
     }
 
@@ -157,5 +142,11 @@ public class DeltagerPane extends GridPane {
     private void setNonEdibleTextFields(){
         deltagerInto.setEditable(false);
         prisTextField.setEditable(false);
+    }
+
+    private void setDeltagerListView(){
+        deltagereListView.setPrefWidth(1215);
+        deltagereListView.getItems().setAll(Storage.getDeltagere());
+        this.add(deltagereListView, 0, 1, 6,1);
     }
 }

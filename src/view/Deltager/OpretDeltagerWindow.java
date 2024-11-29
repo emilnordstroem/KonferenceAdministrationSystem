@@ -15,7 +15,7 @@ import storage.Storage;
 
 import java.util.stream.Stream;
 
-public class DeltagerWindow extends Stage {
+public class OpretDeltagerWindow extends Stage {
     private TextField fornavnTextField = new TextField();
     private TextField efternavnTextField = new TextField();
     private TextField tlfTextField = new TextField();
@@ -33,8 +33,7 @@ public class DeltagerWindow extends Stage {
     private Button opretBtn = new Button("Opret");
     private Button cancelBtn = new Button("Cancel");
 
-
-    public DeltagerWindow() {
+    public OpretDeltagerWindow() {
         this.setTitle("Opret deltager");
 //        initStyle(StageStyle.UTILITY);
 //        initModality(Modality.APPLICATION_MODAL);
@@ -101,6 +100,7 @@ public class DeltagerWindow extends Stage {
         Label firmaLbl = new Label("Firma (Valgfrit)");
         pane.add(firmaLbl,0,11);
         pane.add(firmaComboBox,0,12);
+        firmaComboBox.getItems().setAll(Storage.getFirmaer());
     }
 
     private void setButtons(GridPane pane){
@@ -150,7 +150,7 @@ public class DeltagerWindow extends Stage {
     }
 
     private void registerFirma(){
-        new FirmaWindow().showAndWait();
+        new OpretFirmaWindow().showAndWait();
         firmaComboBox.getItems().setAll(Storage.getFirmaer());
     }
 }
