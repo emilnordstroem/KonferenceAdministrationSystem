@@ -27,16 +27,32 @@ public class Hotel {
         return navn;
     }
 
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
     public Adresse getAddresse() {
         return adresse;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
 
     public double getEnkeltVærelsesPris() {
         return enkeltVærelsesPris;
     }
 
+    public void setEnkeltVærelsesPris(double enkeltVærelsesPris) {
+        this.enkeltVærelsesPris = enkeltVærelsesPris;
+    }
+
     public double getDobbeltVærelsesPris() {
         return dobbeltVærelsesPris;
+    }
+
+    public void setDobbeltVærelsesPris(double dobbeltVærelsesPris) {
+        this.dobbeltVærelsesPris = dobbeltVærelsesPris;
     }
 
     public ArrayList<Konference> getKonferencer() {
@@ -50,6 +66,13 @@ public class Hotel {
         }
     }
 
+    public void removeKonference(Konference konference) {
+        if(konferencer.contains(konference)) {
+            konferencer.remove(konference);
+            //konference.removeHotel(this);
+        }
+    }
+
     public ArrayList<HotelTillæg> getHotelTillæger() {
         return new ArrayList<>(hotelTillæger);
     }
@@ -58,6 +81,12 @@ public class Hotel {
     public void addHotelTillæg(HotelTillæg hotelTillæg) {
         if(!hotelTillæger.contains(hotelTillæg)){
             hotelTillæger.add(hotelTillæg);
+        }
+    }
+
+    public void removeHotelTillæg(HotelTillæg hotelTillæg) {
+        if(hotelTillæger.contains(hotelTillæg)) {
+            hotelTillæger.remove(hotelTillæg);
         }
     }
 

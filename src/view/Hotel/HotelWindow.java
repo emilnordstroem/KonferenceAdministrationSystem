@@ -25,13 +25,15 @@ public class HotelWindow extends Stage {
     private final TextField enkeltværelsesPrisTextField = new TextField();
     private final TextField dobbeltværelsesPrisTextField = new TextField();
     private final ListView<Konference> konferencerListView = new ListView<>();
-    private final Button okBtn = new Button("Opret");
+    private final Button okBtn;
     private final Button cancelBtn = new Button("Cancel");
     private final Label errorLabel = new Label();
-    private Hotel hotel;
+    private final Hotel hotel;
 
     public HotelWindow(String title, Hotel hotel) {
         this.hotel = hotel;
+        this.okBtn = new Button(title);
+        this.setTitle(title + " hotel");
         GridPane pane = new GridPane();
         initContent(pane);
         Scene scene = new Scene(pane);
@@ -53,7 +55,7 @@ public class HotelWindow extends Stage {
         setKonferencerListView(pane);
         setButtons(pane);
 
-        setTextFields();
+        setTextFieldsAndListView();
     }
 
     private void setNavnOgAdresse(GridPane pane) {
@@ -114,7 +116,7 @@ public class HotelWindow extends Stage {
     }
 
     private void okAction() {
-        String navn = navnTextField.getText().trim();
+        String navnInput = navnTextField.getText().trim();
         String enkeltværelsesPrisInput = enkeltværelsesPrisTextField.getText().trim();
         String dobbeltværelsesPrisInput = dobbeltværelsesPrisTextField.getText().trim();
         String vejInput = vejNavnTextField.getText().trim();
@@ -123,7 +125,7 @@ public class HotelWindow extends Stage {
         String landInput = landTextField.getText().trim();
         ArrayList<Konference> konferencer = new ArrayList<>(konferencerListView.getSelectionModel().getSelectedItems());
 
-        if(Utility.blankTextField(navn, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput)){
+        if(Utility.blankTextField(navnInput, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput)){
             errorLabel.setText("Ikke alle felter er udfyldt");
             return;
         }
@@ -133,7 +135,13 @@ public class HotelWindow extends Stage {
         try {
             double enkeltværelsesPris = Double.parseDouble(enkeltværelsesPrisInput);
             double dobbeltværelsesPris = Double.parseDouble(dobbeltværelsesPrisInput);
-            Controller.opretHotel(navn, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
+
+            if(hotel != null) {
+                Controller.opdaterHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
+            }
+            else {
+                Controller.opretHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
+            }
         }
         catch (NumberFormatException ex) {
             errorLabel.setText("Prisen skal være et positivt tal.");
@@ -146,7 +154,7 @@ public class HotelWindow extends Stage {
         hide();
     }
 
-    private void setTextFields() {
+    private void setTextFieldsAndListView() {
         if(hotel != null) {
             navnTextField.setText(hotel.getNavn());
             vejNavnTextField.setText(hotel.getAddresse().getVejNavn());
@@ -155,15 +163,16 @@ public class HotelWindow extends Stage {
             landTextField.setText(hotel.getAddresse().getLand());
             enkeltværelsesPrisTextField.setText(String.valueOf(hotel.getEnkeltVærelsesPris()));
             dobbeltværelsesPrisTextField.setText(String.valueOf(hotel.getDobbeltVærelsesPris()));
+
+            for(int index = 0; index < Storage.getKonferencer().size(); index++) {
+                Konference storageKonference = Storage.getKonferencer().get(index);
+                if(hotel.getKonferencer().contains(storageKonference)) {
+                    konferencerListView.getSelectionModel().selectIndices(index);
+                }
+            }
         }
         else {
-            navnTextField.clear();
-            vejNavnTextField.clear();
-            bygningsNrTextField.clear();
-            byTextField.clear();
-            landTextField.clear();
-            enkeltværelsesPrisTextField.clear();
-            dobbeltværelsesPrisTextField.clear();
+            Stream.of(navnTextField, vejNavnTextField, bygningsNrTextField, byTextField, landTextField, enkeltværelsesPrisTextField, dobbeltværelsesPrisTextField).forEach(TextInputControl::clear);
         }
     }
 }

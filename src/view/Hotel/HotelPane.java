@@ -1,14 +1,13 @@
 package view.Hotel;
 
 import domain.model.Hotel;
+import domain.model.HotelTillæg;
 import domain.model.Tilmelding;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import storage.Storage;
 
 import java.util.Optional;
@@ -22,6 +21,9 @@ public class HotelPane extends GridPane {
     Button opretHotelButton = new Button("Opret hotel");
     Button opdaterHotelButton = new Button("Opdater hotel");
     Button sletHotelButton = new Button("Slet hotel");
+    Button opretHotelTillægButton = new Button("Opret hoteltillæg");
+    Button opdaterHotelTillægButton = new Button("Opdater hoteltillæg");
+    Button sletHotelTillægButton = new Button("Slet hoteltillæg");
 
     public HotelPane() {
         this.setPadding(new Insets(20));
@@ -29,41 +31,44 @@ public class HotelPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        ColumnConstraints colConstraints = new ColumnConstraints();
-        colConstraints.setHgrow(Priority.NEVER); // Kolonner skalerer ikke unødvendigt
-        colConstraints.setMinWidth(Control.USE_COMPUTED_SIZE); // Brug kun nødvendig plads
-        this.getColumnConstraints().addAll(
-                new ColumnConstraints(186), // Opret hotel
-                new ColumnConstraints(186), // Opdater hotel
-                new ColumnConstraints(186) // Slet hotel
-        );
         setHotellerListView();
         setTilmeldingerListView();
-        ChangeListener<Hotel> listener = (ov, oldHotel, newHotel) -> this.selectedHotelChanged(newHotel);
-        hotellerListView.getSelectionModel().selectedItemProperty().addListener(listener);
-
-        this.add(opretHotelButton, 0, 2);
-        opretHotelButton.setOnAction(event -> opretHotelAction());
-
-        GridPane.setHalignment(opdaterHotelButton, HPos.CENTER);
-        this.add(opdaterHotelButton, 1, 2);
-
-        GridPane.setHalignment(sletHotelButton, HPos.RIGHT);
-        this.add(sletHotelButton, 2, 2);
-        sletHotelButton.setOnAction(event -> sletHotelAction());
-
+        setButtons();
     }
 
     private void setHotellerListView() {
         this.add(new Label("Vælg et hotel:"), 0, 0);
-        this.add(hotellerListView, 0, 1, 3, 1);
+        this.add(hotellerListView, 0, 1, 6, 1);
         hotellerListView.getItems().setAll(Storage.getHoteller());
+        ChangeListener<Hotel> listener = (ov, oldHotel, newHotel) -> this.selectedHotelChanged(newHotel);
+        hotellerListView.getSelectionModel().selectedItemProperty().addListener(listener);
+
     }
 
     private void setTilmeldingerListView() {
-        this.add(new Label("Deltagere reserveret på det valgte hotel:"), 3, 0);
-        tilmeldingerListView.setPrefWidth(598);
-        this.add(tilmeldingerListView, 3, 1, 3, 1);
+        this.add(new Label("Deltagere reserveret på det valgte hotel:"), 6, 0);
+        tilmeldingerListView.setPrefWidth(540);
+        this.add(tilmeldingerListView, 6, 1, 3, 1);
+    }
+
+    private void setButtons() {
+        this.add(opretHotelButton, 0, 2);
+        opretHotelButton.setOnAction(event -> opretHotelAction());
+
+        this.add(opdaterHotelButton, 1, 2);
+        opdaterHotelButton.setOnAction(event -> opdaterHotelAction());
+
+        this.add(sletHotelButton, 2, 2);
+        sletHotelButton.setOnAction(event -> sletHotelAction());
+
+        this.add(opretHotelTillægButton, 3, 2);
+        opretHotelTillægButton.setOnAction(event -> opretHotelTillægAction());
+
+        this.add(opdaterHotelTillægButton, 4, 2);
+        opdaterHotelTillægButton.setOnAction(event -> opdaterHotelTillæg());
+
+        this.add(sletHotelTillægButton, 5, 2);
+        sletHotelTillægButton.setOnAction(event -> sletHotelTillægAction());
     }
 
     private void selectedHotelChanged(Hotel newHotel) {
@@ -76,8 +81,23 @@ public class HotelPane extends GridPane {
     }
 
     private void opretHotelAction() {
-        new HotelWindow("Opret hotel").showAndWait();
+        new HotelWindow("Opret").showAndWait();
         hotellerListView.getItems().setAll(Storage.getHoteller());
+    }
+
+    private void opdaterHotelAction() {
+        Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
+        if(hotel != null) {
+            new HotelWindow("Opdater", hotel).showAndWait();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Opdater hotel");
+            alert.setHeaderText("Du har ikke valgt et hotel i listen.");
+            // wait for the modal dialog to close
+            alert.show();
+        }
+        hotellerListView.refresh();
     }
 
     private void sletHotelAction() {
@@ -92,6 +112,51 @@ public class HotelPane extends GridPane {
                 hotellerListView.getItems().setAll(Storage.getHoteller());
                 tilmeldingerListView.getItems().setAll();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Slet hotel");
+            alert.setHeaderText("Du har ikke valgt et hotel i listen.");
+            // wait for the modal dialog to close
+            alert.show();
+        }
+    }
+
+    private void opretHotelTillægAction() {
+        Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
+        if(hotel != null) {
+            new HotelTillægWindow("Opret", hotel).showAndWait();
+            hotellerListView.refresh();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Opret hotel");
+            alert.setHeaderText("Du har ikke valgt et hotel i listen.");
+            // wait for the modal dialog to close
+            alert.show();
+        }
+    }
+
+    private void opdaterHotelTillæg() {
+        Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
+        if(hotel != null) {
+            new HotelTillægWindow("Opdater", hotel).showAndWait();
+            hotellerListView.refresh();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Opdater hotel");
+            alert.setHeaderText("Du har ikke valgt et hotel i listen.");
+            // wait for the modal dialog to close
+            alert.show();
+        }
+    }
+
+    private void sletHotelTillægAction() {
+        Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
+        if (hotel != null) {
+            new HotelTillægWindow("Slet", hotel).showAndWait();
+            hotellerListView.refresh();
+            tilmeldingerListView.refresh();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Slet hotel");

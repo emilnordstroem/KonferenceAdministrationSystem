@@ -19,9 +19,9 @@ public class App {
         Udflugt byRundtur = havOgHimmel.createUdflugt("Byrundtur, Odense", null, LocalDate.of(2024, 12, 18), "Kr. 125 inkl. Frokost", 125);
         Udflugt egeskov = havOgHimmel.createUdflugt("Egeskov", null, LocalDate.of(2024, 12, 19), "Kr. 75", 75);
         Udflugt trapholtMuseum = havOgHimmel.createUdflugt("Trapholt Museum, Kolding", null, LocalDate.of(2024, 12, 20), "Kr. 200 inkl. Frokost", 200);
-        Hotel denHvideSvane = Controller.opretHotel("Den hvide svane", null, 1050, 1250, new ArrayList<>());
-        HotelTillæg wifi = new HotelTillæg("WIFI", 50);
-        denHvideSvane.addHotelTillæg(wifi);
+
+        Hotel denHvideSvane = Controller.opretHotel("Den hvide svane", new Adresse("Sønderhøj", "31", "Aarhus", "Denmark"), 1050, 1250, new ArrayList<>());
+        HotelTillæg wifi = new HotelTillæg("WIFI", 50, denHvideSvane);
         ArrayList<Udflugt> valgteUdflugter = new ArrayList<>();
         ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();
 

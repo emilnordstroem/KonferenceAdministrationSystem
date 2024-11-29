@@ -27,10 +27,15 @@ public class Utility {
         return s;
     }
 
-    public static boolean blankTextField(String navn, String enkeltværelsesPrisInput, String dobbeltværelsesPrisInput,
+    public static boolean blankTextField(String navnInput, String enkeltværelsesPrisInput, String dobbeltværelsesPrisInput,
                                    String vejInput, String bygningNrInput,
                                    String byInput, String landInput){
         // Tjekker via Stream metoder om en forekommende string er blank
-        return Stream.of(navn, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput).anyMatch(String::isBlank);
+        return Stream.of(navnInput, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput).anyMatch(String::isBlank);
+    }
+
+    public static boolean blankTextField(String navnInput, String prisInput){
+        // Tjekker via Stream metoder om en forekommende string er blank
+        return Stream.of(navnInput, prisInput).anyMatch(String::isBlank);
     }
 }
