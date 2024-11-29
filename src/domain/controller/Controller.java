@@ -70,4 +70,10 @@ public class Controller {
     // Update metoder -------------------------------------------------------------------
     public static void opdaterHotel(String navn, Adresse adresse, double enkeltværelsesPris, double dobbeltværelsesPris, ArrayList<Konference> konferencer) {
     }
+
+    public static Udflugt opretUdflugt(String navn, Adresse adresse, LocalDate localDate, String beksrivelse, double pris){
+        Udflugt udflugt = new Udflugt(navn, adresse, localDate, beksrivelse, pris);
+        Storage.addUdflugt(udflugt);
+        return udflugt;
+    }
 }

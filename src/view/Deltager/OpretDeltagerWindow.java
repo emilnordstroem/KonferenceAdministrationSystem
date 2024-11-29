@@ -15,6 +15,8 @@ import storage.Storage;
 
 import java.util.stream.Stream;
 
+import static view.Error.blankTextField;
+
 public class OpretDeltagerWindow extends Stage {
     private TextField fornavnTextField = new TextField();
     private TextField efternavnTextField = new TextField();
@@ -56,10 +58,12 @@ public class OpretDeltagerWindow extends Stage {
         registerFirmaBtn.setOnAction(event -> {
             registerFirma();
         });
+
         opretBtn.setOnAction(event -> {
             okAction();
             hide();
         });
+
         cancelBtn.setOnAction(event -> hide());
     }
 
@@ -104,13 +108,14 @@ public class OpretDeltagerWindow extends Stage {
     }
 
     private void setButtons(GridPane pane){
-        pane.add(registerFirmaBtn, 1, 11);
+        pane.add(registerFirmaBtn, 1, 12);
         pane.add(opretBtn,0,13);
         pane.add(cancelBtn,1,13);
         pane.add(errorLabel, 0, 12);
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
+    // Ikke korrekt fejlhåndtering ved oprettelse uden indput
     private void okAction(){
         String fornavn = fornavnTextField.getText().trim();
         String efternavn = efternavnTextField.getText().trim();
@@ -121,32 +126,20 @@ public class OpretDeltagerWindow extends Stage {
         String byInput = byTextField.getText().trim();
         String landInput = landTextField.getText().trim();
 
-        if(!blankTextField(fornavn, efternavn, tlf, vejInput, bygningNrInput, byInput, landInput)){
-            return;
-        }
-
-        Adresse adresse = new Adresse(vejInput, bygningNrInput, byInput, landInput);
-        Firma firma = firmaComboBox.getSelectionModel().getSelectedItem();
-
-        if(firma == null){
-            Controller.opretDeltager(fornavn, efternavn, tlf, adresse, null);
-            System.out.println("Deltager er korrekt oprettet uden firma");
+        if(blankTextField(fornavn, efternavn, tlf, vejInput, bygningNrInput, byInput, landInput)){
+            errorLabel.setText("Udfyld alle krævet felter");
         } else {
-            Controller.opretDeltager(fornavn, efternavn, tlf, adresse, firma);
-            System.out.println("Deltager er korrekt oprettet med firma");
-        }
-    }
+            Adresse adresse = new Adresse(vejInput, bygningNrInput, byInput, landInput);
+            Firma firma = firmaComboBox.getSelectionModel().getSelectedItem();
 
-    private boolean blankTextField(String fornavn, String efternavn, String tlf, String vejInput, String bygningNrInput,
-                                   String byInput, String landInput){
-        // Tjekker via Stream metoder om en forekommende string er blank
-        boolean hasBlankTextFields = Stream.of(fornavn, efternavn, tlf, vejInput, bygningNrInput, byInput, landInput).anyMatch(String::isBlank);
-        if(hasBlankTextFields){
-            System.out.println("Forekommer blanke felter i oprettelse af deltager");
-            errorLabel.setText("Ikke alle felter er udfyldt");
-            return false;
+            if(firma == null){
+                Controller.opretDeltager(fornavn, efternavn, tlf, adresse, null);
+                System.out.println("Deltager er korrekt oprettet uden firma");
+            } else {
+                Controller.opretDeltager(fornavn, efternavn, tlf, adresse, firma);
+                System.out.println("Deltager er korrekt oprettet med firma");
+            }
         }
-        return true;
     }
 
     private void registerFirma(){

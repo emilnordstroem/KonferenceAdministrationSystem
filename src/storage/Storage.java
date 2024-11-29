@@ -10,6 +10,7 @@ public class Storage {
     private static final ArrayList<Hotel> hoteller = new ArrayList<>();
     private static final ArrayList<Deltager> deltagere = new ArrayList<>();
     private static final ArrayList<Firma> firmaer = new ArrayList<>();
+    private static final ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     // Konference Methods -------------------------------------------------------------------
     public static void addKonference(Konference konference) {
@@ -70,5 +71,18 @@ public class Storage {
     public static ArrayList<Firma> getFirmaer() {
         return new ArrayList<>(firmaer);
     }
+
+    // Udflugter Methods ----------------------------------------------------------------------------
+    public static ArrayList<Udflugt> getUdflugter() {
+        return new ArrayList<>(udflugter);
+    }
+
+    public static void addUdflugt(Udflugt udflugt){
+        if (!udflugter.contains(udflugt)){
+            udflugter.add(udflugt);
+            System.out.println("udflugt er tilføjet");
+        }
+    }
+
 
 }

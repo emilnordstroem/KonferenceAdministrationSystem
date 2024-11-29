@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.Deltager.DeltagerPane;
 import view.Hotel.HotelPane;
-import view.Konference.KonferencePane;
+import view.konference.KonferencePane;
 
 public class StartWindow extends Application {
     @Override

@@ -24,17 +24,13 @@ public class KonferencePane extends GridPane {
     private final ListView<Udflugt> udflugterListView = new ListView<>();
 
     // Buttons
-    Button createKonferenceButton = new Button("Opret konference");
-    Button opdaterKonferenceButton = new Button("Opdater konference");
-    Button sletKonferenceButton = new Button("Slet konference");
+    private final Button createKonferenceButton = new Button("Opret konference");
+    private final Button opdaterKonferenceButton = new Button("Opdater konference");
+    private final Button sletKonferenceButton = new Button("Slet konference");
 
-    Button opretTilmeldingButton = new Button("Opret tilmelding");
-    Button opdaterTilmeldingButton = new Button("Opdater tilmelding");
-    Button sletTilmeldingButton = new Button("Slet tilmelding");
-
-    Button createUdflugtButton = new Button("Opret udflugt");
-    Button opdaterUdflugtButton = new Button("Opdater udflugt");
-    Button sletUdFlugtButton = new Button("Slet udflugt");
+    private final Button opretTilmeldingButton = new Button("Opret tilmelding");
+    private final Button opdaterTilmeldingButton = new Button("Opdater tilmelding");
+    private final Button sletTilmeldingButton = new Button("Slet tilmelding");
 
     public KonferencePane() {
         this.setPadding(new Insets(20));
@@ -111,14 +107,6 @@ public class KonferencePane extends GridPane {
 
         GridPane.setHalignment(sletTilmeldingButton, HPos.RIGHT);
         this.add(sletTilmeldingButton, 5, 2);
-
-        this.add(createUdflugtButton, 6, 2);
-
-        GridPane.setHalignment(opdaterUdflugtButton, HPos.RIGHT);
-        this.add(opdaterUdflugtButton, 7, 2);
-
-        GridPane.setHalignment(sletUdFlugtButton, HPos.RIGHT);
-        this.add(sletUdFlugtButton, 8, 2);
     }
 
     // Funktionel kode

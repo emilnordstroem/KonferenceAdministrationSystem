@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import storage.Storage;
-
 import java.util.ArrayList;
 
 public class DeltagerPane extends GridPane {
@@ -14,6 +13,9 @@ public class DeltagerPane extends GridPane {
     private final TextField prisTextField = new TextField();
     private final TextField personSøgning = new TextField();
     private final TextField deltagerInto = new TextField();
+
+    private final Button opretDeltagerButton = new Button("Opret deltager");
+    private final Button sletDeltagerButton = new Button("Slet deltager");
     private final Button søgKnap = new Button("Søg");
     private final Button beregnPrisButton = new Button("Beregn pris");
 
@@ -25,6 +27,7 @@ public class DeltagerPane extends GridPane {
 
         setSøgningHBox();
         setDeltagerListView();
+        setButtonHBox();
         setBeregnPrisHBox();
         setNonEdibleTextFields();
 
@@ -32,10 +35,10 @@ public class DeltagerPane extends GridPane {
             System.out.println("Søgning...");
             String søgning = personSøgning.getText();
 
-            ArrayList<Deltager> sortedDeltagerList = sortedArray(Storage.getDeltagere());
+            ArrayList<Deltager> sortedDeltagerList = SearchAlgorithm.sortedArray(Storage.getDeltagere());
 
             if(!søgning.isBlank() && !sortedDeltagerList.isEmpty()){
-                Deltager deltager = binaryPersonSearch(sortedDeltagerList, søgning);
+                Deltager deltager = SearchAlgorithm.binaryPersonSearch(sortedDeltagerList, søgning);
                 if(deltager != null){
                     deltagerInto.setText(deltager.toString());
                 } else {
@@ -61,12 +64,7 @@ public class DeltagerPane extends GridPane {
             }
         });
 
-        Button opretDeltagerButton = new Button("Opret deltager");
-        this.add(opretDeltagerButton, 0, 2);
         opretDeltagerButton.setOnAction(event -> opretDeltagerAction());
-
-        Button sletDeltagerButton = new Button("Slet deltager");
-        this.add(sletDeltagerButton, 1,2);
         sletDeltagerButton.setOnAction(event -> {
             Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
             fjernDeltager(deltager);
@@ -79,7 +77,7 @@ public class DeltagerPane extends GridPane {
         personSøgning.setPrefWidth(50);
         deltagerInto.setPrefWidth(450);
         søgningHBox.getChildren().addAll(deltagereLabel, personSøgning, deltagerInto, søgKnap);
-        this.add(søgningHBox, 1,0);
+        this.add(søgningHBox, 0,0);
     }
 
     private void setBeregnPrisHBox(){
@@ -88,45 +86,10 @@ public class DeltagerPane extends GridPane {
         this.add(beregnPrisHBox, 2, 0);
     }
 
-    // Sorteret arrayList : bubble sort
-    private ArrayList<Deltager> sortedArray(ArrayList<Deltager> deltagerListe) {
-        if(!deltagerListe.isEmpty()) {
-            for (int outerIndex = 0; outerIndex < deltagerListe.size() - 1; outerIndex++) {
-                for (int innerIndex = 0; innerIndex < deltagerListe.size() - outerIndex - 1; innerIndex++) {
-                    String currentFornavn = deltagerListe.get(innerIndex).getForNavn();
-                    String nextFornavn = deltagerListe.get(innerIndex + 1).getForNavn();
-                    if(currentFornavn.compareTo(nextFornavn) > 0) {
-                        Deltager temp = deltagerListe.get(innerIndex);
-                        deltagerListe.set(innerIndex, deltagerListe.get(innerIndex + 1));
-                        deltagerListe.set(innerIndex + 1, temp);
-                    }
-                }
-            }
-            return deltagerListe;
-        }
-        return null;
-    }
-
-    // Binary search algorithm
-    private Deltager binaryPersonSearch(ArrayList<Deltager> sorteretDeltagerListe, String target){
-        Deltager deltager = null;
-        int left = 0;
-        int right = sorteretDeltagerListe.size();
-        while(deltager == null && left <= right){
-            int middle = (left + right) / 2;
-            Deltager kandidat = sorteretDeltagerListe.get(middle);
-            if(kandidat.getForNavn().compareTo(target) == 0){
-                System.out.println("Fundet!");
-                return kandidat;
-            } else if (kandidat.getForNavn().compareTo(target) > 0){
-                System.out.println("Tilstede i venstre halvdel");
-                right = middle - 1;
-            } else {
-                System.out.println("Tilstede i højre halvdel");
-                left = middle + 1;
-            }
-        }
-        return deltager;
+    private void setButtonHBox(){
+        HBox buttonHBox = new HBox(10);
+        buttonHBox.getChildren().addAll(opretDeltagerButton, sletDeltagerButton);
+        this.add(buttonHBox, 0, 2);
     }
 
     private void opretDeltagerAction() {
@@ -145,7 +108,7 @@ public class DeltagerPane extends GridPane {
     }
 
     private void setDeltagerListView(){
-        deltagereListView.setPrefWidth(1215);
+        deltagereListView.setPrefWidth(1000);
         deltagereListView.getItems().setAll(Storage.getDeltagere());
         this.add(deltagereListView, 0, 1, 6,1);
     }

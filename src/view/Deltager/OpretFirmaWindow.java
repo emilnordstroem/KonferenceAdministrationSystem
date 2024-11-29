@@ -9,13 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.util.stream.Stream;
+import static view.Error.blankTextField;
 
 public class OpretFirmaWindow extends Stage {
     private final TextField firmaNavnTextField = new TextField();
     private final TextField firmaTelefonNummerTextField = new TextField();
-
-
 
     private Button opretFirmaButton = new Button("Opret");
     private Button cancelButton = new Button("Cancel");
@@ -43,8 +41,16 @@ public class OpretFirmaWindow extends Stage {
 
 
         opretFirmaButton.setOnAction(event -> {
-            okAction();
-            hide();
+            String navn = firmaNavnTextField.getText();
+            String telefonNummer = firmaTelefonNummerTextField.getText();
+
+            if(!blankTextField(navn, telefonNummer)) {
+                System.out.println("Ikke alle virksomhedsfelter er udfyldt");
+                errorLabel.setText("Ikke alle felter er udfyldt");
+            } else {
+                okAction(navn, telefonNummer);
+                hide();
+            }
         });
         cancelButton.setOnAction(event -> hide());
     }
@@ -66,25 +72,8 @@ public class OpretFirmaWindow extends Stage {
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
-    private void okAction(){
-        String navn = firmaNavnTextField.getText();
-        String telefonNummer = firmaTelefonNummerTextField.getText();
-
-        if(!blankTextField(navn, telefonNummer)){
-            errorLabel.setText("Ikke alle felter er udfyldt");
-        } else {
-            Controller.opretFirma(navn, telefonNummer);
-            System.out.println("Firma blev oprettet i OpretFirmaWindow.java");
-        }
-    }
-
-    private boolean blankTextField(String navn, String tlf){
-        // Tjekker via Stream metoder om en forekommende string er blank
-        boolean hasBlankTextFields = Stream.of(navn, tlf).anyMatch(String::isBlank);
-        if(hasBlankTextFields){
-            System.out.println("Forekommer blanke felter i oprettelse af firma");
-            return false;
-        }
-        return true;
+    private void okAction(String navn, String telefonNummer){
+        Controller.opretFirma(navn, telefonNummer);
+        System.out.println("Firma blev oprettet i OpretFirmaWindow.java");
     }
 }
