@@ -1,4 +1,4 @@
-package view.Konference;
+package view.konference;
 
 import domain.model.Konference;
 import domain.model.Tilmelding;
@@ -66,6 +66,36 @@ public class KonferencePane extends GridPane {
         ChangeListener<Konference> listener = (ov, oldKonference, newKonference) -> this.selectedKonferenceChanged(newKonference);
         konferencerListView.getSelectionModel().selectedItemProperty().addListener(listener);
 
+        setButtons();
+
+        createKonferenceButton.setOnAction(event -> {
+            opretKonference();
+
+        });
+
+    }
+
+    private void setKonferencerListView(){
+        this.add(new Label("Vælg en konference:"), 0, 0);
+        this.add(konferencerListView, 0,1,3,1);
+        konferencerListView.getItems().setAll(Storage.getKonferencer());
+    }
+
+    private void setTilmeldingerListView(){
+        Label deltagereLabel = new Label("Deltagere tilmeldt til den valgte konference:");
+        deltagereLabel.setMinWidth(250);
+        this.add(deltagereLabel, 3, 0);
+        this.add(tilmeldingerListView, 3, 1, 3, 1);
+    }
+
+    private void setUdflugterListView(){
+        Label udflugterLabel = new Label("Udflugter som den valgte konfernece tilbyder:");
+        this.add(udflugterLabel, 6, 0);
+        udflugterLabel.setMinWidth(250);
+        this.add(udflugterListView, 6, 1, 3, 1);
+    }
+
+    private void setButtons(){
         this.add(createKonferenceButton, 0, 2);
 
         GridPane.setHalignment(opdaterKonferenceButton, HPos.RIGHT);
@@ -91,26 +121,6 @@ public class KonferencePane extends GridPane {
         this.add(sletUdFlugtButton, 8, 2);
     }
 
-    private void setKonferencerListView(){
-        this.add(new Label("Vælg en konference:"), 0, 0);
-        this.add(konferencerListView, 0,1,3,1);
-        konferencerListView.getItems().setAll(Storage.getKonferencer());
-    }
-
-    private void setTilmeldingerListView(){
-        Label deltagereLabel = new Label("Deltagere tilmeldt til den valgte konference:");
-        deltagereLabel.setMinWidth(250);
-        this.add(deltagereLabel, 3, 0);
-        this.add(tilmeldingerListView, 3, 1, 3, 1);
-    }
-
-    private void setUdflugterListView(){
-        Label udflugterLabel = new Label("Udflugter som den valgte konfernece tilbyder:");
-        this.add(udflugterLabel, 6, 0);
-        udflugterLabel.setMinWidth(250);
-        this.add(udflugterListView, 6, 1, 3, 1);
-    }
-
     // Funktionel kode
     private void selectedKonferenceChanged(Konference newKonference) {
         if(newKonference != null) {
@@ -125,5 +135,10 @@ public class KonferencePane extends GridPane {
             tilmeldingerListView.getItems().setAll(sorteretTilmeldingArrayList);
             udflugterListView.getItems().setAll(newKonference.getUdflugter());
         }
+    }
+
+    private void opretKonference(){
+        new KonferenceWindow().showAndWait();
+        konferencerListView.getItems().setAll(Storage.getKonferencer());
     }
 }
