@@ -8,17 +8,25 @@ public class Konference {
     private LocalDate startDato;
     private LocalDate slutDato;
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
-    private final ArrayList<Hotel> hoteller = new ArrayList<>();
+    private ArrayList<Hotel> hoteller = new ArrayList<>();
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private double prisPrDag;
 
-    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double prisPrDag) {
+    public Konference(String navn, LocalDate startDato, LocalDate slutDato, double prisPrDag, ArrayList<Hotel> hoteller) {
         this.navn = navn;
         if(startDato.isBefore(slutDato)){
             this.startDato = startDato;
             this.slutDato = slutDato;
         }
         this.prisPrDag = prisPrDag;
+
+        if(hoteller != null){
+            this.hoteller = new ArrayList<>(hoteller);
+        }
+    }
+
+    public String getNavn(){
+        return this.navn;
     }
 
     public ArrayList<Udflugt> getUdflugter() {

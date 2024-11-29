@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -24,6 +25,8 @@ public class OpretUdflugtWindow extends Stage {
     private TextField byTextField = new TextField();
     private TextField landTextField = new TextField();
 
+    private Button opretUdflugtBtn = new Button("Opret Udflugt");
+    private Button cancelButton = new Button("Cancel");
 
     public OpretUdflugtWindow() {
         this.setTitle("Opret udlflugt");
@@ -38,6 +41,8 @@ public class OpretUdflugtWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
 
+        addbuttons(pane);
+
         Label navnLbl = new Label("Navn");
         Label datoLbl = new Label("Dato");
         Label beskrivelseLbl = new Label("Beskrivelse");
@@ -46,7 +51,6 @@ public class OpretUdflugtWindow extends Stage {
         Label bygningsnrLbl = new Label("Bygnings nummer");
         Label byLbl = new Label("By");
         Label landLbl = new Label("Land");
-
 
         pane.add(navnLbl,0,0);
         pane.add(datoLbl,0,2);
@@ -66,14 +70,15 @@ public class OpretUdflugtWindow extends Stage {
         pane.add(byTextField,0,13);
         pane.add(landTextField,0,15);
 
-        Button cancelButton = new Button("Cancel");
-        pane.add(cancelButton,1,16);
         cancelButton.setOnAction(event -> close());
 
-        Button opretUdflugtBtn = new Button("Opret Udflugt");
-        pane.add(opretUdflugtBtn,0,16);
         opretUdflugtBtn.setOnAction(event -> opretUdflugt());
+    }
 
+    private void addbuttons(GridPane pane){
+        HBox buttonHBox= new HBox(1);
+        buttonHBox.getChildren().addAll(opretUdflugtBtn, cancelButton);
+        pane.add(buttonHBox,0,16);
     }
 
     private void opretUdflugt(){

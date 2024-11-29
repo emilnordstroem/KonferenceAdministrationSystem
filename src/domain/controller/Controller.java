@@ -17,8 +17,9 @@ public class Controller {
     }
 
     // K3, UC2
-    public static Konference opretKonference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag) {
-        Konference konference = new Konference(navn, startDato, slutDato, afgiftPerDag);
+    public static Konference opretKonference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag,
+                                             ArrayList<Hotel> hoteller) {
+        Konference konference = new Konference(navn, startDato, slutDato, afgiftPerDag, hoteller);
         Storage.addKonference(konference);
         return konference;
     }
@@ -31,7 +32,6 @@ public class Controller {
                 hotel.addKonference(konference);
             }
         }
-
         Storage.addHotel(hotel);
         return hotel;
     }

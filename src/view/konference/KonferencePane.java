@@ -64,9 +64,13 @@ public class KonferencePane extends GridPane {
 
         setButtons();
 
-        createKonferenceButton.setOnAction(event -> {
-            opretKonference();
+        createKonferenceButton.setOnAction(event -> opretKonference());
 
+        sletKonferenceButton.setOnAction(event -> {
+            if(!konferencerListView.getSelectionModel().isEmpty()){
+                System.out.println("Fjern konference metode kaldt");
+                fjernKonference();
+            }
         });
 
     }
@@ -127,6 +131,12 @@ public class KonferencePane extends GridPane {
 
     private void opretKonference(){
         new OpretKonferenceWindow().showAndWait();
+        konferencerListView.getItems().setAll(Storage.getKonferencer());
+    }
+
+    private void fjernKonference(){
+        Konference konferenceTilFjernelse = konferencerListView.getSelectionModel().getSelectedItem();
+        new ConfirmDeleteKonferenceWindow(konferenceTilFjernelse).showAndWait();
         konferencerListView.getItems().setAll(Storage.getKonferencer());
     }
 }

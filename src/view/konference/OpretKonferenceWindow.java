@@ -1,15 +1,19 @@
 package view.konference;
 
+import domain.controller.Controller;
 import domain.model.Hotel;
 import domain.model.Udflugt;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static view.Error.blankTextField;
 import static view.Error.conflictingDates;
@@ -21,10 +25,11 @@ public class OpretKonferenceWindow extends Stage {
     private final DatePicker fraDatoPicker = new DatePicker();;
     private final DatePicker tilDatoPicker = new DatePicker();;
 
-    private final ComboBox<Hotel> hotelComboBox = new ComboBox<>();
+    private final ListView<Hotel> hotelListView = new ListView<>();
 
     private final Button opretUdflugtButton = new Button("Opret");
-    private final ComboBox<Udflugt> udflugtComboBox = new ComboBox<>();
+    private final Button sletUdflugtButton = new Button("Fjern");
+    private final ListView<Udflugt> udflugtListView = new ListView<>();
 
     private Label errorLabel = new Label();
 
@@ -55,12 +60,18 @@ public class OpretKonferenceWindow extends Stage {
             opretUdflugt();
         });
 
+        sletUdflugtButton.setOnAction(event -> {
+            System.out.println("sletUdflugtButton clicked");
+            sletUdflugt();
+        });
+
         opretButton.setOnAction(event -> {
             String navn = navnTextField.getText();
             String afgift = prisPrDagTextField.getText();
             LocalDate fraDato = fraDatoPicker.getValue();
             LocalDate tilDato = tilDatoPicker.getValue();
 
+            // Error preventions
             if(!blankTextField(navn, afgift)){
                 System.out.println("Ikke alle konference felter er udfyldt (navn og afgift)");
                 errorLabel.setText("Ikke alle felter er udfyldt");
@@ -68,7 +79,7 @@ public class OpretKonferenceWindow extends Stage {
                 System.out.println("Fejl i datepicker - fra dato efter til dato");
                 errorLabel.setText("Den valgte fra dato kommer efter den valgte til dato");
             } else {
-                opretKonferenceAction(navn, afgift, fraDato, tilDato);
+                opretKonferenceAction(navn, Double.parseDouble(afgift), fraDato, tilDato);
                 hide();
             }
         });
@@ -91,12 +102,16 @@ public class OpretKonferenceWindow extends Stage {
 
         Label hotelLabel = new Label("Marker tilgængeligt hotel");
         pane.add(hotelLabel, 0,7,2,1);
-        pane.add(hotelComboBox,0,8,2,1);
+        pane.add(hotelListView,0,8,2,1);
+        hotelListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        hotelListView.setPrefHeight(100);
 
+        HBox buttonHBox= new HBox(1);
         Label udflugtLabel = new Label("Opret udflugter");
-        pane.add(udflugtLabel, 0,9, 2,1);
-        pane.add(opretUdflugtButton, 1,9,2,1);
-        pane.add(udflugtComboBox, 0,10,2,1);
+        buttonHBox.getChildren().addAll(udflugtLabel, opretUdflugtButton, sletUdflugtButton);
+        pane.add(buttonHBox,0,9);
+        pane.add(udflugtListView, 0,10,2,1);
+        udflugtListView.setPrefHeight(100);
 
         pane.add(opretButton,0,12);
         pane.add(cancelButton,1,12);
@@ -105,17 +120,28 @@ public class OpretKonferenceWindow extends Stage {
     }
 
     private void setHotelComboBox(){
-        hotelComboBox.getItems().addAll(Storage.getHoteller());
+        hotelListView.getItems().addAll(Storage.getHoteller());
     }
 
     private void opretUdflugt(){
         System.out.println("opretUdflugt metode kører");
         new OpretUdflugtWindow().showAndWait();
-        udflugtComboBox.getItems().setAll(Storage.getUdflugter());
+        udflugtListView.getItems().setAll(Storage.getUdflugter());
     }
 
-    private void opretKonferenceAction(String navn, String pris, LocalDate fraDato, LocalDate tilDato){
+    private void sletUdflugt(){
+        new ConfirmDeleteUdflugtWindow(udflugtListView.getSelectionModel().getSelectedItem()).showAndWait();
+        udflugtListView.getItems().setAll(Storage.getUdflugter());
+    }
 
-
+    private void opretKonferenceAction(String navn, double pris, LocalDate fraDato, LocalDate tilDato){
+        ObservableList<Hotel> valgteHotellerListView = hotelListView.getSelectionModel().getSelectedItems();
+        ArrayList<Hotel> valgteHotellerArrayList = new ArrayList<>(valgteHotellerListView);
+        if(valgteHotellerArrayList.isEmpty()) {
+            System.out.println("Ingen hoteller valgt i oprettelse af konference");
+            errorLabel.setText("Vælg tilgængelige hoteller");
+        } else {
+            Controller.opretKonference(navn, fraDato, tilDato, pris, valgteHotellerArrayList);
+        }
     }
 }

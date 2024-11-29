@@ -9,14 +9,21 @@ import java.util.Random;
 public class Test {
     // This class is a console output test of the functionality of the system
     public static void main(String[] args) {
-        Konference havOgHimmel = Controller.opretKonference("Hav og himmel", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500);
+        Konference havOgHimmel = Controller.opretKonference("Hav og himmel", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500, null);
 
         Udflugt egeskov = havOgHimmel.createUdflugt("Egeskov", null, LocalDate.of(2024, 12, 18), "Skov kiggeri", 75);
         Udflugt trapholtMuseum = havOgHimmel.createUdflugt("Trapholt", null, LocalDate.of(2024, 12, 20), "Museum", 200);
         Udflugt byRundtur = havOgHimmel.createUdflugt("Byrundtur", null, LocalDate.of(2024, 12,18), "Byrundbyr", 125);
 
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", null, 1050,1250, new ArrayList<>());
-        HotelTillæg wifi = new HotelTillæg("WIFI", 50, denHvideSvane);
+        HotelTillæg wifi = Controller.opretHotelTillæg("WIFI", 50, denHvideSvane);
+
+        Hotel høtelPhønix = Controller.opretHotel("Høtel", null, 700, 800, new ArrayList<>());
+        HotelTillæg bad = Controller.opretHotelTillæg("Bad", 200, høtelPhønix);
+        HotelTillæg wift = Controller.opretHotelTillæg("WIFT", 75, høtelPhønix);
+
+        Hotel pensionTusindfryd = Controller.opretHotel("Pension TusindFryd", null, 500, 600, new ArrayList<>());
+        HotelTillæg morgenmad = Controller.opretHotelTillæg("Morgenmad", 100, pensionTusindfryd);
 
         ArrayList<Udflugt> valgteUdflugter = new ArrayList<>();
         ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();

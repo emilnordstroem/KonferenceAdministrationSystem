@@ -60,7 +60,6 @@ public class Storage {
         deltagere.remove(deltager);
     }
 
-    // Deltager Methods ----------------------------------------------------------------------------
     public static void addFirma(Firma firma){
         if(!firmaer.contains(firma)){
             firmaer.add(firma);
@@ -75,6 +74,10 @@ public class Storage {
     // Udflugter Methods ----------------------------------------------------------------------------
     public static ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
+    }
+
+    public static void removeUdflugt(Udflugt udflugt){
+        udflugter.remove(udflugt);
     }
 
     public static void addUdflugt(Udflugt udflugt){
