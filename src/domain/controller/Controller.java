@@ -5,6 +5,7 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Controller {
     // K1, K2, UC1
@@ -22,8 +23,14 @@ public class Controller {
     }
 
     // K8, UC3
-    public static Hotel opretHotel(String navn, Adresse adresse, double enkeltværelsePris, double dobbeltværelsePris) {
+    public static Hotel opretHotel(String navn, Adresse adresse, double enkeltværelsePris, double dobbeltværelsePris, ArrayList<Konference> konferencer) throws InputMismatchException {
         Hotel hotel = new Hotel(navn, adresse, enkeltværelsePris, dobbeltværelsePris);
+        if(!konferencer.isEmpty()) {
+            for (Konference konference : konferencer) {
+                hotel.addKonference(konference);
+            }
+        }
+
         Storage.addHotel(hotel);
         return hotel;
     }

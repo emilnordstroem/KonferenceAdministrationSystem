@@ -15,8 +15,9 @@ public class Test {
         Udflugt trapholtMuseum = havOgHimmel.createUdflugt("Trapholt", null, LocalDate.of(2024, 12, 20), "Museum", 200);
         Udflugt byRundtur = havOgHimmel.createUdflugt("Byrundtur", null, LocalDate.of(2024, 12,18), "Byrundbyr", 125);
 
-        Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", null, 1050,1250);
-        HotelTillæg wifi = new HotelTillæg("WIFI", 50, denHvideSvane);
+        Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", null, 1050,1250, new ArrayList<>());
+        HotelTillæg wifi = new HotelTillæg("WIFI", 50);
+        denHvideSvane.addHotelTillæg(wifi);
 
         ArrayList<Udflugt> valgteUdflugter = new ArrayList<>();
         ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();
