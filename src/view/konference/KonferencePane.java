@@ -126,7 +126,7 @@ public class KonferencePane extends GridPane {
     }
 
     private void opretKonference(){
-        new KonferenceWindow().showAndWait();
+        new OpretKonferenceWindow().showAndWait();
         konferencerListView.getItems().setAll(Storage.getKonferencer());
     }
 }

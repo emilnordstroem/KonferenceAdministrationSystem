@@ -1,4 +1,4 @@
-package view.konference.tilmelding;
+package view.konference;
 
 import domain.controller.Controller;
 import domain.model.Adresse;
@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 
-public class UdflugtWindow extends Stage {
+public class OpretUdflugtWindow extends Stage {
 
     private TextField navnTextField = new TextField();
     private DatePicker datoDatepicker = new DatePicker();
@@ -25,7 +25,7 @@ public class UdflugtWindow extends Stage {
     private TextField landTextField = new TextField();
 
 
-    public UdflugtWindow() {
+    public OpretUdflugtWindow() {
         this.setTitle("Opret udlflugt");
         GridPane pane = new GridPane();
         initContent(pane);

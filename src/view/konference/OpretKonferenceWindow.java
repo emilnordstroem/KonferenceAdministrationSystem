@@ -8,9 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
-import view.konference.tilmelding.UdflugtWindow;
 
-public class KonferenceWindow extends Stage {
+import java.time.LocalDate;
+
+import static view.Error.blankTextField;
+import static view.Error.conflictingDates;
+
+public class OpretKonferenceWindow extends Stage {
     private final TextField navnTextField = new TextField();
     private final TextField prisPrDagTextField = new TextField();
 
@@ -19,7 +23,7 @@ public class KonferenceWindow extends Stage {
 
     private final ComboBox<Hotel> hotelComboBox = new ComboBox<>();
 
-    private final Button opretUdflugtButton = new Button("Opret Udflugter");
+    private final Button opretUdflugtButton = new Button("Opret");
     private final ComboBox<Udflugt> udflugtComboBox = new ComboBox<>();
 
     private Label errorLabel = new Label();
@@ -27,7 +31,7 @@ public class KonferenceWindow extends Stage {
     private Button opretButton = new Button("Opret");
     private Button cancelButton = new Button("Cancel");
 
-    public KonferenceWindow(){
+    public OpretKonferenceWindow(){
     this.setTitle("Opret konference");
 //        initStyle(StageStyle.UTILITY);
 //        initModality(Modality.APPLICATION_MODAL);
@@ -44,7 +48,7 @@ public class KonferenceWindow extends Stage {
         pane.setGridLinesVisible(false);
 
         setElementLayout(pane);
-        setListViewElements();
+        setHotelComboBox();
 
         opretUdflugtButton.setOnAction(event -> {
             System.out.println("opretUdflugtButton clicked");
@@ -52,7 +56,21 @@ public class KonferenceWindow extends Stage {
         });
 
         opretButton.setOnAction(event -> {
+            String navn = navnTextField.getText();
+            String afgift = prisPrDagTextField.getText();
+            LocalDate fraDato = fraDatoPicker.getValue();
+            LocalDate tilDato = tilDatoPicker.getValue();
 
+            if(!blankTextField(navn, afgift)){
+                System.out.println("Ikke alle konference felter er udfyldt (navn og afgift)");
+                errorLabel.setText("Ikke alle felter er udfyldt");
+            } else if (conflictingDates(fraDato, tilDato)) {
+                System.out.println("Fejl i datepicker - fra dato efter til dato");
+                errorLabel.setText("Den valgte fra dato kommer efter den valgte til dato");
+            } else {
+                opretKonferenceAction(navn, afgift, fraDato, tilDato);
+                hide();
+            }
         });
         cancelButton.setOnAction(event -> hide());
     }
@@ -86,13 +104,18 @@ public class KonferenceWindow extends Stage {
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
-    private void setListViewElements(){
-
+    private void setHotelComboBox(){
+        hotelComboBox.getItems().addAll(Storage.getHoteller());
     }
 
     private void opretUdflugt(){
         System.out.println("opretUdflugt metode kører");
-        new UdflugtWindow().showAndWait();
+        new OpretUdflugtWindow().showAndWait();
         udflugtComboBox.getItems().setAll(Storage.getUdflugter());
+    }
+
+    private void opretKonferenceAction(String navn, String pris, LocalDate fraDato, LocalDate tilDato){
+
+
     }
 }

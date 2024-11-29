@@ -84,5 +84,12 @@ public class Storage {
         }
     }
 
-
+    public static Hotel getHotelByNavn(String navn) {
+        for (Hotel hotel : hoteller) {
+            if(hotel.getNavn().equals(navn)) {
+                return hotel;
+            }
+        }
+        return null;
+    }
 }

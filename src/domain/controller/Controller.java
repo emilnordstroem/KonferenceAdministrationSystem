@@ -67,13 +67,36 @@ public class Controller {
         return firma;
     }
 
-    // Update metoder -------------------------------------------------------------------
-    public static void opdaterHotel(String navn, Adresse adresse, double enkeltværelsesPris, double dobbeltværelsesPris, ArrayList<Konference> konferencer) {
-    }
-
     public static Udflugt opretUdflugt(String navn, Adresse adresse, LocalDate localDate, String beksrivelse, double pris){
         Udflugt udflugt = new Udflugt(navn, adresse, localDate, beksrivelse, pris);
         Storage.addUdflugt(udflugt);
         return udflugt;
+    }
+
+    public static HotelTillæg opretHotelTillæg(String navn, double pris, Hotel hotel) throws InputMismatchException{
+        HotelTillæg hotelTillæg = new HotelTillæg(navn, pris, hotel);
+        return hotelTillæg;
+    }
+
+    // Update metoder -------------------------------------------------------------------
+    public static void opdaterHotel(String navn, Adresse adresse, double enkeltværelsesPris, double dobbeltværelsesPris, ArrayList<Konference> valgteKonferencer) {
+        Hotel hotel = Storage.getHotelByNavn(navn);
+        if(hotel != null) {
+            hotel.setNavn(navn);
+            hotel.setAdresse(adresse);
+            hotel.setEnkeltVærelsesPris(enkeltværelsesPris);
+            hotel.setDobbeltVærelsesPris(dobbeltværelsesPris);
+            for (Konference tidligereValgtKonference : hotel.getKonferencer()) {
+                if(!valgteKonferencer.contains(tidligereValgtKonference)) {
+                    hotel.removeKonference(tidligereValgtKonference);
+                }
+            }
+
+            for (Konference valgtKonference : valgteKonferencer) {
+                if(!hotel.getKonferencer().contains(valgtKonference)) {
+                    hotel.addKonference(valgtKonference);
+                }
+            }
+        }
     }
 }
