@@ -19,6 +19,22 @@ public class Adresse {
         this.land = land;
     }
 
+    public String getVejNavn() {
+        return vejNavn;
+    }
+
+    public String getBygningsNr() {
+        return bygningsNr;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
     @Override
     public String toString(){
         return String.format("%s %s, %s, %s", vejNavn, bygningsNr, by, land);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Controller {
+    // Opret metoder -------------------------------------------------------------------
     // K1, K2, UC1
     public static Deltager opretDeltager(String forNavn, String efterNavn, String telefonNummer, Adresse adresse, Firma firma) {
         Deltager deltager = new Deltager(forNavn, efterNavn, telefonNummer, adresse, firma);
@@ -64,5 +65,9 @@ public class Controller {
         Firma firma = new Firma(navn, telefonnummer);
         Storage.addFirma(firma);
         return firma;
+    }
+
+    // Update metoder -------------------------------------------------------------------
+    public static void opdaterHotel(String navn, Adresse adresse, double enkeltværelsesPris, double dobbeltværelsesPris, ArrayList<Konference> konferencer) {
     }
 }

@@ -5,14 +5,13 @@ import domain.model.Tilmelding;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import storage.Storage;
+
+import java.util.Optional;
 
 public class HotelPane extends GridPane {
     // Listviews
@@ -51,12 +50,13 @@ public class HotelPane extends GridPane {
 
         GridPane.setHalignment(sletHotelButton, HPos.RIGHT);
         this.add(sletHotelButton, 2, 2);
+        sletHotelButton.setOnAction(event -> sletHotelAction());
 
     }
 
     private void setHotellerListView() {
         this.add(new Label("Vælg et hotel:"), 0, 0);
-        this.add(hotellerListView, 0,1,3,1);
+        this.add(hotellerListView, 0, 1, 3, 1);
         hotellerListView.getItems().setAll(Storage.getHoteller());
     }
 
@@ -67,7 +67,7 @@ public class HotelPane extends GridPane {
     }
 
     private void selectedHotelChanged(Hotel newHotel) {
-        if(newHotel != null) {
+        if (newHotel != null) {
             for (Tilmelding tilmelding : newHotel.getTilmeldinger()) {
                 String s = Utility.buildInfoOnHotelTilmelding(tilmelding);
                 tilmeldingerListView.getItems().add(s);
@@ -76,7 +76,29 @@ public class HotelPane extends GridPane {
     }
 
     private void opretHotelAction() {
-        new HotelWindow().showAndWait();
+        new HotelWindow("Opret hotel").showAndWait();
         hotellerListView.getItems().setAll(Storage.getHoteller());
     }
+
+    private void sletHotelAction() {
+        Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
+        if (hotel != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Slet hotel");
+            alert.setContentText("Er du sikker på du vil slette " + hotel.getNavn() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Storage.removeHotel(hotel);
+                hotellerListView.getItems().setAll(Storage.getHoteller());
+                tilmeldingerListView.getItems().setAll();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Slet hotel");
+            alert.setHeaderText("Du har ikke valgt et hotel i listen.");
+            // wait for the modal dialog to close
+            alert.show();
+        }
+    }
 }
+

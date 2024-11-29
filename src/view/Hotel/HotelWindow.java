@@ -4,6 +4,7 @@ import domain.controller.Controller;
 import domain.model.Adresse;
 import domain.model.Hotel;
 import domain.model.Konference;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,13 +28,18 @@ public class HotelWindow extends Stage {
     private final Button okBtn = new Button("Opret");
     private final Button cancelBtn = new Button("Cancel");
     private final Label errorLabel = new Label();
+    private Hotel hotel;
 
-    public HotelWindow() {
-        this.setTitle("Opret hotel");
+    public HotelWindow(String title, Hotel hotel) {
+        this.hotel = hotel;
         GridPane pane = new GridPane();
         initContent(pane);
         Scene scene = new Scene(pane);
         this.setScene(scene);
+    }
+
+    public HotelWindow(String title) {
+        this(title, null);
     }
 
     private void initContent(GridPane pane) {
@@ -46,6 +52,8 @@ public class HotelWindow extends Stage {
         setPriser(pane);
         setKonferencerListView(pane);
         setButtons(pane);
+
+        setTextFields();
     }
 
     private void setNavnOgAdresse(GridPane pane) {
@@ -97,9 +105,10 @@ public class HotelWindow extends Stage {
 
     private void setButtons(GridPane pane) {
         pane.add(cancelBtn, 0, 12);
-        cancelBtn.setOnAction(event -> cancelAction());
+        cancelBtn.setOnAction(event -> hide());
         pane.add(okBtn, 1, 12);
         okBtn.setOnAction(event -> okAction());
+        GridPane.setHalignment(okBtn, HPos.RIGHT);
         pane.add(errorLabel, 0, 13);
         errorLabel.setStyle("-fx-text-fill: red; -fx-pref-width: 200px");
     }
@@ -134,22 +143,27 @@ public class HotelWindow extends Stage {
             errorLabel.setText(ex.getMessage());
             return;
         }
-        resetNodes();
         hide();
     }
 
-    private void cancelAction() {
-        resetNodes();
-        hide();
-    }
-
-    private void resetNodes() {
-        navnTextField.clear();
-        vejNavnTextField.clear();
-        bygningsNrTextField.clear();
-        byTextField.clear();
-        landTextField.clear();
-        enkeltværelsesPrisTextField.clear();
-        dobbeltværelsesPrisTextField.clear();
+    private void setTextFields() {
+        if(hotel != null) {
+            navnTextField.setText(hotel.getNavn());
+            vejNavnTextField.setText(hotel.getAddresse().getVejNavn());
+            bygningsNrTextField.setText(hotel.getAddresse().getBygningsNr());
+            byTextField.setText(hotel.getAddresse().getBy());
+            landTextField.setText(hotel.getAddresse().getLand());
+            enkeltværelsesPrisTextField.setText(String.valueOf(hotel.getEnkeltVærelsesPris()));
+            dobbeltværelsesPrisTextField.setText(String.valueOf(hotel.getDobbeltVærelsesPris()));
+        }
+        else {
+            navnTextField.clear();
+            vejNavnTextField.clear();
+            bygningsNrTextField.clear();
+            byTextField.clear();
+            landTextField.clear();
+            enkeltværelsesPrisTextField.clear();
+            dobbeltværelsesPrisTextField.clear();
+        }
     }
 }
