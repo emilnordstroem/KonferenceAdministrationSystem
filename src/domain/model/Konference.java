@@ -26,7 +26,7 @@ public class Konference {
     }
 
     public Udflugt createUdflugt(String navn, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
-        Udflugt udflugt = new Udflugt(navn, this, adresse, dato, beskrivelse, pris);
+        Udflugt udflugt = new Udflugt(navn, adresse, dato, beskrivelse, pris);
         udflugter.add(udflugt);
         return udflugt;
     }

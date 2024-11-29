@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import storage.Storage;
+import view.konference.tilmelding.UdflugtWindow;
 
 public class KonferenceWindow extends Stage {
     private final TextField navnTextField = new TextField();
@@ -43,6 +45,11 @@ public class KonferenceWindow extends Stage {
 
         setElementLayout(pane);
         setListViewElements();
+
+        opretUdflugtButton.setOnAction(event -> {
+            System.out.println("opretUdflugtButton clicked");
+            opretUdflugt();
+        });
 
         opretButton.setOnAction(event -> {
 
@@ -81,5 +88,11 @@ public class KonferenceWindow extends Stage {
 
     private void setListViewElements(){
 
+    }
+
+    private void opretUdflugt(){
+        System.out.println("opretUdflugt metode kører");
+        new UdflugtWindow().showAndWait();
+        udflugtComboBox.getItems().setAll(Storage.getUdflugter());
     }
 }

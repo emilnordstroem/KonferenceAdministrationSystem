@@ -5,16 +5,14 @@ import java.util.ArrayList;
 
 public class Udflugt {
     private String navn;
-    private Konference konference;
     private Adresse adresse;
     private LocalDate dato;
     private String beskrivelse;
     private double pris;
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
-    Udflugt(String navn, Konference konference, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
+    public Udflugt(String navn, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
         this.navn = navn;
-        this.konference = konference;
         this.adresse = adresse;
         this.dato = dato;
         this.beskrivelse = beskrivelse;
@@ -25,10 +23,6 @@ public class Udflugt {
         return navn;
     }
 
-
-    public Konference getKonference() {
-        return konference;
-    }
 
     public Adresse getAddresse() {
         return adresse;
