@@ -66,7 +66,7 @@ public class Konference {
 
     @Override
     public String toString() {
-        return String.format("%s fra %s til %s (pris pr. dag: %.2f kr.).", navn, startDato, slutDato, prisPrDag);
+        return String.format("%s%n%s til %s (pris pr. dag: %.2f DKK)", navn, startDato, slutDato, prisPrDag);
     }
 
 }

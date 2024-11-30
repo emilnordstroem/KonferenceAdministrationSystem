@@ -3,6 +3,7 @@ package domain.model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Tilmelding {
     private Konference konference;
@@ -31,13 +32,11 @@ public class Tilmelding {
         double samletUdgifter = 0;
         int antalDageVedKonferencen = getAntalDageKonference();
         int antalDageOphold = getAntalDageOphold();
+        System.out.printf("%n%s%nantalDageVedKonferencen: %d%nantalDageOphold: %d%n", deltager.getFuldeNavn(), antalDageVedKonferencen, antalDageOphold);
 
         samletUdgifter += udregnKonferenceAfgift(antalDageVedKonferencen);
-        System.out.println("Udregn konference:" + samletUdgifter);
         samletUdgifter += udregnHotelUdgift(antalDageOphold);
-        System.out.println("Udregn hotel:" + samletUdgifter);
         samletUdgifter += udregnUdflugtUdgift();
-        System.out.println("Udregn udflugt:" + samletUdgifter);
 
         return samletUdgifter;
     }
@@ -157,20 +156,20 @@ public class Tilmelding {
 
     @Override
     public String toString() {
-        String s = String.format("%s (%d) er tilmeldt konferencen fra %s til %s", deltager.getFuldeNavn(), deltager.getId(), startDato, slutDato);
-        if(ledsagerNavn != null) {
-            s+= " med " + ledsagerNavn;
+        String string = String.format("%s (%d)%nTilmeldt konferencen fra %s til %s%n", deltager.getFuldeNavn(), deltager.getId(), startDato, slutDato);
+        if(ledsagerNavn != null && !ledsagerNavn.isEmpty()) {
+            string += "med " + ledsagerNavn;
         }
         else {
-            s+= " uden ledsager";
+            string += "uden ledsager";
         }
 
         if(erForedragsholder) {
-            s+=" og er foredragsholder.";
+            string += " og er foredragsholder.";
         }
         else {
-            s+=" og er ikke foredragsholder.";
+            string += " og er ikke foredragsholder.";
         }
-        return s;
+        return string;
     }
 }

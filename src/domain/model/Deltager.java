@@ -72,6 +72,7 @@ public class Deltager {
                 samletUdgifter += tilmelding.getSamletTilmeldingsUdgift();
             }
         }
+        System.out.println("getSamletUdgifter(): " + samletUdgifter);
         return samletUdgifter;
     }
 

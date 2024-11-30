@@ -54,11 +54,11 @@ public class Udflugt {
 
     @Override
     public String toString() {
-        String s = String.format("%s d. %s (pris for udflugt: %.2f). Den har de følgende deltagere:\n", navn, dato, pris);
+        StringBuilder string = new StringBuilder(String.format("%s d. %s%nPris for udflugt: %.2f DKK%nDeltagere på udflugten:%n", navn, dato, pris));
 
         for (Tilmelding tilmelding : tilmeldinger) {
-            s+= String.format("%s (%d %s)\n", tilmelding.getLedsagerNavn(), tilmelding.getDeltager().getId(), tilmelding.getDeltager().getFuldeNavn());
+            string.append(String.format("- %s (%d %s)%n", tilmelding.getLedsagerNavn(), tilmelding.getDeltager().getId(), tilmelding.getDeltager().getFuldeNavn()));
         }
-        return s;
+        return string.toString();
     }
 }

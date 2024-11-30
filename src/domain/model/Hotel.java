@@ -103,11 +103,13 @@ public class Hotel {
 
     @Override
     public String toString() {
-        String s = String.format("Hotel \"%s\" har enkeltværelsespris/dobbeltværelsespris (%.2f kr./%.2f kr.) med følgende hoteltillæg:\n", navn, enkeltVærelsesPris, dobbeltVærelsesPris);
+        StringBuilder string = new StringBuilder(String.format("Hotel \"%s\"%nEnkeltværelse: %.2f DKK%nDobbeltværelse: %.2f DKK%nMulighed for følgende hoteltillæg:%n",
+                navn, enkeltVærelsesPris, dobbeltVærelsesPris));
+
         for (HotelTillæg hotelTillæg : hotelTillæger) {
-            s += String.format("%s koster %.2f kr.\n", hotelTillæg.getNavn(), hotelTillæg.getPris());
+            string.append(String.format("%s koster %.2f kr.\n", hotelTillæg.getNavn(), hotelTillæg.getPris()));
         }
 
-        return s;
+        return string.toString();
     }
 }
