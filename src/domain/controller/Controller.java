@@ -16,12 +16,25 @@ public class Controller {
         return deltager;
     }
 
+    public static double getSamletUdgifter(Deltager deltager){
+        return deltager.getSamletUdgifter();
+    }
+
     // K3, UC2
     public static Konference opretKonference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag,
                                              ArrayList<Hotel> hoteller) {
         Konference konference = new Konference(navn, startDato, slutDato, afgiftPerDag, hoteller);
         Storage.addKonference(konference);
         return konference;
+    }
+
+    public static void fjernKonference(Konference konference){
+        for(Tilmelding tilmelding : konference.getTilmeldinger()){
+            tilmelding.getDeltager().fjernTilmelding(tilmelding);
+            System.out.println("Opdatere samlet udgifter for deltager");
+        }
+        System.out.println("Controller.java: Tilmeldinger fjernet fra konferencen");
+        Storage.removeKonference(konference);
     }
 
     // K8, UC3

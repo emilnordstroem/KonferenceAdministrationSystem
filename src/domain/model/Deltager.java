@@ -12,6 +12,8 @@ public class Deltager {
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private Firma firma;
 
+    private double udgifter;
+
     public Deltager(String forNavn, String efterNavn, String telefonnummer, Adresse adresse, Firma Firma){
         this.id = generateID();
         this.forNavn = forNavn;
@@ -65,6 +67,13 @@ public class Deltager {
         }
     }
 
+    public void fjernTilmelding(Tilmelding tilmelding){
+        if(tilmeldinger.contains(tilmelding)){
+            tilmeldinger.remove(tilmelding);
+            opdaterSamletUdgifter();
+        }
+    }
+
     public double getSamletUdgifter(){
         double samletUdgifter = 0;
         if(!tilmeldinger.isEmpty()){
@@ -73,7 +82,13 @@ public class Deltager {
             }
         }
         System.out.println("getSamletUdgifter(): " + samletUdgifter);
+        udgifter = samletUdgifter;
         return samletUdgifter;
+    }
+
+    public void opdaterSamletUdgifter(){
+        System.out.println("Opdater samlet udgifter for " + this.getFuldeNavn());
+        udgifter = getSamletUdgifter();
     }
 
     private int generateID(){

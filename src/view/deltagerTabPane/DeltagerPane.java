@@ -1,5 +1,6 @@
-package view.Deltager;
+package view.deltagerTabPane;
 
+import domain.controller.Controller;
 import domain.model.Deltager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -35,12 +36,13 @@ public class DeltagerPane extends GridPane {
             System.out.println("Søgning...");
             String søgning = personSøgning.getText();
 
-            ArrayList<Deltager> sortedDeltagerList = SearchAlgorithm.sortedArray(Storage.getDeltagere());
+            ArrayList<Deltager> sortedDeltagerList = SearchAlgorithm.sortedStringArray(Storage.getDeltagere());
 
             if(!søgning.isBlank() && !sortedDeltagerList.isEmpty()){
                 Deltager deltager = SearchAlgorithm.binaryPersonSearch(sortedDeltagerList, søgning);
                 if(deltager != null){
                     deltagerInto.setText(deltager.toString());
+                    personSøgning.clear();
                 } else {
                     deltagerInto.setText("[Deltager findes ikke på listen]");
                 }
@@ -57,7 +59,7 @@ public class DeltagerPane extends GridPane {
             }
             try{
                 assert deltager != null;
-                double samletUdgifter = deltager.getSamletUdgifter();
+                double samletUdgifter = Controller.getSamletUdgifter(deltager);
                 prisTextField.setText(String.format("%.2f DKK", samletUdgifter));
             } catch (NullPointerException exception){
                 System.out.println("NullPointerException ved samlet udgifter i DeltagerPane.java");
@@ -109,7 +111,7 @@ public class DeltagerPane extends GridPane {
 
     private void setDeltagerListView(){
         deltagereListView.setPrefWidth(1000);
-        deltagereListView.getItems().setAll(Storage.getDeltagere());
+        deltagereListView.getItems().setAll(SearchAlgorithm.sortedStringArray(Storage.getDeltagere()));
         this.add(deltagereListView, 0, 1, 6,1);
     }
 }
