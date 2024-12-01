@@ -1,4 +1,4 @@
-package view.Hotel;
+package view.hotelTabPane;
 
 import domain.controller.Controller;
 import domain.model.Adresse;

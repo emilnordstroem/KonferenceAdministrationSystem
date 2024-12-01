@@ -1,4 +1,4 @@
-package view.Deltager;
+package view.deltagerTabPane;
 
 import domain.controller.Controller;
 import javafx.geometry.Insets;
@@ -20,7 +20,7 @@ public class OpretFirmaWindow extends Stage {
     private Label errorLabel = new Label();
 
     public OpretFirmaWindow() {
-        this.setTitle("Opret deltager");
+        this.setTitle("Opret Firma");
 //        initStyle(StageStyle.UTILITY);
 //        initModality(Modality.APPLICATION_MODAL);
 //        setResizable(false);

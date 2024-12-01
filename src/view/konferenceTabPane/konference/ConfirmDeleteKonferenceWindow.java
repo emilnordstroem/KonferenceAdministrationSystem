@@ -1,6 +1,7 @@
-package view.Deltager;
+package view.konferenceTabPane.konference;
 
-import domain.model.Deltager;
+import domain.controller.Controller;
+import domain.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,15 +13,15 @@ import storage.Storage;
 
 import java.util.ArrayList;
 
-public class ConfirmDeleteWindow extends Stage {
-    private final Deltager deltagerTilFjernelse;
+public class ConfirmDeleteKonferenceWindow extends Stage {
+    private final Konference KonferenceTilFjernelse;
     private final Button bekræftButton = new Button("OK");
     private final Button afbrydButton = new Button("Afbryd");
 
-    public ConfirmDeleteWindow(Deltager deltager) {
-        this.setTitle("Bekræft fjernelse af deltager");
+    public ConfirmDeleteKonferenceWindow(Konference konference) {
+        this.setTitle("Bekræft fjernelse af udflugt");
         GridPane pane = new GridPane();
-        this.deltagerTilFjernelse = deltager;
+        this.KonferenceTilFjernelse = konference;
         initContent(pane);
         this.setScene(new Scene(pane));
     }
@@ -33,7 +34,7 @@ public class ConfirmDeleteWindow extends Stage {
 
         HBox infoBox = new HBox(1);
         Label information = new Label("Bekræft fjernelse af: ");
-        Label deltagerNavn = new Label(deltagerTilFjernelse.getFuldeNavn());
+        Label deltagerNavn = new Label(KonferenceTilFjernelse.getNavn());
         infoBox.getChildren().addAll(information, deltagerNavn);
         pane.add(infoBox, 1,0);
 
@@ -48,12 +49,13 @@ public class ConfirmDeleteWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Deltager> deltagerList = new ArrayList<>(Storage.getDeltagere());
-        for(Deltager deltager : deltagerList){
-            if(deltager.equals(deltagerTilFjernelse)){
-                Storage.removeDeltager(deltager);
-                System.out.printf("%s er nu fjernet fra Storage%n", deltager.getFuldeNavn());
+        ArrayList<Konference> konferenceArrayList = new ArrayList<>(Storage.getKonferencer());
+        for(Konference konference : konferenceArrayList){
+            if(konference.equals(KonferenceTilFjernelse)){
+                Controller.fjernKonference(konference);
+                System.out.printf("%s er nu fjernet fra Storage%n", konference.getNavn());
             }
         }
     }
 }
+

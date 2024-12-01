@@ -22,9 +22,11 @@ public class Error {
     }
 
     public static boolean conflictingDates(LocalDate date1, LocalDate date2){
-        if(date2.isBefore(date1)){
-            System.out.println("Første dato kommer efter sidste dato");
-            return true;
+        if(date1 != null && date2 != null){
+            if(date2.isBefore(date1)){
+                System.out.println("Første dato kommer efter sidste dato");
+                return true;
+            }
         }
         return false;
     }

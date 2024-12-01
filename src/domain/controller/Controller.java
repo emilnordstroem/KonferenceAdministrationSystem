@@ -20,6 +20,14 @@ public class Controller {
         return deltager.getSamletUdgifter();
     }
 
+    public static void fjernDeltager(Deltager deltager){
+        for(Tilmelding tilmelding : deltager.getTilmeldinger()){
+            Konference konference = tilmelding.getKonference();
+            konference.fjernTilmelding(tilmelding);
+        }
+        Storage.removeDeltager(deltager);
+    }
+
     // K3, UC2
     public static Konference opretKonference(String navn, LocalDate startDato, LocalDate slutDato, double afgiftPerDag,
                                              ArrayList<Hotel> hoteller) {
@@ -72,6 +80,11 @@ public class Controller {
             }
         }
         return tilmelding;
+    }
+
+    public static void fjernTilmelding(Tilmelding tilmeldingTilFjernelse, Konference konference){
+        konference.fjernTilmelding(tilmeldingTilFjernelse);
+        System.out.println("fjernTilmelding() kaldt i controller");
     }
 
     public static Firma opretFirma(String navn, String telefonnummer){

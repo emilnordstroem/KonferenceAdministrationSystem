@@ -1,10 +1,8 @@
-package view.Hotel;
+package view.hotelTabPane;
 
 import domain.model.Hotel;
-import domain.model.HotelTillæg;
 import domain.model.Tilmelding;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;

@@ -1,6 +1,7 @@
-package view.konference;
+package view.deltagerTabPane;
 
-import domain.model.Udflugt;
+import domain.controller.Controller;
+import domain.model.Deltager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,15 +13,15 @@ import storage.Storage;
 
 import java.util.ArrayList;
 
-public class ConfirmDeleteUdflugtWindow extends Stage {
-    private final Udflugt udflugtTilFjernelse;
+public class ConfirmDeleteWindow extends Stage {
+    private final Deltager deltagerTilFjernelse;
     private final Button bekræftButton = new Button("OK");
     private final Button afbrydButton = new Button("Afbryd");
 
-    public ConfirmDeleteUdflugtWindow(Udflugt udflugt) {
-        this.setTitle("Bekræft fjernelse af udflugt");
+    public ConfirmDeleteWindow(Deltager deltager) {
+        this.setTitle("Bekræft fjernelse af deltager");
         GridPane pane = new GridPane();
-        this.udflugtTilFjernelse = udflugt;
+        this.deltagerTilFjernelse = deltager;
         initContent(pane);
         this.setScene(new Scene(pane));
     }
@@ -33,7 +34,7 @@ public class ConfirmDeleteUdflugtWindow extends Stage {
 
         HBox infoBox = new HBox(1);
         Label information = new Label("Bekræft fjernelse af: ");
-        Label deltagerNavn = new Label(udflugtTilFjernelse.getNavn());
+        Label deltagerNavn = new Label(deltagerTilFjernelse.getFuldeNavn());
         infoBox.getChildren().addAll(information, deltagerNavn);
         pane.add(infoBox, 1,0);
 
@@ -48,14 +49,12 @@ public class ConfirmDeleteUdflugtWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Udflugt> udflugterList = new ArrayList<>(Storage.getUdflugter());
-        for(Udflugt udflugt : udflugterList){
-            if(udflugt.equals(udflugtTilFjernelse)){
-                Storage.removeUdflugt(udflugt);
-                System.out.printf("%s er nu fjernet fra Storage%n", udflugt.getNavn());
+        ArrayList<Deltager> deltagerList = new ArrayList<>(Storage.getDeltagere());
+        for(Deltager deltager : deltagerList){
+            if(deltager.equals(deltagerTilFjernelse)){
+                Controller.fjernDeltager(deltager);
+                System.out.printf("%s er nu fjernet fra Storage%n", deltager.getFuldeNavn());
             }
         }
     }
-
-
 }

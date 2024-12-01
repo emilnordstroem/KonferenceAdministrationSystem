@@ -1,6 +1,5 @@
-package view.konference;
+package view.konferenceTabPane.konference.udflugt;
 
-import domain.model.Konference;
 import domain.model.Udflugt;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,15 +12,15 @@ import storage.Storage;
 
 import java.util.ArrayList;
 
-public class ConfirmDeleteKonferenceWindow extends Stage {
-    private final Konference KonferenceTilFjernelse;
+public class ConfirmDeleteUdflugtWindow extends Stage {
+    private final Udflugt udflugtTilFjernelse;
     private final Button bekræftButton = new Button("OK");
     private final Button afbrydButton = new Button("Afbryd");
 
-    public ConfirmDeleteKonferenceWindow(Konference konference) {
+    public ConfirmDeleteUdflugtWindow(Udflugt udflugt) {
         this.setTitle("Bekræft fjernelse af udflugt");
         GridPane pane = new GridPane();
-        this.KonferenceTilFjernelse = konference;
+        this.udflugtTilFjernelse = udflugt;
         initContent(pane);
         this.setScene(new Scene(pane));
     }
@@ -34,7 +33,7 @@ public class ConfirmDeleteKonferenceWindow extends Stage {
 
         HBox infoBox = new HBox(1);
         Label information = new Label("Bekræft fjernelse af: ");
-        Label deltagerNavn = new Label(KonferenceTilFjernelse.getNavn());
+        Label deltagerNavn = new Label(udflugtTilFjernelse.getNavn());
         infoBox.getChildren().addAll(information, deltagerNavn);
         pane.add(infoBox, 1,0);
 
@@ -49,13 +48,14 @@ public class ConfirmDeleteKonferenceWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Konference> konferenceArrayList = new ArrayList<>(Storage.getKonferencer());
-        for(Konference konference : konferenceArrayList){
-            if(konference.equals(KonferenceTilFjernelse)){
-                Storage.removeKonference(konference);
-                System.out.printf("%s er nu fjernet fra Storage%n", konference.getNavn());
+        ArrayList<Udflugt> udflugterList = new ArrayList<>(Storage.getUdflugter());
+        for(Udflugt udflugt : udflugterList){
+            if(udflugt.equals(udflugtTilFjernelse)){
+                Storage.removeUdflugt(udflugt);
+                System.out.printf("%s er nu fjernet fra Storage%n", udflugt.getNavn());
             }
         }
     }
-}
 
+
+}

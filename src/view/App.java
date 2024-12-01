@@ -103,7 +103,15 @@ public class App {
         for(int number = 0; number < 13; number++){
             LocalDate fraDato = generateRandomDate();
             LocalDate tiLDato = fraDato.plusDays(new Random().nextInt(5,20) + 1);
+
             Konference konference = Controller.opretKonference(konferenceNavne[number], fraDato, tiLDato, generatePricePerDay(), new ArrayList<>());
+
+            int antalHoteller = new Random().nextInt(2,5);
+            for (int hotel = 0; hotel < antalHoteller; hotel++){
+                int indexHotel = new Random().nextInt(0, hotelArrayList.size() - 1) + 1;
+                konference.addHotel(hotelArrayList.get(indexHotel));
+            }
+
             int antalUdflugter = new Random().nextInt(1,4);
             for(int udflugt = 0; udflugt < antalUdflugter; udflugt++){
                 if(tæller < udflugtNavne.length){
@@ -241,7 +249,7 @@ public class App {
     }
 
     private static LocalDate generateRandomDate(){
-        int day = new Random().nextInt(1,31) + 1;
+        int day = new Random().nextInt(1,30) + 1;
         int month = new Random().nextInt(1,12) + 1;
         int year = new Random().nextInt(2025, 2027) + 1;
         if(month == 2 && day > 28){

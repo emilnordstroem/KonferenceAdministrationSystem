@@ -1,4 +1,4 @@
-package view.konference;
+package view.konferenceTabPane;
 
 import domain.model.Konference;
 import domain.model.Tilmelding;
@@ -14,6 +14,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import storage.Storage;
+import view.konferenceTabPane.konference.ConfirmDeleteKonferenceWindow;
+import view.konferenceTabPane.konference.OpretKonferenceWindow;
+import view.konferenceTabPane.tilmelding.ConfirmDeleteTilmeldingWindow;
+import view.konferenceTabPane.tilmelding.OpretTilmeldingWindow;
 
 import java.util.ArrayList;
 
@@ -70,6 +74,20 @@ public class KonferencePane extends GridPane {
             if(!konferencerListView.getSelectionModel().isEmpty()){
                 System.out.println("Fjern konference metode kaldt");
                 fjernKonference();
+            }
+        });
+
+        opretTilmeldingButton.setOnAction(event -> {
+            if(!konferencerListView.getSelectionModel().isEmpty()){
+                System.out.println("opretTilmeldingButton clicked");
+                opretTilmelding();
+            }
+        });
+
+        sletTilmeldingButton.setOnAction(event -> {
+            if(!tilmeldingerListView.getSelectionModel().isEmpty()){
+                System.out.println("Fjerne tilmelding metode kaldt");
+                fjernTilmelding();
             }
         });
 
@@ -138,5 +156,19 @@ public class KonferencePane extends GridPane {
         Konference konferenceTilFjernelse = konferencerListView.getSelectionModel().getSelectedItem();
         new ConfirmDeleteKonferenceWindow(konferenceTilFjernelse).showAndWait();
         konferencerListView.getItems().setAll(Storage.getKonferencer());
+    }
+
+    private void opretTilmelding(){
+        Konference konference = konferencerListView.getSelectionModel().getSelectedItem();
+        System.out.println("opretTilmelding(): running...");
+        new OpretTilmeldingWindow(konference).showAndWait();
+        tilmeldingerListView.getItems().setAll(konference.getTilmeldinger());
+    }
+
+    private void fjernTilmelding(){
+        Konference konference = konferencerListView.getSelectionModel().getSelectedItem();
+        Tilmelding tilmeldingTilFjernelse = tilmeldingerListView.getSelectionModel().getSelectedItem();
+        new ConfirmDeleteTilmeldingWindow(tilmeldingTilFjernelse, konference).showAndWait();
+        tilmeldingerListView.getItems().setAll(konference.getTilmeldinger());
     }
 }

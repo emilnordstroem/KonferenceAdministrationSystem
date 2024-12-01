@@ -6,9 +6,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.Deltager.DeltagerPane;
-import view.Hotel.HotelPane;
-import view.konference.KonferencePane;
+import view.deltagerTabPane.DeltagerPane;
+import view.hotelTabPane.HotelPane;
+import view.konferenceTabPane.KonferencePane;
 
 public class StartWindow extends Application {
     @Override

@@ -1,4 +1,4 @@
-package view.Hotel;
+package view.hotelTabPane;
 
 import domain.model.HotelTillæg;
 import domain.model.Tilmelding;

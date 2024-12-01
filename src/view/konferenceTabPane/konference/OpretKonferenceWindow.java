@@ -1,4 +1,4 @@
-package view.konference;
+package view.konferenceTabPane.konference;
 
 import domain.controller.Controller;
 import domain.model.Hotel;
@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import storage.Storage;
+import view.konferenceTabPane.konference.udflugt.ConfirmDeleteUdflugtWindow;
+import view.konferenceTabPane.konference.udflugt.OpretUdflugtWindow;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

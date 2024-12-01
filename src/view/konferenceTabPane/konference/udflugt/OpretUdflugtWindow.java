@@ -1,4 +1,4 @@
-package view.konference;
+package view.konferenceTabPane.konference.udflugt;
 
 import domain.controller.Controller;
 import domain.model.Adresse;

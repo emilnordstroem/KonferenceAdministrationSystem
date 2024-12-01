@@ -1,4 +1,4 @@
-package view.Deltager;
+package view.deltagerTabPane;
 
 import domain.model.Deltager;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SearchAlgorithm {
 
     // Sorteret arrayList : bubble sort
-    protected static ArrayList<Deltager> sortedArray(ArrayList<Deltager> deltagerListe) {
+    public static ArrayList<Deltager> sortedStringArray(ArrayList<Deltager> deltagerListe) {
         if(!deltagerListe.isEmpty()) {
             for (int outerIndex = 0; outerIndex < deltagerListe.size() - 1; outerIndex++) {
                 for (int innerIndex = 0; innerIndex < deltagerListe.size() - outerIndex - 1; innerIndex++) {
