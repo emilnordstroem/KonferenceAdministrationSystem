@@ -11,7 +11,6 @@ public class Deltager {
     private Adresse adresse;
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private Firma firma;
-
     private double udgifter;
 
     public Deltager(String forNavn, String efterNavn, String telefonnummer, Adresse adresse, Firma Firma){
@@ -21,6 +20,7 @@ public class Deltager {
         this.telefonnummer = telefonnummer;
         this.adresse = adresse;
         this.firma = Firma;
+        this.udgifter = 0;
     }
 
     public int getId() {
@@ -57,6 +57,10 @@ public class Deltager {
         }
     }
 
+    public void setUdgifter(double udgifter) {
+        this.udgifter = udgifter;
+    }
+
     public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }
@@ -82,13 +86,13 @@ public class Deltager {
             }
         }
         System.out.println("getSamletUdgifter(): " + samletUdgifter);
-        udgifter = samletUdgifter;
+        setUdgifter(samletUdgifter);
         return samletUdgifter;
     }
 
     public void opdaterSamletUdgifter(){
         System.out.println("Opdater samlet udgifter for " + this.getFuldeNavn());
-        udgifter = getSamletUdgifter();
+        setUdgifter(getSamletUdgifter());
     }
 
     private int generateID(){
