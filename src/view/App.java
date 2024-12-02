@@ -6,6 +6,7 @@ import javafx.application.Application;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -254,7 +255,11 @@ public class App {
         int year = new Random().nextInt(2025, 2027) + 1;
         if(month == 2 && day > 28){
             return LocalDate.of(year, month, 28);
-        } else {
+        }
+        else if(Arrays.asList(2, 4, 6, 9, 11).contains(month) && day > 30) {
+            return LocalDate.of(year, month, 30);
+        }
+        else {
             return LocalDate.of(year, month, day);
         }
     }

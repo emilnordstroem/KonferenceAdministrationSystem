@@ -9,19 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import storage.Storage;
-
-import java.util.ArrayList;
 
 public class ConfirmDeleteKonferenceWindow extends Stage {
-    private final Konference KonferenceTilFjernelse;
+    private final Konference konferenceTilFjernelse;
     private final Button bekræftButton = new Button("OK");
     private final Button afbrydButton = new Button("Afbryd");
 
     public ConfirmDeleteKonferenceWindow(Konference konference) {
         this.setTitle("Bekræft fjernelse af udflugt");
         GridPane pane = new GridPane();
-        this.KonferenceTilFjernelse = konference;
+        this.konferenceTilFjernelse = konference;
         initContent(pane);
         this.setScene(new Scene(pane));
     }
@@ -34,7 +31,7 @@ public class ConfirmDeleteKonferenceWindow extends Stage {
 
         HBox infoBox = new HBox(1);
         Label information = new Label("Bekræft fjernelse af: ");
-        Label deltagerNavn = new Label(KonferenceTilFjernelse.getNavn());
+        Label deltagerNavn = new Label(konferenceTilFjernelse.getNavn());
         infoBox.getChildren().addAll(information, deltagerNavn);
         pane.add(infoBox, 1,0);
 
@@ -49,13 +46,8 @@ public class ConfirmDeleteKonferenceWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Konference> konferenceArrayList = new ArrayList<>(Storage.getKonferencer());
-        for(Konference konference : konferenceArrayList){
-            if(konference.equals(KonferenceTilFjernelse)){
-                Controller.fjernKonference(konference);
-                System.out.printf("%s er nu fjernet fra Storage%n", konference.getNavn());
-            }
-        }
+        Controller.fjernKonference(konferenceTilFjernelse);
+        System.out.printf("%s er nu fjernet fra Storage%n", konferenceTilFjernelse.getNavn());
     }
 }
 

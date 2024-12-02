@@ -23,7 +23,9 @@ public class Controller {
     public static void fjernDeltager(Deltager deltager){
         for(Tilmelding tilmelding : deltager.getTilmeldinger()){
             Konference konference = tilmelding.getKonference();
+            Hotel hotel = tilmelding.getHotel();
             konference.fjernTilmelding(tilmelding);
+            hotel.removeTilmelding(tilmelding);
         }
         Storage.removeDeltager(deltager);
     }
@@ -84,7 +86,9 @@ public class Controller {
 
     public static void fjernTilmelding(Tilmelding tilmeldingTilFjernelse, Konference konference){
         konference.fjernTilmelding(tilmeldingTilFjernelse);
-        System.out.println("fjernTilmelding() kaldt i controller");
+        tilmeldingTilFjernelse.getHotel().removeTilmelding(tilmeldingTilFjernelse);
+        tilmeldingTilFjernelse.getDeltager().fjernTilmelding(tilmeldingTilFjernelse);
+        System.out.println(String.format("fjernTilmelding() på %s kaldt i controller", tilmeldingTilFjernelse.getDeltager().getFuldeNavn()));
     }
 
     public static Firma opretFirma(String navn, String telefonnummer){
@@ -125,4 +129,22 @@ public class Controller {
             }
         }
     }
+
+    public static void opdaterHotelTillæg(HotelTillæg hotelTillæg, String newNavn, double newPris) throws InputMismatchException {
+        hotelTillæg.setNavn(newNavn);
+        hotelTillæg.setPris(newPris);
+    }
+
+    // Remove metoder -------------------------------------------------------------------
+    public static void fjernHotel(Hotel hotel) {
+        Storage.removeHotel(hotel);
+    }
+
+    public static void fjernHotelTillæg(HotelTillæg hotelTillæg, Hotel hotel) {
+        hotel.removeHotelTillæg(hotelTillæg);
+        for (Tilmelding tilmelding : hotel.getTilmeldinger()) {
+            tilmelding.removeHotelTillæg(hotelTillæg);
+        }
+    }
+
 }

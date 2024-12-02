@@ -48,13 +48,8 @@ public class ConfirmDeleteUdflugtWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Udflugt> udflugterList = new ArrayList<>(Storage.getUdflugter());
-        for(Udflugt udflugt : udflugterList){
-            if(udflugt.equals(udflugtTilFjernelse)){
-                Storage.removeUdflugt(udflugt);
-                System.out.printf("%s er nu fjernet fra Storage%n", udflugt.getNavn());
-            }
-        }
+        Storage.removeUdflugt(udflugtTilFjernelse);
+        System.out.printf("%s er nu fjernet fra Storage%n", udflugtTilFjernelse.getNavn());
     }
 
 

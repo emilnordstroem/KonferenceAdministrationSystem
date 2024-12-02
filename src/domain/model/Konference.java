@@ -61,12 +61,8 @@ public class Konference {
     }
 
     public void fjernTilmelding(Tilmelding tilmeldingTilFjernelse){
-        for(Tilmelding tilmelding : tilmeldinger){
-            if(tilmelding.getDeltager().equals(tilmeldingTilFjernelse)){
-                tilmeldinger.remove(tilmeldingTilFjernelse);
-                System.out.println("Tilmelding er fjernet fra konferencen");
-            }
-        }
+        tilmeldinger.remove(tilmeldingTilFjernelse);
+        System.out.println("Tilmelding er fjernet fra konferencen");
     }
 
     public double getPrisPrDag() {

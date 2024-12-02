@@ -42,6 +42,7 @@ public class DeltagerPane extends GridPane {
                 Deltager deltager = SearchAlgorithm.binaryPersonSearch(sortedDeltagerList, søgning);
                 if(deltager != null){
                     deltagerInto.setText(deltager.toString());
+                    deltagereListView.getSelectionModel().select(deltager); // Beregn pris ud fra søgning
                     personSøgning.clear();
                 } else {
                     deltagerInto.setText("[Deltager findes ikke på listen]");

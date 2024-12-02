@@ -154,6 +154,10 @@ public class Tilmelding {
         }
     }
 
+    public void removeHotelTillæg(HotelTillæg hotelTillæg) {
+        valgteHotelTillæg.remove(hotelTillæg);
+    }
+
     @Override
     public String toString() {
         String string = String.format("%s (%d)%nTilmeldt konferencen fra %s til %s%n", deltager.getFuldeNavn(), deltager.getId(), startDato, slutDato);

@@ -12,7 +12,7 @@ public class Hotel {
     private ArrayList<HotelTillæg> hotelTillæger = new ArrayList<>();
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
-    public Hotel(String navn, Adresse adresse, double enkeltVærelsesPris, double dobbeltVærelsesPris) {
+    public Hotel(String navn, Adresse adresse, double enkeltVærelsesPris, double dobbeltVærelsesPris) throws InputMismatchException {
         this.navn = navn;
         this.adresse = adresse;
         this.enkeltVærelsesPris = enkeltVærelsesPris;
@@ -43,16 +43,26 @@ public class Hotel {
         return enkeltVærelsesPris;
     }
 
-    public void setEnkeltVærelsesPris(double enkeltVærelsesPris) {
-        this.enkeltVærelsesPris = enkeltVærelsesPris;
+    public void setEnkeltVærelsesPris(double enkeltVærelsesPris) throws InputMismatchException {
+        if(enkeltVærelsesPris <= 0) {
+            throw new InputMismatchException("Prisen skal være et positivt tal.");
+        }
+        else {
+            this.enkeltVærelsesPris = enkeltVærelsesPris;
+        }
     }
 
     public double getDobbeltVærelsesPris() {
         return dobbeltVærelsesPris;
     }
 
-    public void setDobbeltVærelsesPris(double dobbeltVærelsesPris) {
-        this.dobbeltVærelsesPris = dobbeltVærelsesPris;
+    public void setDobbeltVærelsesPris(double dobbeltVærelsesPris) throws InputMismatchException {
+        if(dobbeltVærelsesPris <= 0) {
+            throw new InputMismatchException("Prisen skal være et positivt tal.");
+        }
+        else {
+            this.dobbeltVærelsesPris = dobbeltVærelsesPris;
+        }
     }
 
     public ArrayList<Konference> getKonferencer() {
@@ -99,6 +109,11 @@ public class Hotel {
             tilmeldinger.add(tilmelding);
             tilmelding.setHotel(this);
         }
+    }
+
+    public void removeTilmelding(Tilmelding tilmelding) {
+        tilmeldinger.remove(tilmelding);
+        tilmelding.setHotel(null);
     }
 
     @Override

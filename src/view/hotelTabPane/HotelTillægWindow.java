@@ -74,7 +74,7 @@ public class HotelTillægWindow extends Stage {
         HotelTillæg hotelTillæg = hotelTillægComboBox.getSelectionModel().getSelectedItem();
         if(hotelTillæg != null) {
             navnTextField.setText(hotelTillæg.getNavn());
-            prisTextField.setText(String.valueOf(hotelTillæg.getPris()));
+            prisTextField.setText(String.format("%.2f", hotelTillæg.getPris()));
         }
     }
 
@@ -104,13 +104,11 @@ public class HotelTillægWindow extends Stage {
         try {
             double pris = Double.parseDouble(prisInput);
             if(hotelTillæg != null && title.equals("Opdater")) {
-                hotelTillæg.setNavn(navnInput);
-                hotelTillæg.setPris(pris);
+                Controller.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
             }
             else if(hotelTillæg != null && title.equals("Slet")) {
-                hotel.removeHotelTillæg(hotelTillæg);
-            }
-            else {
+                Controller.fjernHotelTillæg(hotelTillæg, hotel);
+            } else {
                 Controller.opretHotelTillæg(navnInput, pris, hotel);
             }
         }

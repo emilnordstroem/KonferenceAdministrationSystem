@@ -106,6 +106,8 @@ public class OpretTilmeldingWindow extends Stage {
         pane.add(udflugtListView,0,9);
         udflugtListView.setPrefHeight(100);
         udflugtListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        udflugtListView.setDisable(true);
+        ledsagerNavnTextField.setOnMouseClicked(event -> udflugtListView.setDisable(false));
 
         Label hotelmulighederLabel = new Label("Overnatningsmuligheder");
         HBox hotelTilvalgHBox = new HBox(hotelListView, hotelTillægListView);

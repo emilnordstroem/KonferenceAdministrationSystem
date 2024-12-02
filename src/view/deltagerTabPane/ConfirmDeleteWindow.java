@@ -49,12 +49,7 @@ public class ConfirmDeleteWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        ArrayList<Deltager> deltagerList = new ArrayList<>(Storage.getDeltagere());
-        for(Deltager deltager : deltagerList){
-            if(deltager.equals(deltagerTilFjernelse)){
-                Controller.fjernDeltager(deltager);
-                System.out.printf("%s er nu fjernet fra Storage%n", deltager.getFuldeNavn());
-            }
-        }
+        Controller.fjernDeltager(deltagerTilFjernelse);
+        System.out.printf("%s er nu fjernet fra Storage%n", deltagerTilFjernelse.getFuldeNavn());
     }
 }
