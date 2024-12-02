@@ -162,17 +162,23 @@ public class Tilmelding {
     public String toString() {
         String string = String.format("%s (%d)%nTilmeldt konferencen fra %s til %s%n", deltager.getFuldeNavn(), deltager.getId(), startDato, slutDato);
         if(ledsagerNavn != null && !ledsagerNavn.isEmpty()) {
-            string += "med " + ledsagerNavn;
+            string += "- Ledsager: " + ledsagerNavn;
         }
         else {
-            string += "uden ledsager";
+            string += "- Uden ledsager";
         }
 
         if(erForedragsholder) {
-            string += " og er foredragsholder.";
+            string += "\n- Deltager er foredragsholder.";
         }
         else {
-            string += " og er ikke foredragsholder.";
+            string += "\n- Deltager er ikke foredragsholder.";
+        }
+
+        if(hotel != null){
+            string += ("\n- Deltagende bor på " + hotel.getNavn());
+        } else {
+            string += ("\n- Deltagende bor ikke på hotel");
         }
         return string;
     }
