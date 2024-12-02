@@ -155,10 +155,14 @@ public class OpretTilmeldingWindow extends Stage {
 
         // Sortere deltagere som allerade er tilmeldt fra
         for(Deltager deltager : alleDeltagere){
-            for(Tilmelding tilmelding : deltager.getTilmeldinger()){
-                if(tilmelding.getKonference() != konferenceTilTilmelding){
-                    ikkeTilmeldteDeltagere.add(deltager);
+            if(!deltager.getTilmeldinger().isEmpty()){
+                for(Tilmelding tilmelding : deltager.getTilmeldinger()){
+                    if(tilmelding.getKonference() != konferenceTilTilmelding){
+                        ikkeTilmeldteDeltagere.add(deltager);
+                    }
                 }
+            } else {
+                ikkeTilmeldteDeltagere.add(deltager);
             }
         }
 

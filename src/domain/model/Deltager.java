@@ -102,6 +102,6 @@ public class Deltager {
 
     @Override
     public String toString(){
-        return String.format("%s %s (%s): %s", forNavn, efterNavn, telefonnummer, adresse);
+        return String.format("%s %s (ID: %d)%nTlf.nr: %s%nAdresse: %s", forNavn, efterNavn, id, telefonnummer, adresse);
     }
 }

@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import storage.Storage;
 import java.util.ArrayList;
 
+import static view.deltagerTabPane.SearchAlgorithm.sortedStringArray;
+
 public class DeltagerPane extends GridPane {
     private final ListView<Deltager> deltagereListView = new ListView<>();
     private final TextField prisTextField = new TextField();
@@ -36,7 +38,7 @@ public class DeltagerPane extends GridPane {
             System.out.println("Søgning...");
             String søgning = personSøgning.getText();
 
-            ArrayList<Deltager> sortedDeltagerList = SearchAlgorithm.sortedStringArray(Storage.getDeltagere());
+            ArrayList<Deltager> sortedDeltagerList = sortedStringArray(Storage.getDeltagere());
 
             if(!søgning.isBlank() && !sortedDeltagerList.isEmpty()){
                 Deltager deltager = SearchAlgorithm.binaryPersonSearch(sortedDeltagerList, søgning);
@@ -97,12 +99,12 @@ public class DeltagerPane extends GridPane {
 
     private void opretDeltagerAction() {
         new OpretDeltagerWindow().showAndWait();
-        deltagereListView.getItems().setAll(Storage.getDeltagere());
+        deltagereListView.getItems().setAll(sortedStringArray(Storage.getDeltagere()));
     }
 
     private void fjernDeltager(Deltager deltager){
         new ConfirmDeleteWindow(deltager).showAndWait();
-        deltagereListView.getItems().setAll(Storage.getDeltagere());
+        deltagereListView.getItems().setAll(sortedStringArray(Storage.getDeltagere()));
     }
 
     private void setNonEdibleTextFields(){
@@ -112,7 +114,7 @@ public class DeltagerPane extends GridPane {
 
     private void setDeltagerListView(){
         deltagereListView.setPrefWidth(1000);
-        deltagereListView.getItems().setAll(SearchAlgorithm.sortedStringArray(Storage.getDeltagere()));
+        deltagereListView.getItems().setAll(sortedStringArray(Storage.getDeltagere()));
         this.add(deltagereListView, 0, 1, 6,1);
     }
 }
