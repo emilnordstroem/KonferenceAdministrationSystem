@@ -156,9 +156,11 @@ public class OpretTilmeldingWindow extends Stage {
         // Sortere deltagere som allerade er tilmeldt fra
         for(Deltager deltager : alleDeltagere){
             if(!deltager.getTilmeldinger().isEmpty()){
+                ikkeTilmeldteDeltagere.add(deltager);
                 for(Tilmelding tilmelding : deltager.getTilmeldinger()){
-                    if(tilmelding.getKonference() != konferenceTilTilmelding){
-                        ikkeTilmeldteDeltagere.add(deltager);
+                    if(tilmelding.getKonference() == konferenceTilTilmelding){
+                        ikkeTilmeldteDeltagere.remove(deltager);
+                        break;
                     }
                 }
             } else {
@@ -174,6 +176,8 @@ public class OpretTilmeldingWindow extends Stage {
         String ledsager = ledsagerNavnTextField.getText();
         ArrayList<Udflugt> valgteUdflugterList = new ArrayList<>(udflugtListView.getSelectionModel().getSelectedItems());
         Hotel hotel = hotelListView.getSelectionModel().getSelectedItem();
+        hotelListView.getSelectionModel().clearSelection();
+        hotelTillægListView.getSelectionModel().clearSelection();
         ArrayList<HotelTillæg> valgteHotelTillægs = new ArrayList<>(hotelTillægListView.getSelectionModel().getSelectedItems());
 
         Tilmelding tilmelding = Controller.opretTilmelding(konferenceTilTilmelding, deltager, erForedragsholder, ledsager,
