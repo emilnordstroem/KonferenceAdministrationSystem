@@ -1,4 +1,4 @@
-package view;
+package view.errorHandling;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;

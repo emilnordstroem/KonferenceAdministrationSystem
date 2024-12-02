@@ -14,7 +14,7 @@ import storage.Storage;
 import view.deltagerTabPane.SearchAlgorithm;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import static view.Error.conflictingDates;
+import static view.errorHandling.Error.conflictingDates;
 
 public class OpretTilmeldingWindow extends Stage {
     private Konference konferenceTilTilmelding;

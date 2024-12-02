@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.errorHandling.Error;
 
 import java.util.InputMismatchException;
 
@@ -96,7 +97,7 @@ public class HotelTillægWindow extends Stage {
         String prisInput = prisTextField.getText().trim();
         HotelTillæg hotelTillæg = hotelTillægComboBox.getValue();
 
-        if(Utility.blankTextField(navnInput, prisInput)) {
+        if(Error.blankTextField(navnInput, prisInput)) {
             errorLabel.setText("Ikke alle felter er udfyldt");
             return;
         }

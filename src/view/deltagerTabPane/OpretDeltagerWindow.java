@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
 
-import static view.Error.blankTextField;
+import static view.errorHandling.Error.blankTextField;
 
 public class OpretDeltagerWindow extends Stage {
     private TextField fornavnTextField = new TextField();

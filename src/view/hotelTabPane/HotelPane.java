@@ -2,12 +2,14 @@ package view.hotelTabPane;
 
 import domain.controller.Controller;
 import domain.model.Hotel;
+import domain.model.HotelTillæg;
 import domain.model.Tilmelding;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import storage.Storage;
+import view.errorHandling.Alert;
 
 import java.util.Optional;
 
@@ -73,7 +75,7 @@ public class HotelPane extends GridPane {
         if (newHotel != null) {
             tilmeldingerListView.getItems().setAll();
             for (Tilmelding tilmelding : newHotel.getTilmeldinger()) {
-                String s = Utility.buildInfoOnHotelTilmelding(tilmelding);
+                String s = buildInfoOnHotelTilmelding(tilmelding);
                 tilmeldingerListView.getItems().add(s);
             }
         }
@@ -90,7 +92,7 @@ public class HotelPane extends GridPane {
             new HotelWindow("Opdater", hotel).showAndWait();
         }
         else {
-            new HotelAlert(Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
         }
         hotellerListView.refresh();
     }
@@ -98,7 +100,7 @@ public class HotelPane extends GridPane {
     private void sletHotelAction() {
         Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
         if (hotel != null) {
-            Alert alert = new HotelAlert(Alert.AlertType.CONFIRMATION, "Slet hotel", "Er du sikker på du vil slette " + hotel.getNavn() + "?");
+            javafx.scene.control.Alert alert = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Slet hotel", "Er du sikker på du vil slette " + hotel.getNavn() + "?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 Controller.fjernHotel(hotel);
@@ -106,7 +108,7 @@ public class HotelPane extends GridPane {
                 tilmeldingerListView.getItems().setAll();
             }
         } else {
-            new HotelAlert(Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.");
         }
     }
 
@@ -117,7 +119,7 @@ public class HotelPane extends GridPane {
             hotellerListView.refresh();
         }
         else {
-            new HotelAlert(Alert.AlertType.INFORMATION, "Opret hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opret hotel", "Du har ikke valgt et hotel i listen.");
         }
     }
 
@@ -129,11 +131,11 @@ public class HotelPane extends GridPane {
                 hotellerListView.refresh();
             }
             else {
-                new HotelAlert(Alert.AlertType.INFORMATION, "Opdater hotel", "Der er ikke nogle hoteltillæg at opdatere");
+                new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Der er ikke nogle hoteltillæg at opdatere");
             }
         }
         else {
-            new HotelAlert(Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
         }
     }
 
@@ -147,10 +149,31 @@ public class HotelPane extends GridPane {
                 hotellerListView.getSelectionModel().select(hotel);
             }
             else {
-                new HotelAlert(Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Der er ikke nogle hoteltillæg at slette.");
+                new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Der er ikke nogle hoteltillæg at slette.");
             }
         } else {
-            new HotelAlert(Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Du har ikke valgt et hotel i listen.");
         }
+    }
+
+    private String buildInfoOnHotelTilmelding(Tilmelding tilmelding) {
+        String s = tilmelding.getDeltager().getFuldeNavn();
+        if(tilmelding.getLedsagerNavn() != null) {
+            s += " har dobbeltværelse med " + tilmelding.getLedsagerNavn() + " og følgende hoteltillæg:\n";
+        }
+
+        else {
+            s += " har enkeltværelse med følgende hoteltillæg:\n";
+        }
+
+        if(tilmelding.getHotelTillæg().isEmpty()) {
+            s += "Ingen hoteltillæg.";
+        }
+        else {
+            for (HotelTillæg hotelTillæg : tilmelding.getHotelTillæg()) {
+                s += hotelTillæg.getNavn();
+            }
+        }
+        return s;
     }
 }

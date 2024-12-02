@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import static view.Error.blankTextField;
+import static view.errorHandling.Error.blankTextField;
 
 public class OpretFirmaWindow extends Stage {
     private final TextField firmaNavnTextField = new TextField();

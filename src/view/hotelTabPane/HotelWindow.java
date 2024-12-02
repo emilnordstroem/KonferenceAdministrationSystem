@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
+import view.errorHandling.Error;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -125,7 +126,7 @@ public class HotelWindow extends Stage {
         String landInput = landTextField.getText().trim();
         ArrayList<Konference> konferencer = new ArrayList<>(konferencerListView.getSelectionModel().getSelectedItems());
 
-        if(Utility.blankTextField(navnInput, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput)){
+        if(Error.blankTextField(navnInput, enkeltværelsesPrisInput, dobbeltværelsesPrisInput, vejInput, bygningNrInput, byInput, landInput)){
             errorLabel.setText("Ikke alle felter er udfyldt");
             return;
         }

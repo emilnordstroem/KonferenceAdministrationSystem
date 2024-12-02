@@ -17,8 +17,8 @@ import view.konferenceTabPane.konference.udflugt.OpretUdflugtWindow;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static view.Error.blankTextField;
-import static view.Error.conflictingDates;
+import static view.errorHandling.Error.blankTextField;
+import static view.errorHandling.Error.conflictingDates;
 
 public class OpretKonferenceWindow extends Stage {
     private final TextField navnTextField = new TextField();

@@ -165,10 +165,14 @@ public class KonferencePane extends GridPane {
         tilmeldingerListView.getItems().setAll(konference.getTilmeldinger());
     }
 
-    private void fjernTilmelding(){
-        Konference konference = konferencerListView.getSelectionModel().getSelectedItem();
-        Tilmelding tilmeldingTilFjernelse = tilmeldingerListView.getSelectionModel().getSelectedItem();
-        new ConfirmDeleteTilmeldingWindow(tilmeldingTilFjernelse, konference).showAndWait();
-        tilmeldingerListView.getItems().setAll(konference.getTilmeldinger());
+    private void fjernTilmelding() {
+        try {
+            Konference konference = konferencerListView.getSelectionModel().getSelectedItem();
+            Tilmelding tilmeldingTilFjernelse = tilmeldingerListView.getSelectionModel().getSelectedItem();
+            new ConfirmDeleteTilmeldingWindow(tilmeldingTilFjernelse, konference).showAndWait();
+            tilmeldingerListView.getItems().setAll(konference.getTilmeldinger());
+        } catch (NullPointerException pointerException){
+
+        }
     }
 }
