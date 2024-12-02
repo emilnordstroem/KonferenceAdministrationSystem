@@ -2,6 +2,7 @@ package view.konferenceTabPane.konference.udflugt;
 
 import domain.controller.Controller;
 import domain.model.Adresse;
+import domain.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +16,6 @@ import javafx.scene.control.Label;
 import java.time.LocalDate;
 
 public class OpretUdflugtWindow extends Stage {
-
     private TextField navnTextField = new TextField();
     private DatePicker datoDatepicker = new DatePicker();
     private TextField beskrivelseTextField = new TextField();
@@ -92,9 +92,9 @@ public class OpretUdflugtWindow extends Stage {
         String navnInput = navnTextField.getText().trim();
         LocalDate datoInput = datoDatepicker.getValue();
         String besrkvilseInput = beskrivelseTextField.getText().trim();
-        int prisInput = Integer.parseInt(prisTextField.getText());
+        double prisInput = Double.parseDouble(prisTextField.getText());
 
-        Controller.opretUdflugt(navnInput,adresse,datoInput,besrkvilseInput,prisInput);
+        Controller.opretUdflugt(navnInput, adresse, datoInput, besrkvilseInput, prisInput);
         close();
     }
 }

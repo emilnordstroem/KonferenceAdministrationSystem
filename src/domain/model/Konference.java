@@ -33,10 +33,15 @@ public class Konference {
         return new ArrayList<>(udflugter);
     }
 
+    // Back trace denne - skal rettes
     public Udflugt createUdflugt(String navn, Adresse adresse, LocalDate dato, String beskrivelse, double pris) {
         Udflugt udflugt = new Udflugt(navn, adresse, dato, beskrivelse, pris);
         udflugter.add(udflugt);
         return udflugt;
+    }
+
+    public void addFlugter (ArrayList<Udflugt> udflugter){
+        this.udflugter.addAll(udflugter);
     }
 
     public ArrayList<Hotel> getHoteller() {

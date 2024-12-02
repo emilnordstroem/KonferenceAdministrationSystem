@@ -2,6 +2,7 @@ package view.konferenceTabPane.konference;
 
 import domain.controller.Controller;
 import domain.model.Hotel;
+import domain.model.Konference;
 import domain.model.Udflugt;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -142,8 +143,11 @@ public class OpretKonferenceWindow extends Stage {
         if(valgteHotellerArrayList.isEmpty()) {
             System.out.println("Ingen hoteller valgt i oprettelse af konference");
             errorLabel.setText("Vælg tilgængelige hoteller");
+            Storage.clearUdflugter();
         } else {
-            Controller.opretKonference(navn, fraDato, tilDato, pris, valgteHotellerArrayList);
+            Konference konference = Controller.opretKonference(navn, fraDato, tilDato, pris, valgteHotellerArrayList);
+            konference.addFlugter(new ArrayList<>(udflugtListView.getItems()));
+            Storage.clearUdflugter();
         }
     }
 }

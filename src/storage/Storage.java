@@ -84,6 +84,7 @@ public class Storage {
         return new ArrayList<>(udflugter);
     }
 
+    // Remove, Add, Clear udflugt er midlertidlig lagring af data til konferencen
     public static void removeUdflugt(Udflugt udflugt){
         udflugter.remove(udflugt);
         System.out.println("Udflugt fjernet fra Storage");
@@ -94,6 +95,11 @@ public class Storage {
             udflugter.add(udflugt);
             System.out.println("Udflugt er tilføjet i storage");
         }
+    }
+
+    public static void clearUdflugter(){
+        udflugter.clear();
+        System.out.println("Udflugter er cleared i storage");
     }
 
     public static Hotel getHotelByNavn(String navn) {
