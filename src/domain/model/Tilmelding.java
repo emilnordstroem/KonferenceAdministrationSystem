@@ -22,6 +22,7 @@ public class Tilmelding {
         this.deltager = deltager;
         deltager.addTilmelding(this);
         this.erForedragsholder = foredragsholder;
+        ledsagerNavn = null;
         this.startDato = startDato;
         this.slutDato = slutDato;
     }
@@ -113,7 +114,10 @@ public class Tilmelding {
     }
 
     public String getLedsagerNavn() {
-        return ledsagerNavn;
+        if(ledsagerNavn != null){
+            return ledsagerNavn;
+        }
+        return null;
     }
 
     public void setLedsagerNavn(String ledsagerNavn) {
