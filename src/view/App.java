@@ -265,12 +265,16 @@ public class App {
     }
 
     private static double generatePricePerDay(){
-        return new Random().nextDouble(250,2500) + 1;
+        double price = new Random().nextDouble(250,2500) + 1;
+        // Math.ceil rounds the value of Random() up
+        // + 99 divided by 100 (rounds to nearest whole number. Multiply by 100 gets nearest hundred
+        return Math.ceil((price + 99) / 100) * 100;
     }
 
     private static double generateUdflugtPrice(){
-        return new Random().nextDouble(50,300) + 1;
-
+        double price =  new Random().nextDouble(50,300) + 1;
+        // Math.ceil rounds the value of Random() up
+        return Math.ceil(price);
     }
 
     private static String generatePhoneNumber(){
