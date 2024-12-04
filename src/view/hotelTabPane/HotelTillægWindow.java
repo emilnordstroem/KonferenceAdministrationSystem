@@ -93,33 +93,45 @@ public class HotelTillægWindow extends Stage {
         String prisInput = prisTextField.getText().trim();
         HotelTillæg hotelTillæg = hotelTillægComboBox.getValue();
 
-        // Validate for blank fields using Error class
-        if (!Error.blankTextField(navnInput, prisInput)) {
-            new Alert(Alert.AlertType.ERROR, "Fejl", "Felter må ikke være tomme.");
+        if (title.equals("Slet")) {
+            if (hotelTillæg == null) {
+                new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Du skal vælge et hoteltillæg at slette.");
+                return;
+            }
+            ControllerHotelTillæg.fjernHotelTillæg(hotelTillæg, hotel);
+            hide();
+            return;
+        }
+
+        // Validation for "Opret" and "Opdater"
+        if (navnInput.isEmpty()) {
+            new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Fejl", "Navn skal udfyldes.");
+            return;
+        }
+        if (prisInput.isEmpty()) {
+            new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Fejl", "Pris skal udfyldes.");
             return;
         }
 
         try {
             double pris = Double.parseDouble(prisInput);
+
+            // Check if the price is negative
             if (pris < 0) {
-                new Alert(Alert.AlertType.ERROR, "Fejl", "Prisen skal være et positivt tal.");
+                new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Fejl", "Prisen må ikke være negativ.");
                 return;
             }
 
-            if (hotelTillæg != null && title.equals("Opdater")) {
+            if (title.equals("Opdater") && hotelTillæg != null) {
                 ControllerHotelTillæg.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
-            } else if (hotelTillæg != null && title.equals("Slet")) {
-                ControllerHotelTillæg.fjernHotelTillæg(hotelTillæg, hotel);
             } else {
                 ControllerHotelTillæg.opretHotelTillæg(navnInput, pris, hotel);
             }
         } catch (NumberFormatException ex) {
-            new Alert(Alert.AlertType.ERROR, "Fejl", "Prisen skal være et gyldigt tal.");
-            return;
-        } catch (InputMismatchException ex) {
-            new Alert(Alert.AlertType.ERROR, "Fejl", ex.getMessage());
+            new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Fejl", "Prisen skal være et positivt tal.");
             return;
         }
+
         hide();
     }
 }

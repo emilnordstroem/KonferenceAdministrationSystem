@@ -189,6 +189,7 @@ public class OpretTilmeldingWindow extends Stage {
 
     // this method here was helped by chatgpt to make
     private void restrictSelectableDates(DatePicker datePicker, LocalDate startDato, LocalDate slutDato) {
+        datePicker.setValue(startDato);
         datePicker.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {

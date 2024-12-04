@@ -22,6 +22,7 @@ public class DeltagerPane extends GridPane {
     private final Button sletDeltagerButton = new Button("Slet deltager");
     private final Button søgKnap = new Button("Søg");
     private final Button beregnPrisButton = new Button("Beregn pris");
+    private final Button visDetaljer = new Button("Vis detaljer");
 
     public DeltagerPane() {
         this.setPadding(new Insets(20));
