@@ -22,6 +22,12 @@ public class ControllerKonference {
             tilmelding.getDeltager().fjernTilmelding(tilmelding);
             System.out.println("Opdatere samlet udgifter for deltager");
         }
+
+        for(Hotel hotel : konference.getHoteller()) {
+            for (Tilmelding tilmelding : hotel.getTilmeldinger()) {
+                hotel.removeTilmelding(tilmelding);
+            }
+        }
         Storage.removeKonference(konference);
     }
 }

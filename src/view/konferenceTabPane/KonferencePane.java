@@ -71,7 +71,7 @@ public class KonferencePane extends GridPane {
                 System.out.println("Fjern konference metode kaldt");
                 fjernKonference();
             } else {
-                new Alert(Alert.AlertType.INFORMATION, "Vælg Konference", "Marker den konference som skal fjernes");
+                new Alert(Alert.AlertType.INFORMATION, "Vælg Konference", "Marker den konference som skal fjernes").showAndWait();
             }
         });
 
@@ -87,7 +87,7 @@ public class KonferencePane extends GridPane {
                 System.out.println("Fjerne tilmelding metode kaldt");
                 fjernTilmelding();
             } else {
-                new Alert(Alert.AlertType.INFORMATION, "Vælg Tilmelding", "Marker den tilmelding som skal fjernes");
+                new Alert(Alert.AlertType.INFORMATION, "Vælg Tilmelding", "Marker den tilmelding som skal fjernes").showAndWait();
             }
         });
 

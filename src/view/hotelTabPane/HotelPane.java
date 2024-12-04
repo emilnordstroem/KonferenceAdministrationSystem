@@ -92,7 +92,7 @@ public class HotelPane extends GridPane {
             new HotelWindow("Opdater", hotel).showAndWait();
         }
         else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
         hotellerListView.refresh();
     }
@@ -100,7 +100,7 @@ public class HotelPane extends GridPane {
     private void sletHotelAction() {
         Hotel hotel = hotellerListView.getSelectionModel().getSelectedItem();
         if (hotel != null) {
-            javafx.scene.control.Alert alert = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Slet hotel", "Er du sikker på du vil slette " + hotel.getNavn() + "?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Slet hotel", "Er du sikker på du vil slette " + hotel.getNavn() + "?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 ControllerHotel.fjernHotel(hotel);
@@ -108,7 +108,7 @@ public class HotelPane extends GridPane {
                 tilmeldingerListView.getItems().setAll();
             }
         } else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
     }
 
@@ -119,7 +119,7 @@ public class HotelPane extends GridPane {
             hotellerListView.refresh();
         }
         else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opret hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(Alert.AlertType.INFORMATION, "Opret hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
     }
 
@@ -131,11 +131,11 @@ public class HotelPane extends GridPane {
                 hotellerListView.refresh();
             }
             else {
-                new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Der er ikke nogle hoteltillæg at opdatere");
+                new Alert(Alert.AlertType.INFORMATION, "Opdater hotel", "Der er ikke nogle hoteltillæg at opdatere").showAndWait();
             }
         }
         else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(Alert.AlertType.INFORMATION, "Opdater hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
     }
 
@@ -149,10 +149,10 @@ public class HotelPane extends GridPane {
                 hotellerListView.getSelectionModel().select(hotel);
             }
             else {
-                new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Der er ikke nogle hoteltillæg at slette.");
+                new Alert(Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Der er ikke nogle hoteltillæg at slette.").showAndWait();
             }
         } else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Du har ikke valgt et hotel i listen.");
+            new Alert(Alert.AlertType.INFORMATION, "Slet hoteltillæg", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
     }
 

@@ -67,7 +67,7 @@ public class DeltagerPane extends GridPane {
                 double samletUdgifter = ControllerDeltager.getSamletUdgifter(deltager);
                 prisTextField.setText(String.format("%.2f DKK", samletUdgifter));
             } catch (NullPointerException exception){
-                new Alert(Alert.AlertType.INFORMATION, "Beregn pris", "Du har ikke valgt en deltager.");
+                new Alert(Alert.AlertType.INFORMATION, "Beregn pris", "Du har ikke valgt en deltager.").showAndWait();
                 System.out.println("NullPointerException ved samlet udgifter i DeltagerPane.java");
             }
         });
@@ -80,7 +80,7 @@ public class DeltagerPane extends GridPane {
                 fjernDeltager(deltager);
             }
             else {
-                new Alert(Alert.AlertType.INFORMATION, "Slet deltager", "Du har ikke valgt en deltager.");
+                new Alert(Alert.AlertType.INFORMATION, "Slet deltager", "Du har ikke valgt en deltager.").showAndWait();
             }
         });
     }

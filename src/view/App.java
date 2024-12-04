@@ -72,6 +72,7 @@ public class App {
         //======================================================================
         // Konferencer
         Konference havOgHimmel = ControllerKonference.opretKonference("Hav og himmel", LocalDate.of(2024,12,16), LocalDate.of(2024,12,18), 1500, null);
+        havOgHimmel.addHotel(denHvideSvane);
         Udflugt byRundtur = havOgHimmel.createUdflugt("Byrundtur, Odense", null, LocalDate.of(2024, 12, 18), "Kr. 125 inkl. Frokost", 125);
         Udflugt egeskov = havOgHimmel.createUdflugt("Egeskov", null, LocalDate.of(2024, 12, 19), "Kr. 75", 75);
         Udflugt trapholtMuseum = havOgHimmel.createUdflugt("Trapholt Museum, Kolding", null, LocalDate.of(2024, 12, 20), "Kr. 200 inkl. Frokost", 200);
