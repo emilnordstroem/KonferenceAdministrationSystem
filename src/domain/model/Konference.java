@@ -29,6 +29,14 @@ public class Konference {
         return this.navn;
     }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
     public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
     }

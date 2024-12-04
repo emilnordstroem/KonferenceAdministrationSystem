@@ -165,6 +165,8 @@ public class HotelWindow extends Stage {
             enkeltværelsesPrisTextField.setText(String.valueOf(hotel.getEnkeltVærelsesPris()));
             dobbeltværelsesPrisTextField.setText(String.valueOf(hotel.getDobbeltVærelsesPris()));
 
+            // Chooses konferences that has previously been selected as konferences
+            // that the deltagers can stay at
             for(int index = 0; index < Storage.getKonferencer().size(); index++) {
                 Konference storageKonference = Storage.getKonferencer().get(index);
                 if(hotel.getKonferencer().contains(storageKonference)) {

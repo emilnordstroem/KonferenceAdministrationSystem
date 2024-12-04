@@ -53,7 +53,8 @@ public class OpretTilmeldingWindow extends Stage {
 
         elementLayout(pane);
         elementContent();
-
+        restrictSelectableDates(ankomstDato, konferenceTilTilmelding.getStartDato(), konferenceTilTilmelding.getSlutDato());
+        restrictSelectableDates(afrejseDato, konferenceTilTilmelding.getStartDato(), konferenceTilTilmelding.getSlutDato());
 
         opretButton.setOnAction(event -> {
             Deltager deltager = deltagerComboBox.getSelectionModel().getSelectedItem();
@@ -93,8 +94,10 @@ public class OpretTilmeldingWindow extends Stage {
 
         Label ankomstDatoLabel = new Label("Ankomstdato:");
         VBox ankomstdatoVBox = new VBox(ankomstDatoLabel, ankomstDato);
+        ankomstDato.setEditable(false);
         Label afrejseDatoLabel = new Label("Afrejsedato");
         VBox afrejseDatoVBox = new VBox(afrejseDatoLabel, afrejseDato);
+        afrejseDato.setEditable(false);
         HBox datoHBox = new HBox(ankomstdatoVBox, afrejseDatoVBox);
         pane.add(datoHBox, 0,5);
 
@@ -182,5 +185,20 @@ public class OpretTilmeldingWindow extends Stage {
         Tilmelding tilmelding = ControllerTilmelding.opretTilmelding(konferenceTilTilmelding, deltager, erForedragsholder, ledsager,
                 fraDato, tilDato, valgteUdflugterList, hotel, valgteHotelTillægs);
         System.out.printf("Tilmeldling oprettet: " + tilmelding);
+    }
+
+    // this method here was helped by chatgpt to make
+    private void restrictSelectableDates(DatePicker datePicker, LocalDate startDato, LocalDate slutDato) {
+        datePicker.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                if (date.isBefore(startDato) || date.isAfter(slutDato)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // Optional: style disabled dates
+                }
+            }
+        });
     }
 }
