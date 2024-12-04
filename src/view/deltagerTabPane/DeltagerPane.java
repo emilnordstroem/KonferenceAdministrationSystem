@@ -2,8 +2,6 @@ package view.deltagerTabPane;
 
 import domain.controller.ControllerDeltager;
 import domain.model.Deltager;
-import domain.model.HotelTillæg;
-import domain.model.Tilmelding;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
