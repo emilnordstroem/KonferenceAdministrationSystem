@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.errorHandling.Alert;
 import view.errorHandling.Error;
 
 import java.util.InputMismatchException;
@@ -22,7 +23,6 @@ public class HotelTillægWindow extends Stage {
     private final TextField prisTextField = new TextField();
     private final Button okButton;
     private final Button cancelButton = new Button("Cancel");
-    private final Label errorLabel = new Label();
     private final String title;
     private final Hotel hotel;
 
@@ -52,7 +52,7 @@ public class HotelTillægWindow extends Stage {
         pane.add(new Label("Vælg et hoteltillæg:"), 0, 0);
         pane.add(hotelTillægComboBox, 1, 0);
         hotelTillægComboBox.getItems().setAll(hotel.getHotelTillæger());
-        if(title.equals("Opret")) {
+        if (title.equals("Opret")) {
             hotelTillægComboBox.setDisable(true);
         }
         hotelTillægComboBox.setOnAction(event -> setTextFields());
@@ -65,7 +65,7 @@ public class HotelTillægWindow extends Stage {
         pane.add(new Label("Pris"), 0, 2);
         pane.add(prisTextField, 1, 2);
 
-        if(title.equals("Slet")) {
+        if (title.equals("Slet")) {
             navnTextField.setDisable(true);
             prisTextField.setDisable(true);
         }
@@ -73,54 +73,54 @@ public class HotelTillægWindow extends Stage {
 
     private void setTextFields() {
         HotelTillæg hotelTillæg = hotelTillægComboBox.getSelectionModel().getSelectedItem();
-        if(hotelTillæg != null) {
+        if (hotelTillæg != null) {
             navnTextField.setText(hotelTillæg.getNavn());
             prisTextField.setText(String.format("%.2f", hotelTillæg.getPris()));
         }
     }
 
     private void setButtons(GridPane pane) {
-        pane.add(cancelButton, 0,3);
+        pane.add(cancelButton, 0, 3);
         cancelButton.setOnAction(event -> hide());
 
-        pane.add(okButton, 1,3);
+        pane.add(okButton, 1, 3);
         GridPane.setHalignment(okButton, HPos.RIGHT);
         okButton.setOnAction(event -> okAction());
-
-        pane.add(errorLabel, 0, 4);
-        errorLabel.setStyle("-fx-text-fill: red; -fx-pref-width: 200px");
     }
-    
 
     private void okAction() {
         String navnInput = navnTextField.getText().trim();
         String prisInput = prisTextField.getText().trim();
         HotelTillæg hotelTillæg = hotelTillægComboBox.getValue();
 
-        if(Error.blankTextField(navnInput, prisInput)) {
-            errorLabel.setText("Ikke alle felter er udfyldt");
+        // Validate for blank fields using Error class
+        if (!Error.blankTextField(navnInput, prisInput)) {
+            new Alert(Alert.AlertType.ERROR, "Fejl", "Felter må ikke være tomme.");
             return;
         }
 
         try {
             double pris = Double.parseDouble(prisInput);
-            if(hotelTillæg != null && title.equals("Opdater")) {
-                ControllerHotelTillæg.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
+            if (pris < 0) {
+                new Alert(Alert.AlertType.ERROR, "Fejl", "Prisen skal være et positivt tal.");
+                return;
             }
-            else if(hotelTillæg != null && title.equals("Slet")) {
+
+            if (hotelTillæg != null && title.equals("Opdater")) {
+                ControllerHotelTillæg.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
+            } else if (hotelTillæg != null && title.equals("Slet")) {
                 ControllerHotelTillæg.fjernHotelTillæg(hotelTillæg, hotel);
             } else {
                 ControllerHotelTillæg.opretHotelTillæg(navnInput, pris, hotel);
             }
-        }
-        catch (NumberFormatException ex) {
-            errorLabel.setText("Prisen skal være et positivt tal.");
+        } catch (NumberFormatException ex) {
+            new Alert(Alert.AlertType.ERROR, "Fejl", "Prisen skal være et gyldigt tal.");
             return;
-        }
-        catch (InputMismatchException ex) {
-            errorLabel.setText(ex.getMessage());
+        } catch (InputMismatchException ex) {
+            new Alert(Alert.AlertType.ERROR, "Fejl", ex.getMessage());
             return;
         }
         hide();
     }
 }
+
