@@ -157,23 +157,23 @@ public class HotelPane extends GridPane {
     }
 
     private String buildInfoOnHotelTilmelding(Tilmelding tilmelding) {
-        String s = tilmelding.getDeltager().getFuldeNavn();
+        String string = tilmelding.getDeltager().getFuldeNavn();
         if(tilmelding.getLedsagerNavn() != null && !tilmelding.getLedsagerNavn().isEmpty()) {
-            s += " har dobbeltværelse med " + tilmelding.getLedsagerNavn() + " og følgende hoteltillæg:\n";
+            string += " har dobbeltværelse med " + tilmelding.getLedsagerNavn() + " og følgende hoteltillæg:\n";
         }
 
         else {
-            s += " har enkeltværelse med følgende hoteltillæg:\n";
+            string += " har enkeltværelse med følgende hoteltillæg:\n";
         }
 
         if(tilmelding.getHotelTillæg().isEmpty()) {
-            s += "Ingen hoteltillæg.";
+            string += "Ingen hoteltillæg.";
         }
         else {
             for (HotelTillæg hotelTillæg : tilmelding.getHotelTillæg()) {
-                s += hotelTillæg.getNavn();
+                string += hotelTillæg.getNavn();
             }
         }
-        return s;
+        return string;
     }
 }

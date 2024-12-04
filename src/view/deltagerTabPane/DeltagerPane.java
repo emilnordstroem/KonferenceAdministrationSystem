@@ -2,6 +2,8 @@ package view.deltagerTabPane;
 
 import domain.controller.ControllerDeltager;
 import domain.model.Deltager;
+import domain.model.HotelTillæg;
+import domain.model.Tilmelding;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -43,7 +45,7 @@ public class DeltagerPane extends GridPane {
             if(!søgning.isBlank() && !sortedDeltagerList.isEmpty()){
                 Deltager deltager = SearchAlgorithm.binaryPersonSearch(sortedDeltagerList, søgning);
                 if(deltager != null){
-                    deltagerInto.setText(deltager.toString());
+                    deltagerInto.setText(infoDeltager(deltager));
                     deltagereListView.getSelectionModel().select(deltager); // Beregn pris ud fra søgning
                     personSøgning.clear();
                 } else {
@@ -70,6 +72,7 @@ public class DeltagerPane extends GridPane {
         });
 
         opretDeltagerButton.setOnAction(event -> opretDeltagerAction());
+
         sletDeltagerButton.setOnAction(event -> {
             Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
             if(deltager != null){
@@ -118,5 +121,9 @@ public class DeltagerPane extends GridPane {
         deltagereListView.setPrefWidth(1000);
         deltagereListView.getItems().setAll(sortedStringArray(Storage.getDeltagere()));
         this.add(deltagereListView, 0, 1, 6,1);
+    }
+
+    private String infoDeltager(Deltager deltager) {
+        return String.format("%s (ID: %d) | Tlf.nr: %s | Adresse: %s", deltager.getFuldeNavn(), deltager.getId(), deltager.getTelefonnummer(), deltager.getAdresse().toString());
     }
 }
