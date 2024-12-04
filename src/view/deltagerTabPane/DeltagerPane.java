@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import storage.Storage;
 import java.util.ArrayList;
+import view.errorHandling.Alert;
 
 import static view.deltagerTabPane.SearchAlgorithm.sortedStringArray;
 
@@ -65,6 +66,7 @@ public class DeltagerPane extends GridPane {
                 double samletUdgifter = ControllerDeltager.getSamletUdgifter(deltager);
                 prisTextField.setText(String.format("%.2f DKK", samletUdgifter));
             } catch (NullPointerException exception){
+                new Alert(Alert.AlertType.INFORMATION, "Beregn pris", "Du har ikke valgt en deltager.");
                 System.out.println("NullPointerException ved samlet udgifter i DeltagerPane.java");
             }
         });
@@ -75,6 +77,9 @@ public class DeltagerPane extends GridPane {
             Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
             if(deltager != null){
                 fjernDeltager(deltager);
+            }
+            else {
+                new Alert(Alert.AlertType.INFORMATION, "Slet deltager", "Du har ikke valgt en deltager.");
             }
         });
     }
