@@ -24,26 +24,10 @@ public class Udflugt {
     }
 
 
-    public Adresse getAddresse() {
-        return adresse;
-    }
-
-
-    public LocalDate getDato() {
-        return dato;
-    }
-
-    public String getBeskrivelse() {
-        return beskrivelse;
-    }
-
     public double getPris() {
         return pris;
     }
 
-    public ArrayList<Tilmelding> getTilmeldinger() {
-        return new ArrayList<>(tilmeldinger);
-    }
 
     public void addTilmelding(Tilmelding tilmelding) {
         if(!tilmeldinger.contains(tilmelding)) {

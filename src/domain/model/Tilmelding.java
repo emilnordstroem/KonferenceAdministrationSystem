@@ -101,13 +101,6 @@ public class Tilmelding {
         return deltager;
     }
 
-    public LocalDate getStartDato() {
-        return startDato;
-    }
-
-    public LocalDate getSlutDato() {
-        return slutDato;
-    }
 
     public boolean isErForedragsholder() {
         return erForedragsholder;
@@ -124,9 +117,6 @@ public class Tilmelding {
         this.ledsagerNavn = ledsagerNavn;
     }
 
-    public ArrayList<Udflugt> getUdflugter() {
-        return new ArrayList<>(valgteUdflugter);
-    }
 
     public void addUdflugt(Udflugt udflugt) {
         if(!valgteUdflugter.contains(udflugt)) {

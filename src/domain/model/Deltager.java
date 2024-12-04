@@ -39,23 +39,11 @@ public class Deltager {
         return forNavn + " " + efterNavn;
     }
 
-    public String getTelefonnummer() {
-        return telefonnummer;
-    }
-
-    public Adresse getAddresse() {
-        return adresse;
-    }
 
     public Firma getFirma() {
         return firma;
     }
 
-    public void setFirma(Firma firma) {
-        if(this.firma != firma) {
-            this.firma = firma;
-        }
-    }
 
     public void setUdgifter(double udgifter) {
         this.udgifter = udgifter;
