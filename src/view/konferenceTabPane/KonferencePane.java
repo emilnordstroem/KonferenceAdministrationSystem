@@ -6,14 +6,12 @@ import domain.model.Udflugt;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import storage.Storage;
+import view.errorHandling.Alert;
 import view.konferenceTabPane.konference.ConfirmDeleteKonferenceWindow;
 import view.konferenceTabPane.konference.OpretKonferenceWindow;
 import view.konferenceTabPane.tilmelding.ConfirmDeleteTilmeldingWindow;
@@ -29,11 +27,9 @@ public class KonferencePane extends GridPane {
 
     // Buttons
     private final Button createKonferenceButton = new Button("Opret konference");
-    private final Button opdaterKonferenceButton = new Button("Opdater konference");
     private final Button sletKonferenceButton = new Button("Slet konference");
 
     private final Button opretTilmeldingButton = new Button("Opret tilmelding");
-    private final Button opdaterTilmeldingButton = new Button("Opdater tilmelding");
     private final Button sletTilmeldingButton = new Button("Slet tilmelding");
 
     public KonferencePane() {
@@ -74,6 +70,8 @@ public class KonferencePane extends GridPane {
             if(!konferencerListView.getSelectionModel().isEmpty()){
                 System.out.println("Fjern konference metode kaldt");
                 fjernKonference();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Vælg Konference", "Marker den konference som skal fjernes");
             }
         });
 
@@ -88,6 +86,8 @@ public class KonferencePane extends GridPane {
             if(!tilmeldingerListView.getSelectionModel().isEmpty()){
                 System.out.println("Fjerne tilmelding metode kaldt");
                 fjernTilmelding();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Vælg Tilmelding", "Marker den tilmelding som skal fjernes");
             }
         });
 
@@ -116,16 +116,10 @@ public class KonferencePane extends GridPane {
     private void setButtons(){
         this.add(createKonferenceButton, 0, 2);
 
-        GridPane.setHalignment(opdaterKonferenceButton, HPos.RIGHT);
-        this.add(opdaterKonferenceButton, 1, 2);
-
         GridPane.setHalignment(sletKonferenceButton, HPos.RIGHT);
         this.add(sletKonferenceButton, 2, 2);
 
         this.add(opretTilmeldingButton, 3,2);
-
-        GridPane.setHalignment(opdaterTilmeldingButton, HPos.RIGHT);
-        this.add(opdaterTilmeldingButton, 4, 2);
 
         GridPane.setHalignment(sletTilmeldingButton, HPos.RIGHT);
         this.add(sletTilmeldingButton, 5, 2);
