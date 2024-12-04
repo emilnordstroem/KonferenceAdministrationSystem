@@ -62,13 +62,28 @@ public class DeltagerPane extends GridPane {
             if(deltager == null){
                 System.out.println("Ingen deltager er valgt");
             }
-            try{
+            try {
                 assert deltager != null;
                 double samletUdgifter = ControllerDeltager.getSamletUdgifter(deltager);
                 prisTextField.setText(String.format("%.2f DKK", samletUdgifter));
-            } catch (NullPointerException exception){
+            } catch (NullPointerException exception) {
                 new Alert(Alert.AlertType.INFORMATION, "Beregn pris", "Du har ikke valgt en deltager.").showAndWait();
                 System.out.println("NullPointerException ved samlet udgifter i DeltagerPane.java");
+            }
+        });
+
+        visDetaljer.setOnAction(event -> {
+            System.out.println("visDetaljer button clicked...");
+            Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
+            if(deltager == null){
+                System.out.println("Ingen deltager er valgt");
+            }
+            try {
+                System.out.println("new UdgiftdetaljeWindow() kaldt");
+                new UdgiftdetaljeWindow(deltager).showAndWait();
+            } catch (NullPointerException exception) {
+                new Alert(Alert.AlertType.INFORMATION, "Vis detaljer", "Du har ikke valgt en deltager.").showAndWait();
+                System.out.println("NullPointerException ved visDetaljer i DeltagerPane.java");
             }
         });
 
@@ -96,7 +111,7 @@ public class DeltagerPane extends GridPane {
 
     private void setBeregnPrisHBox(){
         HBox beregnPrisHBox = new HBox(10);
-        beregnPrisHBox.getChildren().addAll(beregnPrisButton, prisTextField);
+        beregnPrisHBox.getChildren().addAll(beregnPrisButton, prisTextField, visDetaljer);
         this.add(beregnPrisHBox, 2, 0);
     }
 

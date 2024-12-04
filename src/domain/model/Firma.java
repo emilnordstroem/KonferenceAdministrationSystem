@@ -11,6 +11,6 @@ public class Firma {
 
     @Override
     public String toString(){
-        return String.format("%s (%s)", navn, telefonnummer);
+        return String.format("%s (tlf.nr: %s)", navn, telefonnummer);
     }
 }

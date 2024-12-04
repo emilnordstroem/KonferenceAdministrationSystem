@@ -43,17 +43,17 @@ public class Tilmelding {
     }
 
     //============================================================
-    // Helper method to getSamletTilmeldingsUdgift
-    private int getAntalDageKonference(){
+    // metoder til getSamletTilmeldingsUdgift
+    public int getAntalDageKonference(){
         // we plus 1 to include both from and to date.
         return (int) ChronoUnit.DAYS.between(startDato, slutDato) + 1;
     }
 
-    private int getAntalDageOphold(){
+    public int getAntalDageOphold(){
         return (int) ChronoUnit.DAYS.between(startDato, slutDato);
     }
 
-    private double udregnKonferenceAfgift(int antalDage){
+    public double udregnKonferenceAfgift(int antalDage){
         if(!isErForedragsholder()) {
             double konferenceAfgiftPerDag = konference.getPrisPrDag();
             return antalDage * konferenceAfgiftPerDag;
@@ -61,7 +61,7 @@ public class Tilmelding {
         return 0;
     }
 
-    private double udregnHotelUdgift(int antalDage){
+    public double udregnHotelUdgift(int antalDage){
         if(hotel != null){
             double samletUdgifter = 0;
             if(ledsagerNavn != null){
@@ -80,7 +80,7 @@ public class Tilmelding {
         return 0;
     }
 
-    private double udregnUdflugtUdgift(){
+    public double udregnUdflugtUdgift(){
         if(!valgteUdflugter.isEmpty()){
             double samletUdgifter = 0;
             for(Udflugt valgtUdflugt : valgteUdflugter){
@@ -117,7 +117,6 @@ public class Tilmelding {
         this.ledsagerNavn = ledsagerNavn;
     }
 
-
     public void addUdflugt(Udflugt udflugt) {
         if(!valgteUdflugter.contains(udflugt)) {
             valgteUdflugter.add(udflugt);
@@ -140,6 +139,10 @@ public class Tilmelding {
                 hotel.addTilmelding(this);
             }
         }
+    }
+
+    public ArrayList<Udflugt> getValgteUdflugter() {
+        return valgteUdflugter;
     }
 
     public ArrayList<HotelTillæg> getHotelTillæg() {

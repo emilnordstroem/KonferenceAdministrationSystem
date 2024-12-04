@@ -2,6 +2,7 @@ package view.deltagerTabPane;
 
 import domain.controller.ControllerDeltager;
 import domain.model.Deltager;
+import domain.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
