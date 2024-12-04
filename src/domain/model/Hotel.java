@@ -79,7 +79,7 @@ public class Hotel {
     public void removeKonference(Konference konference) {
         if(konferencer.contains(konference)) {
             konferencer.remove(konference);
-            //konference.removeHotel(this);
+            konference.removeHotel(this);
         }
     }
 

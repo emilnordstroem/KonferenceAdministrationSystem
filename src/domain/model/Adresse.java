@@ -13,12 +13,6 @@ public class Adresse {
         this.land = land;
     }
 
-    public Adresse(String vejNavn, String bygningsNr, String land) {
-        this.vejNavn = vejNavn;
-        this.bygningsNr = bygningsNr;
-        this.land = land;
-    }
-
     public String getVejNavn() {
         return vejNavn;
     }

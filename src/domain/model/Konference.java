@@ -55,6 +55,10 @@ public class Konference {
         }
     }
 
+    public void removeHotel(Hotel hotel) {
+        hoteller.remove(hotel);
+    }
+
     public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }
