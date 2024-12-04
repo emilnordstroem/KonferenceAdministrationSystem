@@ -1,6 +1,6 @@
 package view.deltagerTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerDeltager;
 import domain.model.Deltager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -62,7 +62,7 @@ public class DeltagerPane extends GridPane {
             }
             try{
                 assert deltager != null;
-                double samletUdgifter = Controller.getSamletUdgifter(deltager);
+                double samletUdgifter = ControllerDeltager.getSamletUdgifter(deltager);
                 prisTextField.setText(String.format("%.2f DKK", samletUdgifter));
             } catch (NullPointerException exception){
                 System.out.println("NullPointerException ved samlet udgifter i DeltagerPane.java");

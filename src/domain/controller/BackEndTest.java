@@ -9,21 +9,21 @@ import java.util.Random;
 public class BackEndTest {
     // This class is a console output test of the functionality of the system
     public static void main(String[] args) {
-        Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", null, 1050,1250, new ArrayList<>());
-        HotelTillæg wifi = Controller.opretHotelTillæg("WIFI", 50, denHvideSvane);
+        Hotel denHvideSvane = ControllerHotel.opretHotel("Den Hvide Svane", null, 1050,1250, new ArrayList<>());
+        HotelTillæg wifi = ControllerHotelTillæg.opretHotelTillæg("WIFI", 50, denHvideSvane);
 
-        Hotel høtelPhønix = Controller.opretHotel("Høtel", null, 700, 800, new ArrayList<>());
-        HotelTillæg bad = Controller.opretHotelTillæg("Bad", 200, høtelPhønix);
-        HotelTillæg wifi1 = Controller.opretHotelTillæg("WIFI", 75, høtelPhønix);
+        Hotel høtelPhønix = ControllerHotel.opretHotel("Høtel", null, 700, 800, new ArrayList<>());
+        HotelTillæg bad = ControllerHotelTillæg.opretHotelTillæg("Bad", 200, høtelPhønix);
+        HotelTillæg wifi1 = ControllerHotelTillæg.opretHotelTillæg("WIFI", 75, høtelPhønix);
 
-        Hotel pensionTusindfryd = Controller.opretHotel("Pension TusindFryd", null, 500, 600, new ArrayList<>());
-        HotelTillæg morgenmad = Controller.opretHotelTillæg("Morgenmad", 100, pensionTusindfryd);
+        Hotel pensionTusindfryd = ControllerHotel.opretHotel("Pension TusindFryd", null, 500, 600, new ArrayList<>());
+        HotelTillæg morgenmad = ControllerHotelTillæg.opretHotelTillæg("Morgenmad", 100, pensionTusindfryd);
 
         ArrayList<Udflugt> valgteUdflugter = new ArrayList<>();
         ArrayList<HotelTillæg> valgteHotelTillæg = new ArrayList<>();
 
         //=====================================================
-        Konference havOgHimmel = Controller.opretKonference("Hav og himmel", LocalDate.of(2024, 12, 16),
+        Konference havOgHimmel = ControllerKonference.opretKonference("Hav og himmel", LocalDate.of(2024, 12, 16),
                 LocalDate.of(2024, 12, 18), 1500, new ArrayList<>());
 
         havOgHimmel.addHotel(denHvideSvane);
@@ -34,15 +34,15 @@ public class BackEndTest {
         Udflugt byRundtur = havOgHimmel.createUdflugt("Byrundtur", null, LocalDate.of(2024, 12,18), "Byrundbyr", 125);
 
 
-        Konference itDays = Controller.opretKonference("IT-days", LocalDate.of(2025, 5,17),
+        Konference itDays = ControllerKonference.opretKonference("IT-days", LocalDate.of(2025, 5,17),
                 LocalDate.of(2025,5,22),500, new ArrayList<>());
         Udflugt centralBank = itDays.createUdflugt("Central Bank", null, LocalDate.of(2025,5,18), "Rundvisning ved cental banken",
                 125);
         itDays.addHotel(høtelPhønix);
 
         //=====================================================
-        Deltager finnMadsen = Controller.opretDeltager("Finn", "Madsen", generatePhoneNumber(), null, null);
-        Controller.opretTilmelding(havOgHimmel, finnMadsen, false,
+        Deltager finnMadsen = ControllerDeltager.opretDeltager("Finn", "Madsen", generatePhoneNumber(), null, null);
+        ControllerTilmelding.opretTilmelding(havOgHimmel, finnMadsen, false,
                 null, LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
                 valgteUdflugter, null, valgteHotelTillæg);
@@ -50,8 +50,8 @@ public class BackEndTest {
         System.out.println("==========================================");
 
         //=====================================================
-        Deltager nielsPetersen = Controller.opretDeltager("Niels", "Petersen", generatePhoneNumber(), null, null);
-        Controller.opretTilmelding(havOgHimmel, nielsPetersen, false,
+        Deltager nielsPetersen = ControllerDeltager.opretDeltager("Niels", "Petersen", generatePhoneNumber(), null, null);
+        ControllerTilmelding.opretTilmelding(havOgHimmel, nielsPetersen, false,
                 null, LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
                 valgteUdflugter, denHvideSvane, valgteHotelTillæg);
@@ -59,11 +59,11 @@ public class BackEndTest {
         System.out.println("==========================================");
 
         //=====================================================
-        Deltager peterSommer = Controller.opretDeltager("Peter", "Sommer", generatePhoneNumber(), null, null);
+        Deltager peterSommer = ControllerDeltager.opretDeltager("Peter", "Sommer", generatePhoneNumber(), null, null);
         valgteUdflugter.add(egeskov);
         valgteUdflugter.add(trapholtMuseum);
         valgteHotelTillæg.add(wifi);
-        Controller.opretTilmelding(havOgHimmel, peterSommer, false,
+        ControllerTilmelding.opretTilmelding(havOgHimmel, peterSommer, false,
                 "Mie Sommer", LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
                 valgteUdflugter, denHvideSvane, valgteHotelTillæg);
@@ -74,11 +74,11 @@ public class BackEndTest {
         //=====================================================
         valgteUdflugter.clear();
         valgteHotelTillæg.clear();
-        Deltager loneJensen = Controller.opretDeltager("Lone", "Jensen", generatePhoneNumber(), null, null);
+        Deltager loneJensen = ControllerDeltager.opretDeltager("Lone", "Jensen", generatePhoneNumber(), null, null);
         valgteUdflugter.add(egeskov);
         valgteUdflugter.add(byRundtur);
         valgteHotelTillæg.add(wifi);
-        Controller.opretTilmelding(havOgHimmel, loneJensen, true,
+        ControllerTilmelding.opretTilmelding(havOgHimmel, loneJensen, true,
                 "Jan Madsen", LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
                 valgteUdflugter, denHvideSvane, valgteHotelTillæg);
@@ -88,10 +88,10 @@ public class BackEndTest {
 
         valgteUdflugter.clear();
         valgteHotelTillæg.clear();
-        Deltager hanneJensen = Controller.opretDeltager("Hanne", "Jensen", generatePhoneNumber(), null, null);
+        Deltager hanneJensen = ControllerDeltager.opretDeltager("Hanne", "Jensen", generatePhoneNumber(), null, null);
         valgteUdflugter.add(byRundtur);
         valgteHotelTillæg.add(wifi);
-        Controller.opretTilmelding(havOgHimmel, hanneJensen, false,
+        ControllerTilmelding.opretTilmelding(havOgHimmel, hanneJensen, false,
                 "Mads Henning", LocalDate.of(2024,12,16),
                 LocalDate.of(2024,12,18),
                 valgteUdflugter, denHvideSvane, valgteHotelTillæg);

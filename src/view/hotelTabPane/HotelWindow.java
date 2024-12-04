@@ -1,6 +1,6 @@
 package view.hotelTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerHotel;
 import domain.model.Adresse;
 import domain.model.Hotel;
 import domain.model.Konference;
@@ -138,10 +138,10 @@ public class HotelWindow extends Stage {
             double dobbeltværelsesPris = Double.parseDouble(dobbeltværelsesPrisInput);
 
             if(hotel != null) {
-                Controller.opdaterHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
+                ControllerHotel.opdaterHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
             }
             else {
-                Controller.opretHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
+                ControllerHotel.opretHotel(navnInput, adresse, enkeltværelsesPris, dobbeltværelsesPris, konferencer);
             }
         }
         catch (NumberFormatException ex) {

@@ -1,6 +1,6 @@
 package view.konferenceTabPane.konference;
 
-import domain.controller.Controller;
+import domain.controller.ControllerKonference;
 import domain.model.Hotel;
 import domain.model.Konference;
 import domain.model.Udflugt;
@@ -145,7 +145,7 @@ public class OpretKonferenceWindow extends Stage {
             errorLabel.setText("Vælg tilgængelige hoteller");
             Storage.clearUdflugter();
         } else {
-            Konference konference = Controller.opretKonference(navn, fraDato, tilDato, pris, valgteHotellerArrayList);
+            Konference konference = ControllerKonference.opretKonference(navn, fraDato, tilDato, pris, valgteHotellerArrayList);
             konference.addFlugter(new ArrayList<>(udflugtListView.getItems()));
             Storage.clearUdflugter();
         }

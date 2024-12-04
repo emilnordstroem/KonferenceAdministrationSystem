@@ -1,6 +1,6 @@
 package view.hotelTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerHotelTillæg;
 import domain.model.Hotel;
 import domain.model.HotelTillæg;
 import javafx.geometry.HPos;
@@ -105,12 +105,12 @@ public class HotelTillægWindow extends Stage {
         try {
             double pris = Double.parseDouble(prisInput);
             if(hotelTillæg != null && title.equals("Opdater")) {
-                Controller.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
+                ControllerHotelTillæg.opdaterHotelTillæg(hotelTillæg, navnInput, pris);
             }
             else if(hotelTillæg != null && title.equals("Slet")) {
-                Controller.fjernHotelTillæg(hotelTillæg, hotel);
+                ControllerHotelTillæg.fjernHotelTillæg(hotelTillæg, hotel);
             } else {
-                Controller.opretHotelTillæg(navnInput, pris, hotel);
+                ControllerHotelTillæg.opretHotelTillæg(navnInput, pris, hotel);
             }
         }
         catch (NumberFormatException ex) {

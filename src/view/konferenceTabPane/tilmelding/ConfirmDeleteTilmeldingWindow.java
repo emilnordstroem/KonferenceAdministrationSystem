@@ -1,6 +1,6 @@
 package view.konferenceTabPane.tilmelding;
 
-import domain.controller.Controller;
+import domain.controller.ControllerTilmelding;
 import domain.model.Konference;
 import domain.model.Tilmelding;
 import javafx.geometry.Insets;
@@ -10,9 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import storage.Storage;
-
-import java.util.ArrayList;
 
 public class ConfirmDeleteTilmeldingWindow extends Stage {
     private final Konference konference;
@@ -54,7 +51,7 @@ public class ConfirmDeleteTilmeldingWindow extends Stage {
     // Ikke færdigudviklet
     private void bekræftFjernelseAction(){
         if(tilmeldingTilFjernelse != null){
-            Controller.fjernTilmelding(tilmeldingTilFjernelse, konference);
+            ControllerTilmelding.fjernTilmelding(tilmeldingTilFjernelse, konference);
             System.out.println("Fjern tilmelding bekræftet");
         }
     }

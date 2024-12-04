@@ -1,6 +1,6 @@
 package view.konferenceTabPane.tilmelding;
 
-import domain.controller.Controller;
+import domain.controller.ControllerTilmelding;
 import domain.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -167,7 +167,6 @@ public class OpretTilmeldingWindow extends Stage {
                 ikkeTilmeldteDeltagere.add(deltager);
             }
         }
-
         return ikkeTilmeldteDeltagere;
     }
 
@@ -180,7 +179,7 @@ public class OpretTilmeldingWindow extends Stage {
         hotelTillægListView.getSelectionModel().clearSelection();
         ArrayList<HotelTillæg> valgteHotelTillægs = new ArrayList<>(hotelTillægListView.getSelectionModel().getSelectedItems());
 
-        Tilmelding tilmelding = Controller.opretTilmelding(konferenceTilTilmelding, deltager, erForedragsholder, ledsager,
+        Tilmelding tilmelding = ControllerTilmelding.opretTilmelding(konferenceTilTilmelding, deltager, erForedragsholder, ledsager,
                 fraDato, tilDato, valgteUdflugterList, hotel, valgteHotelTillægs);
         System.out.printf("Tilmeldling oprettet: " + tilmelding);
     }

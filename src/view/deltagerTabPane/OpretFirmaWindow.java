@@ -1,6 +1,6 @@
 package view.deltagerTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerFirma;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -72,7 +72,7 @@ public class OpretFirmaWindow extends Stage {
     }
 
     private void okAction(String navn, String telefonNummer){
-        Controller.opretFirma(navn, telefonNummer);
+        ControllerFirma.opretFirma(navn, telefonNummer);
         System.out.println("Firma blev oprettet i OpretFirmaWindow.java");
     }
 }

@@ -1,8 +1,7 @@
 package view.konferenceTabPane.konference.udflugt;
 
-import domain.controller.Controller;
+import domain.controller.ControllerUdflugt;
 import domain.model.Adresse;
-import domain.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -94,7 +93,7 @@ public class OpretUdflugtWindow extends Stage {
         String besrkvilseInput = beskrivelseTextField.getText().trim();
         double prisInput = Double.parseDouble(prisTextField.getText());
 
-        Controller.opretUdflugt(navnInput, adresse, datoInput, besrkvilseInput, prisInput);
+        ControllerUdflugt.opretUdflugt(navnInput, adresse, datoInput, besrkvilseInput, prisInput);
         close();
     }
 }

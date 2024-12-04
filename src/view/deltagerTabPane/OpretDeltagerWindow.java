@@ -1,6 +1,6 @@
 package view.deltagerTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerDeltager;
 import domain.model.Adresse;
 import domain.model.Firma;
 import javafx.geometry.Insets;
@@ -131,10 +131,10 @@ public class OpretDeltagerWindow extends Stage {
             Firma firma = firmaComboBox.getSelectionModel().getSelectedItem();
 
             if(firma == null){
-                Controller.opretDeltager(fornavn, efternavn, tlf, adresse, null);
+                ControllerDeltager.opretDeltager(fornavn, efternavn, tlf, adresse, null);
                 System.out.println("Deltager er korrekt oprettet uden firma");
             } else {
-                Controller.opretDeltager(fornavn, efternavn, tlf, adresse, firma);
+                ControllerDeltager.opretDeltager(fornavn, efternavn, tlf, adresse, firma);
                 System.out.println("Deltager er korrekt oprettet med firma");
             }
         }

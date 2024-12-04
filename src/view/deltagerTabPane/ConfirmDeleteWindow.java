@@ -1,6 +1,6 @@
 package view.deltagerTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerDeltager;
 import domain.model.Deltager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,9 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import storage.Storage;
-
-import java.util.ArrayList;
 
 public class ConfirmDeleteWindow extends Stage {
     private final Deltager deltagerTilFjernelse;
@@ -49,7 +46,7 @@ public class ConfirmDeleteWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        Controller.fjernDeltager(deltagerTilFjernelse);
+        ControllerDeltager.fjernDeltager(deltagerTilFjernelse);
         System.out.printf("%s er nu fjernet fra Storage%n", deltagerTilFjernelse.getFuldeNavn());
     }
 }

@@ -1,6 +1,6 @@
 package view.hotelTabPane;
 
-import domain.controller.Controller;
+import domain.controller.ControllerHotel;
 import domain.model.Hotel;
 import domain.model.HotelTillæg;
 import domain.model.Tilmelding;
@@ -103,7 +103,7 @@ public class HotelPane extends GridPane {
             javafx.scene.control.Alert alert = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "Slet hotel", "Er du sikker på du vil slette " + hotel.getNavn() + "?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                Controller.fjernHotel(hotel);
+                ControllerHotel.fjernHotel(hotel);
                 hotellerListView.getItems().setAll(Storage.getHoteller());
                 tilmeldingerListView.getItems().setAll();
             }

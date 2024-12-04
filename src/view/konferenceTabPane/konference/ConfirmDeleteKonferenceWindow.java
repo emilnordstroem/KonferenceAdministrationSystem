@@ -1,6 +1,6 @@
 package view.konferenceTabPane.konference;
 
-import domain.controller.Controller;
+import domain.controller.ControllerKonference;
 import domain.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -46,7 +46,7 @@ public class ConfirmDeleteKonferenceWindow extends Stage {
     }
 
     private void bekræftFjernelseAction(){
-        Controller.fjernKonference(konferenceTilFjernelse);
+        ControllerKonference.fjernKonference(konferenceTilFjernelse);
         System.out.printf("%s er nu fjernet fra Storage%n", konferenceTilFjernelse.getNavn());
     }
 }
