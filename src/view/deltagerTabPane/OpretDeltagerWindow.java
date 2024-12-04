@@ -47,7 +47,7 @@ public class OpretDeltagerWindow extends Stage {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
-        pane.setGridLinesVisible(false);
+        pane.setGridLinesVisible(true);
 
         setNavnOgTelefonNummer(pane);
         setAdresseOgFirma(pane);
@@ -59,9 +59,7 @@ public class OpretDeltagerWindow extends Stage {
 
         opretBtn.setOnAction(event -> {
             okAction();
-            hide();
         });
-
         cancelBtn.setOnAction(event -> hide());
     }
 
@@ -107,9 +105,9 @@ public class OpretDeltagerWindow extends Stage {
 
     private void setButtons(GridPane pane){
         pane.add(registerFirmaBtn, 1, 12);
-        pane.add(opretBtn,0,13);
-        pane.add(cancelBtn,1,13);
-        pane.add(errorLabel, 0, 12);
+        pane.add(opretBtn,0,15);
+        pane.add(cancelBtn,1,15);
+        pane.add(errorLabel, 0, 13, 2, 1);
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
@@ -137,6 +135,7 @@ public class OpretDeltagerWindow extends Stage {
                 ControllerDeltager.opretDeltager(fornavn, efternavn, tlf, adresse, firma);
                 System.out.println("Deltager er korrekt oprettet med firma");
             }
+            hide();
         }
     }
 

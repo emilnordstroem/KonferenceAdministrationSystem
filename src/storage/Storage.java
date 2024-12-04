@@ -43,6 +43,16 @@ public class Storage {
         return new ArrayList<>(hoteller);
     }
 
+    public static Hotel getHotelByNavn(String navn) {
+        for (Hotel hotel : hoteller) {
+            if(hotel.getNavn().equals(navn)) {
+                System.out.println("Hotel hentet ved navn i Storage");
+                return hotel;
+            }
+        }
+        return null;
+    }
+
     public static void removeHotel(Hotel hotel) {
         hoteller.remove(hotel);
         System.out.println("Hotel fjernet fra Storage");
@@ -100,15 +110,5 @@ public class Storage {
     public static void clearUdflugter(){
         udflugter.clear();
         System.out.println("Udflugter er cleared i storage");
-    }
-
-    public static Hotel getHotelByNavn(String navn) {
-        for (Hotel hotel : hoteller) {
-            if(hotel.getNavn().equals(navn)) {
-                System.out.println("Hotel hentet ved navn i Storage");
-                return hotel;
-            }
-        }
-        return null;
     }
 }

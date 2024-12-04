@@ -72,7 +72,9 @@ public class DeltagerPane extends GridPane {
         opretDeltagerButton.setOnAction(event -> opretDeltagerAction());
         sletDeltagerButton.setOnAction(event -> {
             Deltager deltager = deltagereListView.getSelectionModel().getSelectedItem();
-            fjernDeltager(deltager);
+            if(deltager != null){
+                fjernDeltager(deltager);
+            }
         });
     }
 
