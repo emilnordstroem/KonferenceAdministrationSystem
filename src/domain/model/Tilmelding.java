@@ -131,6 +131,10 @@ public class Tilmelding {
 
     public void setHotel(Hotel hotel) {
         if(this.hotel != hotel) {
+            Hotel oldHotel = this.hotel;
+            if(oldHotel != null) {
+                oldHotel.removeTilmelding(this);
+            }
             this.hotel = hotel;
             if(hotel != null) {
                 hotel.addTilmelding(this);

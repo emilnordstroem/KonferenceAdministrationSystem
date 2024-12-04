@@ -6,6 +6,5 @@ public class Alert extends javafx.scene.control.Alert {
         super(alertType);
         this.setTitle(title);
         this.setHeaderText(beskrivelse);
-        this.show();
     }
 }

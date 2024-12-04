@@ -3,6 +3,7 @@ package domain.controller;
 import domain.model.Adresse;
 import domain.model.Hotel;
 import domain.model.Konference;
+import domain.model.Tilmelding;
 import storage.Storage;
 
 import java.util.ArrayList;
@@ -45,6 +46,10 @@ public class ControllerHotel {
 
     // Remove metoder -------------------------------------------------------------------
     public static void fjernHotel(Hotel hotel) {
+        for (Tilmelding tilmelding : hotel.getTilmeldinger()) {
+            hotel.removeTilmelding(tilmelding);
+            System.out.println("Opdatere samlet udgifter for deltager");
+        }
         Storage.removeHotel(hotel);
     }
 }

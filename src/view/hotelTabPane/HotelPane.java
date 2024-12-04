@@ -108,7 +108,7 @@ public class HotelPane extends GridPane {
                 tilmeldingerListView.getItems().setAll();
             }
         } else {
-            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.");
+            new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Slet hotel", "Du har ikke valgt et hotel i listen.").showAndWait();
         }
     }
 

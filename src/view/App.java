@@ -42,12 +42,25 @@ public class App {
                 "Kokkedal Slot Copenhagen"
         };
 
+        Adresse[] adresseNavne = {
+                new Adresse("Sønderhøj", "30", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "29", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "28", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "27", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "26", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "25", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "24", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "23", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "22", "Aarhus", "Denmark"),
+                new Adresse("Sønderhøj", "21", "Aarhus", "Denmark")
+        };
+
         String[] hotelTillægsNavne = {
                 "Bad", "WIFI", "Morgenmad"
         };
 
         for(int number = 0; number < hotelNavne.length; number++){
-            Hotel hotel = ControllerHotel.opretHotel(hotelNavne[number], null, generatePricePerDay(), generatePricePerDay(), new ArrayList<>());
+            Hotel hotel = ControllerHotel.opretHotel(hotelNavne[number], adresseNavne[number], generatePricePerDay(), generatePricePerDay(), new ArrayList<>());
 
             int antalTillæg = new Random().nextInt(0,2) + 1;
             for(int tillæg = 0; tillæg < antalTillæg; tillæg++){

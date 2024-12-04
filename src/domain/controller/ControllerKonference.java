@@ -22,7 +22,6 @@ public class ControllerKonference {
             tilmelding.getDeltager().fjernTilmelding(tilmelding);
             System.out.println("Opdatere samlet udgifter for deltager");
         }
-        System.out.println("ControllerTilmelding.java: Tilmeldinger fjernet fra konferencen");
         Storage.removeKonference(konference);
     }
 }

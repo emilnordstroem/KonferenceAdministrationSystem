@@ -95,9 +95,7 @@ public class Hotel {
     }
 
     public void removeHotelTillæg(HotelTillæg hotelTillæg) {
-        if(hotelTillæger.contains(hotelTillæg)) {
-            hotelTillæger.remove(hotelTillæg);
-        }
+        hotelTillæger.remove(hotelTillæg);
     }
 
     public ArrayList<Tilmelding> getTilmeldinger() {
@@ -112,8 +110,10 @@ public class Hotel {
     }
 
     public void removeTilmelding(Tilmelding tilmelding) {
-        tilmeldinger.remove(tilmelding);
-        tilmelding.setHotel(null);
+        if(tilmeldinger.contains(tilmelding)) {
+            tilmeldinger.remove(tilmelding);
+            tilmelding.setHotel(null);
+        }
     }
 
     @Override
