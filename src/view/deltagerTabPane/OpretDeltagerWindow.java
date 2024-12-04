@@ -47,7 +47,7 @@ public class OpretDeltagerWindow extends Stage {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
 
         setNavnOgTelefonNummer(pane);
         setAdresseOgFirma(pane);

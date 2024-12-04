@@ -30,7 +30,7 @@ public class SearchAlgorithm {
         Deltager deltager = null;
         int left = 0;
         int right = sorteretDeltagerListe.size();
-        while(deltager == null && left <= right){
+        while(left <= right){
             int middle = (left + right) / 2;
             Deltager kandidat = sorteretDeltagerListe.get(middle);
             if(kandidat.getForNavn().compareTo(target) == 0){

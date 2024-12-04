@@ -21,9 +21,7 @@ public class OpretFirmaWindow extends Stage {
 
     public OpretFirmaWindow() {
         this.setTitle("Opret Firma");
-//        initStyle(StageStyle.UTILITY);
-//        initModality(Modality.APPLICATION_MODAL);
-//        setResizable(false);
+        setResizable(false);
         GridPane pane = new GridPane();
         initContent(pane);
         this.setScene(new Scene(pane));
@@ -67,7 +65,7 @@ public class OpretFirmaWindow extends Stage {
     private void setButtons(GridPane pane){
         pane.add(opretFirmaButton, 0, 5);
         pane.add(cancelButton,1,5);
-        pane.add(errorLabel, 0, 4);
+        pane.add(errorLabel, 0, 4,2,1);
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
