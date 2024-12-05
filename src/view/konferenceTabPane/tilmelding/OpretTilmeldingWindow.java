@@ -1,5 +1,6 @@
 package view.konferenceTabPane.tilmelding;
 
+import domain.controller.ControllerDeltager;
 import domain.controller.ControllerTilmelding;
 import domain.model.*;
 import javafx.beans.value.ChangeListener;
@@ -11,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import storage.Storage;
-import view.deltagerTabPane.SearchAlgorithm;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import static view.errorHandling.Error.conflictingDates;
@@ -127,7 +128,7 @@ public class OpretTilmeldingWindow extends Stage {
 
     private void elementContent(){
         ArrayList<Deltager> ikkeTilmeldteDeltagere = ikkeTilmeldteDeltagere();
-        ArrayList<Deltager> sorteretDeltagerArrayList = SearchAlgorithm.sortedStringArray(ikkeTilmeldteDeltagere);
+        ArrayList<Deltager> sorteretDeltagerArrayList = ControllerDeltager.sortedStringArray(ikkeTilmeldteDeltagere);
 
         deltagerComboBox.getItems().setAll(sorteretDeltagerArrayList);
         ChangeListener<Deltager> deltagerListener = (ov, oldKonference, valgtDeltager) -> this.selectedDeltagerChanged(valgtDeltager);
